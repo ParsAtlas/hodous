@@ -358,733 +358,284 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========================================================================
-  // 5. Audio Upload, Persistent IndexedDB Library, Rename & Quota Limit
+  // 5. Scattered Cosmic Sonic Constellation & Floating Master Dock Player
   // ========================================================================
-  const MAX_TRACKS_LIMIT = 10;
+  const COSMIC_SONGS = [
+    {
+      id: "taylor_swift_rwylm",
+      title: "right where you left me",
+      artist: "Taylor Swift",
+      album: "evermore",
+      cover: "covers/taylor_swift_rwylm.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/25/6e/18/256e1844-520d-f229-95e2-bbed3d0f1e5f/mzaf_10038194974124687672.plus.aac.p.m4a"
+    },
+    {
+      id: "olivia_rodrigo_vampire",
+      title: "vampire",
+      artist: "Olivia Rodrigo",
+      album: "GUTS",
+      cover: "covers/olivia_rodrigo_vampire.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/09/5e/83095ea1-83bf-ecdc-3b75-358c350fca51/mzaf_15560849688086702972.plus.aac.p.m4a"
+    },
+    {
+      id: "olivia_rodrigo_drivers_license",
+      title: "drivers license",
+      artist: "Olivia Rodrigo",
+      album: "SOUR",
+      cover: "covers/olivia_rodrigo_drivers_license.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/36/62/61/366261be-0996-d73d-de6f-03417867c800/mzaf_8201528327761821135.plus.aac.p.m4a"
+    },
+    {
+      id: "olivia_rodrigo_deja_vu",
+      title: "deja vu",
+      artist: "Olivia Rodrigo",
+      album: "SOUR",
+      cover: "covers/olivia_rodrigo_deja_vu.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/5a/c2/835ac220-f31a-006f-b6a9-2acd29eb60d0/mzaf_13621843495437485054.plus.aac.p.m4a"
+    },
+    {
+      id: "olivia_rodrigo_so_american",
+      title: "so american",
+      artist: "Olivia Rodrigo",
+      album: "GUTS (spilled)",
+      cover: "covers/olivia_rodrigo_so_american.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/43/13/c9/4313c92b-cf1c-0191-45ef-58e0f1eac07f/mzaf_15738418925021275838.plus.aac.p.m4a"
+    },
+    {
+      id: "taylor_swift_cardigan",
+      title: "cardigan",
+      artist: "Taylor Swift",
+      album: "folklore",
+      cover: "covers/taylor_swift_cardigan.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/00/b3/f2/00b3f2a0-3228-b65f-7189-91eb26f5adf6/mzaf_3535055549125623460.plus.aac.p.m4a"
+    },
+    {
+      id: "taylor_swift_mirrorball",
+      title: "mirrorball",
+      artist: "Taylor Swift",
+      album: "folklore",
+      cover: "covers/taylor_swift_mirrorball.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7a/2d/aa/7a2daade-83e3-adb0-fb25-fe20222048f7/mzaf_9666965367070228287.plus.aac.p.m4a"
+    },
+    {
+      id: "gracie_abrams_iloveyou",
+      title: "I Love You, I'm Sorry",
+      artist: "Gracie Abrams",
+      album: "The Secret of Us",
+      cover: "covers/gracie_abrams_iloveyou.jpg",
+      src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/8a/ff/688aff5f-ed4e-35c7-ced5-1b49f9756192/mzaf_17413493764668561277.plus.aac.p.m4a"
+    }
+  ];
 
-  const audioFileInput = document.getElementById('audio-file-input');
-  const uploadTriggerBtn = document.getElementById('upload-trigger-btn');
-  const changeTrackBtn = document.getElementById('change-track-btn');
-  const addMoreBtn = document.getElementById('add-more-btn');
-  const clearAllBtn = document.getElementById('clear-all-btn');
-  const dropZone = document.getElementById('drop-zone');
-  const audioPlayer = document.getElementById('audio-player');
-  const playPauseBtn = document.getElementById('play-pause-btn');
-  const prevTrackBtn = document.getElementById('prev-track-btn');
-  const nextTrackBtn = document.getElementById('next-track-btn');
-  const playerRenameBtn = document.getElementById('player-rename-btn');
-  const trackTitle = document.getElementById('current-track-title');
-  const trackTime = document.getElementById('current-track-time');
-  const trackDuration = document.getElementById('current-track-duration');
+  const constellationGrid = document.getElementById('cosmic-constellation');
+  const dockAudio = document.getElementById('dock-audio-element');
+  const dockPlayBtn = document.getElementById('dock-play-btn');
+  const dockPrevBtn = document.getElementById('dock-prev-btn');
+  const dockNextBtn = document.getElementById('dock-next-btn');
+  const dockCoverThumb = document.getElementById('dock-cover-thumb');
+  const dockTrackTitle = document.getElementById('dock-track-title');
+  const dockTrackArtist = document.getElementById('dock-track-artist');
+  const dockSeekBar = document.getElementById('dock-seek-bar');
+  const dockTimeCurrent = document.getElementById('dock-time-current');
+  const dockTimeDuration = document.getElementById('dock-time-duration');
   const visualizerWrap = document.getElementById('audio-visualizer-wrap');
-  const playerContainer = document.getElementById('player-container');
-  const awaitingBadge = document.getElementById('awaiting-badge');
-  const playerStatusBadge = document.getElementById('player-status-badge');
-  const audioErrorMsg = document.getElementById('audio-error-msg');
-  const audioLimitMsg = document.getElementById('audio-limit-msg');
-  const seekBar = document.getElementById('seek-bar');
-  const savedTracksList = document.getElementById('saved-tracks-list');
-  const emptyLibraryState = document.getElementById('empty-library-state');
-  const savedCountBadge = document.getElementById('saved-count-badge');
 
-  let isSeeking = false;
-  let currentBlobUrl = null;
-  let savedTracks = [];
-  let currentTrackIndex = -1;
+  let activeTrackIndex = 0;
+  let isSeekingDock = false;
 
-  // --- IndexedDB Persistence Layer ---
-  const DB_NAME = 'HodousAudioDB';
-  const DB_VERSION = 1;
-  const STORE_NAME = 'tracks';
-
-  function openAudioDB() {
-    return new Promise((resolve, reject) => {
-      if (!window.indexedDB) {
-        reject(new Error('IndexedDB is not supported in this browser.'));
-        return;
-      }
-      const request = indexedDB.open(DB_NAME, DB_VERSION);
-      request.onupgradeneeded = (e) => {
-        const db = e.target.result;
-        if (!db.objectStoreNames.contains(STORE_NAME)) {
-          db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-        }
-      };
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  async function saveTrackToDB(file) {
-    try {
-      const db = await openAudioDB();
-      const id = 'track_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
-      const title = file.name.replace(/\.[^/.]+$/, '');
-      const record = {
-        id: id,
-        name: file.name,
-        title: title,
-        size: file.size,
-        type: file.type || 'audio/mpeg',
-        addedAt: Date.now(),
-        blob: file
-      };
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.put(record);
-        req.onsuccess = () => resolve(record);
-        req.onerror = () => reject(req.error);
-      });
-    } catch (err) {
-      console.warn('Could not save to IndexedDB:', err);
-      return null;
-    }
-  }
-
-  async function updateTrackTitleInDB(id, newTitle) {
-    try {
-      const db = await openAudioDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        const store = tx.objectStore(STORE_NAME);
-        const getReq = store.get(id);
-        getReq.onsuccess = () => {
-          const track = getReq.result;
-          if (!track) {
-            resolve(false);
-            return;
-          }
-          track.title = newTitle;
-          const putReq = store.put(track);
-          putReq.onsuccess = () => resolve(true);
-          putReq.onerror = () => reject(putReq.error);
-        };
-        getReq.onerror = () => reject(getReq.error);
-      });
-    } catch (err) {
-      console.warn('Could not update track title in IndexedDB:', err);
-      return false;
-    }
-  }
-
-  async function getAllTracksFromDB() {
-    try {
-      const db = await openAudioDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, 'readonly');
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.getAll();
-        req.onsuccess = () => {
-          const list = req.result || [];
-          list.sort((a, b) => (a.addedAt || 0) - (b.addedAt || 0));
-          resolve(list);
-        };
-        req.onerror = () => reject(req.error);
-      });
-    } catch (err) {
-      console.warn('Could not read from IndexedDB:', err);
-      return [];
-    }
-  }
-
-  async function deleteTrackFromDB(id) {
-    try {
-      const db = await openAudioDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.delete(id);
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    } catch (err) {
-      console.warn('Could not delete from IndexedDB:', err);
-    }
-  }
-
-  async function clearAllTracksFromDB() {
-    try {
-      const db = await openAudioDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.clear();
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    } catch (err) {
-      console.warn('Could not clear IndexedDB:', err);
-    }
-  }
-
-  // --- Utility Functions ---
-  function formatTime(seconds) {
-    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
+  function formatTimeDisplay(sec) {
+    if (isNaN(sec) || !isFinite(sec)) return '0:00';
+    const mins = Math.floor(sec / 60);
+    const secs = Math.floor(sec % 60);
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   }
 
-  function formatFileSize(bytes) {
-    if (!bytes || bytes <= 0) return '0 KB';
-    const mb = bytes / (1024 * 1024);
-    if (mb >= 1) return mb.toFixed(1) + ' MB';
-    const kb = bytes / 1024;
-    return Math.round(kb) + ' KB';
-  }
+  function renderCosmicConstellation() {
+    if (!constellationGrid) return;
+    constellationGrid.innerHTML = '';
 
-  function showLimitWarning(msg) {
-    if (audioLimitMsg) {
-      audioLimitMsg.textContent = msg;
-      audioLimitMsg.classList.remove('hidden');
-      audioLimitMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      setTimeout(() => {
-        if (audioLimitMsg) audioLimitMsg.classList.add('hidden');
-      }, 7000);
-    } else {
-      alert(msg);
-    }
-  }
+    COSMIC_SONGS.forEach((song, idx) => {
+      const isCurrent = (idx === activeTrackIndex);
+      const isPlaying = isCurrent && dockAudio && !dockAudio.paused;
 
-  function triggerFileInput() {
-    if (audioFileInput) {
-      audioFileInput.value = '';
-      audioFileInput.click();
-    }
-  }
+      const card = document.createElement('div');
+      card.className = `cosmic-track-card ${isCurrent && isPlaying ? 'is-active-playing' : ''}`;
+      card.dataset.index = idx;
 
-  function checkLimitAndTriggerFileInput() {
-    if (savedTracks.length >= MAX_TRACKS_LIMIT) {
-      showLimitWarning(`ظرفیت کتابخانه تکمیل است (حداکثر ${MAX_TRACKS_LIMIT} قطعه). برای افزودن آهنگ جدید، ابتدا یکی از آهنگ‌ها را حذف کنید.`);
-      return;
-    }
-    triggerFileInput();
-  }
-
-  // --- UI Update & Library Rendering ---
-  function updateNavButtonsState() {
-    if (prevTrackBtn) {
-      prevTrackBtn.disabled = savedTracks.length <= 1;
-    }
-    if (nextTrackBtn) {
-      nextTrackBtn.disabled = savedTracks.length <= 1;
-    }
-  }
-
-  function renderLibrary() {
-    if (!savedTracksList) return;
-
-    if (savedCountBadge) {
-      const count = savedTracks.length;
-      savedCountBadge.textContent = `${count} / ${MAX_TRACKS_LIMIT} قطعه`;
-      if (count >= MAX_TRACKS_LIMIT) {
-        savedCountBadge.className = "text-[11px] font-medium bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-0.5 rounded-full";
-      } else {
-        savedCountBadge.className = "text-[11px] font-medium bg-[#E8F4FC] text-[#1B3554] border border-[#C0E6FD] px-2.5 py-0.5 rounded-full";
-      }
-    }
-
-    if (clearAllBtn) {
-      if (savedTracks.length > 0) {
-        clearAllBtn.classList.remove('hidden');
-      } else {
-        clearAllBtn.classList.add('hidden');
-      }
-    }
-
-    if (savedTracks.length === 0) {
-      savedTracksList.innerHTML = '';
-      if (emptyLibraryState) emptyLibraryState.classList.remove('hidden');
-      if (playerContainer && currentTrackIndex === -1) {
-        playerContainer.classList.add('hidden');
-      }
-      if (awaitingBadge && currentTrackIndex === -1) {
-        awaitingBadge.classList.remove('hidden');
-      }
-      updateNavButtonsState();
-      return;
-    }
-
-    if (emptyLibraryState) emptyLibraryState.classList.add('hidden');
-    savedTracksList.innerHTML = '';
-
-    savedTracks.forEach((track, idx) => {
-      const isCurrent = (idx === currentTrackIndex);
-      const isPlaying = isCurrent && audioPlayer && !audioPlayer.paused;
-
-      const row = document.createElement('div');
-      row.className = `saved-track-row ${isCurrent ? 'is-current' : ''} ${isPlaying ? 'is-playing-now' : ''}`;
-      row.dataset.index = idx;
-      row.dataset.id = track.id;
-
-      row.innerHTML = `
-        <div class="flex items-center gap-3 min-w-0 flex-1">
-          <div class="mini-track-play-btn">
-            <span class="mini-play-icon">${isCurrent && isPlaying ? '❚❚' : '▶'}</span>
-            <div class="mini-eq">
-              <span class="mini-eq-bar"></span>
-              <span class="mini-eq-bar"></span>
-              <span class="mini-eq-bar"></span>
+      card.innerHTML = `
+        <div class="track-cover-frame">
+          <img src="${song.cover}" alt="${song.title}" class="track-cover-img" loading="lazy" />
+          <div class="track-play-overlay">
+            <div class="play-orb-disc">
+              <span class="card-play-symbol">${isCurrent && isPlaying ? '❚❚' : '▶'}</span>
+              <div class="card-equalizer">
+                <span class="equalizer-bar"></span>
+                <span class="equalizer-bar"></span>
+                <span class="equalizer-bar"></span>
+                <span class="equalizer-bar"></span>
+              </div>
             </div>
           </div>
-          <div class="min-w-0 flex-1 text-right track-title-wrapper" dir="rtl">
-            <p class="text-xs sm:text-sm font-medium text-[#0B223D] truncate track-display-title">
-              ${escapeHtml(track.title || track.name)}
-            </p>
-            <p class="text-[11px] text-[#5B86B6] truncate mt-0.5">
-              <span>${formatFileSize(track.size)}</span> • <span class="text-[#3F6593]">ذخیره دائمی آفلاین</span>
-            </p>
-          </div>
         </div>
-        <div class="flex items-center gap-1 shrink-0">
-          <button type="button" class="track-edit-btn" title="تغییر نام آهنگ" aria-label="تغییر نام">
-            ✎
-          </button>
-          <button type="button" class="track-delete-btn" title="حذف از حافظه" aria-label="حذف">
-            ✕
-          </button>
+        <div class="w-full text-center px-1" dir="rtl">
+          <p class="text-xs sm:text-sm font-semibold text-[#0B223D] truncate">
+            ${song.title}
+          </p>
+          <p class="text-[11px] text-[#5B86B6] truncate mt-0.5">
+            ${song.artist} • <span class="text-[#80AAD3]">${song.album}</span>
+          </p>
         </div>
       `;
 
-      // Click row to play/pause
-      row.addEventListener('click', (e) => {
-        if (e.target.closest('.track-delete-btn') || e.target.closest('.track-edit-btn') || e.target.closest('.track-rename-input') || e.target.closest('.track-rename-btn')) return;
-        if (currentTrackIndex === idx) {
-          if (audioPlayer.paused) {
-            audioPlayer.play().catch(() => {});
-          } else {
-            audioPlayer.pause();
-          }
-          renderLibrary();
+      card.addEventListener('click', () => {
+        if (activeTrackIndex === idx) {
+          togglePlayPause();
         } else {
-          loadTrackByIndex(idx, true);
+          loadAndPlayCosmicTrack(idx, true);
         }
       });
 
-      // Rename Action (Inline edit)
-      const editBtn = row.querySelector('.track-edit-btn');
-      if (editBtn) {
-        editBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const titleWrapper = row.querySelector('.track-title-wrapper');
-          if (!titleWrapper) return;
+      constellationGrid.appendChild(card);
+    });
+  }
 
-          const currentTitle = track.title || track.name;
-          titleWrapper.innerHTML = `
-            <div class="flex flex-col gap-1.5 py-1" dir="rtl">
-              <input type="text" class="track-rename-input" value="${escapeHtml(currentTitle)}" />
-              <div class="track-rename-actions">
-                <button type="button" class="track-rename-btn track-rename-save">ذخیره</button>
-                <button type="button" class="track-rename-btn track-rename-cancel">انصراف</button>
-              </div>
-            </div>
-          `;
+  function updateActiveCardVisuals() {
+    if (!constellationGrid) return;
+    const cards = constellationGrid.querySelectorAll('.cosmic-track-card');
+    const isPlaying = dockAudio && !dockAudio.paused;
 
-          const input = titleWrapper.querySelector('.track-rename-input');
-          input.focus();
-          input.select();
-
-          const doSave = async () => {
-            const newName = input.value.trim();
-            if (newName && newName !== currentTitle) {
-              await updateTrackTitleInDB(track.id, newName);
-              track.title = newName;
-              if (currentTrackIndex === idx && trackTitle) {
-                trackTitle.textContent = newName;
-              }
-            }
-            renderLibrary();
-          };
-
-          const saveBtn = titleWrapper.querySelector('.track-rename-save');
-          const cancelBtn = titleWrapper.querySelector('.track-rename-cancel');
-
-          saveBtn.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            doSave();
-          });
-
-          cancelBtn.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            renderLibrary();
-          });
-
-          input.addEventListener('keydown', (ev) => {
-            if (ev.key === 'Enter') {
-              ev.preventDefault();
-              doSave();
-            } else if (ev.key === 'Escape') {
-              renderLibrary();
-            }
-          });
-
-          input.addEventListener('click', (ev) => ev.stopPropagation());
-        });
+    cards.forEach((card, idx) => {
+      const isCurrent = (idx === activeTrackIndex);
+      if (isCurrent && isPlaying) {
+        card.classList.add('is-active-playing');
+      } else {
+        card.classList.remove('is-active-playing');
       }
 
-      // Delete action
-      const delBtn = row.querySelector('.track-delete-btn');
-      if (delBtn) {
-        delBtn.addEventListener('click', async (e) => {
-          e.stopPropagation();
-          const confirmDel = confirm(`آیا می‌خواهید آهنگ «${track.title || track.name}» از کتابخانه حذف شود؟`);
-          if (!confirmDel) return;
-
-          await deleteTrackFromDB(track.id);
-          const wasCurrent = (idx === currentTrackIndex);
-          await loadSavedTracksFromDB();
-
-          if (wasCurrent) {
-            if (savedTracks.length > 0) {
-              const nextIdx = Math.min(idx, savedTracks.length - 1);
-              loadTrackByIndex(nextIdx, false);
-            } else {
-              currentTrackIndex = -1;
-              if (audioPlayer) {
-                audioPlayer.pause();
-                audioPlayer.src = '';
-              }
-              if (currentBlobUrl) {
-                URL.revokeObjectURL(currentBlobUrl);
-                currentBlobUrl = null;
-              }
-              if (playerContainer) playerContainer.classList.add('hidden');
-              if (awaitingBadge) awaitingBadge.classList.remove('hidden');
-              if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
-            }
-          } else if (currentTrackIndex > idx) {
-            currentTrackIndex--;
-          }
-          renderLibrary();
-        });
+      const symbol = card.querySelector('.card-play-symbol');
+      if (symbol) {
+        symbol.textContent = (isCurrent && isPlaying) ? '❚❚' : '▶';
       }
-
-      savedTracksList.appendChild(row);
     });
 
-    updateNavButtonsState();
+    if (dockPlayBtn) {
+      dockPlayBtn.classList.toggle('is-playing', isPlaying);
+    }
+    if (visualizerWrap) {
+      visualizerWrap.style.opacity = isPlaying ? '1' : '0.4';
+    }
   }
 
-  function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
+  function loadAndPlayCosmicTrack(index, autoPlay = false) {
+    if (index < 0 || index >= COSMIC_SONGS.length) return;
+    activeTrackIndex = index;
+    const song = COSMIC_SONGS[index];
 
-  // --- Track Loading & Playback ---
-  function loadTrackByIndex(index, shouldPlay = false) {
-    if (index < 0 || index >= savedTracks.length) return;
-    const track = savedTracks[index];
-    currentTrackIndex = index;
-
-    if (audioErrorMsg) audioErrorMsg.classList.add('hidden');
-
-    if (currentBlobUrl) {
-      URL.revokeObjectURL(currentBlobUrl);
+    if (dockAudio) {
+      dockAudio.src = song.src;
+    }
+    if (dockCoverThumb) {
+      dockCoverThumb.src = song.cover;
+    }
+    if (dockTrackTitle) {
+      dockTrackTitle.textContent = song.title;
+    }
+    if (dockTrackArtist) {
+      dockTrackArtist.textContent = `${song.artist} • ${song.album}`;
+    }
+    if (dockSeekBar) {
+      dockSeekBar.value = 0;
     }
 
-    try {
-      const blob = track.blob instanceof Blob ? track.blob : new Blob([track.blob], { type: track.type || 'audio/mpeg' });
-      currentBlobUrl = URL.createObjectURL(blob);
-      audioPlayer.src = currentBlobUrl;
-    } catch (e) {
-      console.error('Error creating blob URL:', e);
-      if (audioErrorMsg) audioErrorMsg.classList.remove('hidden');
-      return;
-    }
-
-    if (trackTitle) trackTitle.textContent = track.title || track.name;
-    if (playerContainer) playerContainer.classList.remove('hidden');
-    if (awaitingBadge) awaitingBadge.classList.add('hidden');
-    if (playerStatusBadge) playerStatusBadge.textContent = shouldPlay ? 'در حال پخش' : 'آماده پخش';
-
-    if (seekBar) {
-      seekBar.value = 0;
-      seekBar.max = 100;
-    }
-
-    renderLibrary();
-
-    if (shouldPlay) {
-      audioPlayer.play().then(() => {
-        if (playPauseBtn) playPauseBtn.classList.add('is-playing');
-        if (visualizerWrap) visualizerWrap.style.opacity = '1';
-        if (playerStatusBadge) playerStatusBadge.textContent = 'در حال پخش';
-        renderLibrary();
+    if (autoPlay && dockAudio) {
+      dockAudio.play().then(() => {
+        updateActiveCardVisuals();
       }).catch(() => {
-        if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
-        if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
-        if (playerStatusBadge) playerStatusBadge.textContent = 'آماده پخش (کلیک کنید)';
-        renderLibrary();
+        updateActiveCardVisuals();
       });
     } else {
-      if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
-      if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
+      updateActiveCardVisuals();
     }
   }
 
-  function playNextTrack() {
-    if (savedTracks.length === 0) return;
-    const nextIdx = (currentTrackIndex + 1) % savedTracks.length;
-    loadTrackByIndex(nextIdx, true);
-  }
-
-  function playPrevTrack() {
-    if (savedTracks.length === 0) return;
-    const prevIdx = (currentTrackIndex - 1 + savedTracks.length) % savedTracks.length;
-    loadTrackByIndex(prevIdx, true);
-  }
-
-  // --- Process New Files with Quota Verification ---
-  async function handleIncomingAudioFiles(fileList) {
-    if (!fileList || fileList.length === 0) return;
-
-    if (savedTracks.length >= MAX_TRACKS_LIMIT) {
-      showLimitWarning(`ظرفیت کتابخانه تکمیل است (حداکثر ${MAX_TRACKS_LIMIT} قطعه). لطفاً ابتدا برای خالی شدن فضا، یک یا چند آهنگ را حذف کنید.`);
-      return;
-    }
-
-    const validFiles = Array.from(fileList).filter(f =>
-      f.type.startsWith('audio/') || /\.(mp3|m4a|wav|ogg|aac|flac|opus|wma)$/i.test(f.name)
-    );
-
-    if (validFiles.length === 0) {
-      if (audioErrorMsg) {
-        audioErrorMsg.textContent = 'هیچ فایل صوتی استانداردی (MP3, M4A, WAV) شناسایی نشد.';
-        audioErrorMsg.classList.remove('hidden');
-      }
-      return;
-    }
-
-    const availableSlots = MAX_TRACKS_LIMIT - savedTracks.length;
-    const filesToSave = validFiles.slice(0, availableSlots);
-
-    if (validFiles.length > availableSlots) {
-      showLimitWarning(`تنها امکان افزودن ${availableSlots} آهنگ وجود داشت. سقف مجاز (${MAX_TRACKS_LIMIT} قطعه) تکمیل شد.`);
-    }
-
-    if (playerStatusBadge) playerStatusBadge.textContent = 'در حال ذخیره‌سازی...';
-
-    for (let i = 0; i < filesToSave.length; i++) {
-      await saveTrackToDB(filesToSave[i]);
-    }
-
-    await loadSavedTracksFromDB();
-
-    // Play the first newly added track
-    if (savedTracks.length > 0) {
-      const firstNewIndex = Math.max(0, savedTracks.length - filesToSave.length);
-      loadTrackByIndex(firstNewIndex, true);
-    }
-  }
-
-  async function loadSavedTracksFromDB() {
-    savedTracks = await getAllTracksFromDB();
-    renderLibrary();
-  }
-
-  // --- Event Listeners ---
-  if (uploadTriggerBtn) {
-    uploadTriggerBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      checkLimitAndTriggerFileInput();
-    });
-  }
-
-  if (changeTrackBtn) {
-    changeTrackBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      checkLimitAndTriggerFileInput();
-    });
-  }
-
-  if (addMoreBtn) {
-    addMoreBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      checkLimitAndTriggerFileInput();
-    });
-  }
-
-  if (playerRenameBtn) {
-    playerRenameBtn.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      if (currentTrackIndex < 0 || !savedTracks[currentTrackIndex]) return;
-      const currentTrack = savedTracks[currentTrackIndex];
-      const newName = prompt('نام جدید آهنگ را وارد کنید:', currentTrack.title || currentTrack.name);
-      if (newName && newName.trim() && newName.trim() !== currentTrack.title) {
-        const trimmed = newName.trim();
-        await updateTrackTitleInDB(currentTrack.id, trimmed);
-        currentTrack.title = trimmed;
-        if (trackTitle) trackTitle.textContent = trimmed;
-        renderLibrary();
-      }
-    });
-  }
-
-  if (clearAllBtn) {
-    clearAllBtn.addEventListener('click', async () => {
-      if (savedTracks.length === 0) return;
-      const confirmClear = confirm('آیا مطمئنید که می‌خواهید تمام آهنگ‌های ذخیره‌شده پاک شوند؟');
-      if (!confirmClear) return;
-
-      await clearAllTracksFromDB();
-      savedTracks = [];
-      currentTrackIndex = -1;
-      if (audioPlayer) {
-        audioPlayer.pause();
-        audioPlayer.src = '';
-      }
-      if (currentBlobUrl) {
-        URL.revokeObjectURL(currentBlobUrl);
-        currentBlobUrl = null;
-      }
-      renderLibrary();
-    });
-  }
-
-  if (prevTrackBtn) {
-    prevTrackBtn.addEventListener('click', () => {
-      playPrevTrack();
-    });
-  }
-
-  if (nextTrackBtn) {
-    nextTrackBtn.addEventListener('click', () => {
-      playNextTrack();
-    });
-  }
-
-  if (dropZone) {
-    dropZone.addEventListener('click', () => {
-      checkLimitAndTriggerFileInput();
-    });
-
-    ['dragenter', 'dragover'].forEach(eventType => {
-      dropZone.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropZone.classList.add('is-dragover');
-      });
-    });
-
-    ['dragleave', 'drop'].forEach(eventType => {
-      dropZone.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropZone.classList.remove('is-dragover');
-      });
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      const files = e.dataTransfer ? e.dataTransfer.files : null;
-      if (files && files.length > 0) {
-        handleIncomingAudioFiles(files);
-      }
-    });
-  }
-
-  if (audioFileInput) {
-    audioFileInput.addEventListener('change', (e) => {
-      const files = e.target.files;
-      if (files && files.length > 0) {
-        handleIncomingAudioFiles(files);
-      }
-    });
-  }
-
-  // --- Player Event Listeners ---
-  if (playPauseBtn && audioPlayer) {
-    playPauseBtn.addEventListener('click', () => {
-      if (audioPlayer.paused) {
-        audioPlayer.play().then(() => {
-          playPauseBtn.classList.add('is-playing');
-          if (visualizerWrap) visualizerWrap.style.opacity = '1';
-          if (playerStatusBadge) playerStatusBadge.textContent = 'در حال پخش';
-          renderLibrary();
+  function togglePlayPause() {
+    if (!dockAudio) return;
+    if (dockAudio.paused) {
+      if (!dockAudio.src) {
+        loadAndPlayCosmicTrack(activeTrackIndex, true);
+      } else {
+        dockAudio.play().then(() => {
+          updateActiveCardVisuals();
         }).catch(() => {});
-      } else {
-        audioPlayer.pause();
-        playPauseBtn.classList.remove('is-playing');
-        if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
-        if (playerStatusBadge) playerStatusBadge.textContent = 'متوقف شده';
-        renderLibrary();
+      }
+    } else {
+      dockAudio.pause();
+      updateActiveCardVisuals();
+    }
+  }
+
+  function playNextCosmicTrack() {
+    const nextIdx = (activeTrackIndex + 1) % COSMIC_SONGS.length;
+    loadAndPlayCosmicTrack(nextIdx, true);
+  }
+
+  function playPrevCosmicTrack() {
+    const prevIdx = (activeTrackIndex - 1 + COSMIC_SONGS.length) % COSMIC_SONGS.length;
+    loadAndPlayCosmicTrack(prevIdx, true);
+  }
+
+  if (dockPlayBtn) {
+    dockPlayBtn.addEventListener('click', togglePlayPause);
+  }
+  if (dockNextBtn) {
+    dockNextBtn.addEventListener('click', playNextCosmicTrack);
+  }
+  if (dockPrevBtn) {
+    dockPrevBtn.addEventListener('click', playPrevCosmicTrack);
+  }
+
+  if (dockAudio) {
+    dockAudio.addEventListener('timeupdate', () => {
+      if (dockTimeCurrent) dockTimeCurrent.textContent = formatTimeDisplay(dockAudio.currentTime);
+      if (dockSeekBar && !isSeekingDock && dockAudio.duration) {
+        dockSeekBar.value = (dockAudio.currentTime / dockAudio.duration) * 100;
       }
     });
 
-    audioPlayer.addEventListener('play', () => {
-      if (playPauseBtn) playPauseBtn.classList.add('is-playing');
-      if (visualizerWrap) visualizerWrap.style.opacity = '1';
-      renderLibrary();
+    dockAudio.addEventListener('loadedmetadata', () => {
+      if (dockTimeDuration) dockTimeDuration.textContent = formatTimeDisplay(dockAudio.duration);
     });
 
-    audioPlayer.addEventListener('pause', () => {
-      if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
-      if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
-      renderLibrary();
-    });
+    dockAudio.addEventListener('play', updateActiveCardVisuals);
+    dockAudio.addEventListener('pause', updateActiveCardVisuals);
 
-    audioPlayer.addEventListener('timeupdate', () => {
-      if (trackTime) trackTime.textContent = formatTime(audioPlayer.currentTime);
-      if (seekBar && !isSeeking && audioPlayer.duration) {
-        seekBar.value = audioPlayer.currentTime;
-      }
-    });
-
-    audioPlayer.addEventListener('loadedmetadata', () => {
-      if (trackDuration) trackDuration.textContent = formatTime(audioPlayer.duration);
-      if (seekBar && audioPlayer.duration) {
-        seekBar.max = audioPlayer.duration;
-        seekBar.value = audioPlayer.currentTime || 0;
-      }
-    });
-
-    audioPlayer.addEventListener('ended', () => {
-      if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
-      if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
-      if (playerStatusBadge) playerStatusBadge.textContent = 'به پایان رسید';
-      if (seekBar) seekBar.value = 0;
-
-      // Automatically play next song if more than 1 track exists
-      if (savedTracks.length > 1) {
-        playNextTrack();
-      } else {
-        renderLibrary();
-      }
-    });
-
-    audioPlayer.addEventListener('error', () => {
-      if (audioErrorMsg) audioErrorMsg.classList.remove('hidden');
-      if (playerStatusBadge) playerStatusBadge.textContent = 'خطا در بارگذاری';
-      if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
-      if (visualizerWrap) visualizerWrap.style.opacity = '0.4';
-      renderLibrary();
+    dockAudio.addEventListener('ended', () => {
+      playNextCosmicTrack();
     });
   }
 
-  // Scrubber seek bar interaction
-  if (seekBar && audioPlayer) {
-    seekBar.addEventListener('input', () => {
-      isSeeking = true;
-      if (trackTime) trackTime.textContent = formatTime(Number(seekBar.value));
+  if (dockSeekBar && dockAudio) {
+    dockSeekBar.addEventListener('input', () => {
+      isSeekingDock = true;
+      if (dockAudio.duration) {
+        const targetTime = (Number(dockSeekBar.value) / 100) * dockAudio.duration;
+        if (dockTimeCurrent) dockTimeCurrent.textContent = formatTimeDisplay(targetTime);
+      }
     });
 
-    seekBar.addEventListener('change', () => {
-      isSeeking = false;
-      audioPlayer.currentTime = Number(seekBar.value);
+    dockSeekBar.addEventListener('change', () => {
+      isSeekingDock = false;
+      if (dockAudio.duration) {
+        dockAudio.currentTime = (Number(dockSeekBar.value) / 100) * dockAudio.duration;
+      }
     });
   }
 
-  // --- Initial Load: Restore Saved Tracks from IndexedDB ---
-  if (window.location.pathname.endsWith('song.html') || document.getElementById('saved-library-section')) {
-    loadSavedTracksFromDB().then(() => {
-      if (savedTracks.length > 0) {
-        // Prepare the first saved track ready to play
-        loadTrackByIndex(0, false);
-        if (playerStatusBadge) playerStatusBadge.textContent = 'آماده پخش (آفلاین)';
-      }
-    });
+  // Initial load for song.html
+  if (constellationGrid) {
+    renderCosmicConstellation();
+    loadAndPlayCosmicTrack(0, false);
   }
 
 });
+

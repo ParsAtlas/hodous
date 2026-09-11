@@ -1,0 +1,74 @@
+[
+  {
+    "id": "taylor_swift_rwylm",
+    "title": "right where you left me (bonus track)",
+    "artist": "Taylor Swift",
+    "album": "evermore (deluxe version)",
+    "cover": "covers/taylor_swift_rwylm.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/25/6e/18/256e1844-520d-f229-95e2-bbed3d0f1e5f/mzaf_10038194974124687672.plus.aac.p.m4a",
+    "duration": 245
+  },
+  {
+    "id": "olivia_rodrigo_vampire",
+    "title": "vampire",
+    "artist": "Olivia Rodrigo",
+    "album": "GUTS (spilled)",
+    "cover": "covers/olivia_rodrigo_vampire.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/09/5e/83095ea1-83bf-ecdc-3b75-358c350fca51/mzaf_15560849688086702972.plus.aac.p.m4a",
+    "duration": 219
+  },
+  {
+    "id": "olivia_rodrigo_drivers_license",
+    "title": "drivers license",
+    "artist": "Olivia Rodrigo",
+    "album": "SOUR",
+    "cover": "covers/olivia_rodrigo_drivers_license.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/36/62/61/366261be-0996-d73d-de6f-03417867c800/mzaf_8201528327761821135.plus.aac.p.m4a",
+    "duration": 242
+  },
+  {
+    "id": "olivia_rodrigo_deja_vu",
+    "title": "deja vu",
+    "artist": "Olivia Rodrigo",
+    "album": "SOUR",
+    "cover": "covers/olivia_rodrigo_deja_vu.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/5a/c2/835ac220-f31a-006f-b6a9-2acd29eb60d0/mzaf_13621843495437485054.plus.aac.p.m4a",
+    "duration": 215
+  },
+  {
+    "id": "olivia_rodrigo_so_american",
+    "title": "so american",
+    "artist": "Olivia Rodrigo",
+    "album": "GUTS (spilled)",
+    "cover": "covers/olivia_rodrigo_so_american.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/43/13/c9/4313c92b-cf1c-0191-45ef-58e0f1eac07f/mzaf_15738418925021275838.plus.aac.p.m4a",
+    "duration": 169
+  },
+  {
+    "id": "taylor_swift_cardigan",
+    "title": "cardigan",
+    "artist": "Taylor Swift",
+    "album": "folklore",
+    "cover": "covers/taylor_swift_cardigan.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/00/b3/f2/00b3f2a0-3228-b65f-7189-91eb26f5adf6/mzaf_3535055549125623460.plus.aac.p.m4a",
+    "duration": 239
+  },
+  {
+    "id": "taylor_swift_mirrorball",
+    "title": "mirrorball",
+    "artist": "Taylor Swift",
+    "album": "folklore",
+    "cover": "covers/taylor_swift_mirrorball.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7a/2d/aa/7a2daade-83e3-adb0-fb25-fe20222048f7/mzaf_9666965367070228287.plus.aac.p.m4a",
+    "duration": 208
+  },
+  {
+    "id": "gracie_abrams_iloveyou",
+    "title": "I Love You, I'm Sorry",
+    "artist": "Gracie Abrams",
+    "album": "The Secret of Us",
+    "cover": "covers/gracie_abrams_iloveyou.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/8a/ff/688aff5f-ed4e-35c7-ced5-1b49f9756192/mzaf_17413493764668561277.plus.aac.p.m4a",
+    "duration": 157
+  }
+]

@@ -358,7 +358,8 @@
     answers: new Array(GORF_QUESTIONS.length).fill(null),
     greenPercent: 0,
     redPercent: 0,
-    isCompleted: false
+    isCompleted: false,
+    participantName: ''
   };
 
   // Web Audio subtle gentle feedback
@@ -680,6 +681,31 @@
         resultDetailsEl.classList.add('is-revealed');
       }
     }, 1400);
+
+    // Participant Badge & Central Archive / Webhook Logging
+    const gorfBadge = document.getElementById('gorf-participant-badge');
+    const participantName = gorfState.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
+    if (gorfBadge) {
+      gorfBadge.innerHTML = lang === 'en'
+        ? `Behavioral Patterns Analysis for: <b>${escapeHTML(participantName)}</b>`
+        : `تحلیل الگوهای رفتاری برای: <b>${escapeHTML(participantName)}</b>`;
+    }
+
+    if (window.HodousTestHub && window.HodousTestHub.saveResult) {
+      const scoreHeadline = greenPct === redPct ? 'GREEN 50% — RED 50%' : (greenPct > redPct ? `GREEN ${greenPct}%` : `RED ${redPct}%`);
+      window.HodousTestHub.saveResult({
+        testId: 'green-or-red',
+        testTitle: 'Green Flag یا Red Flag؟',
+        nickname: participantName,
+        score: scoreHeadline,
+        details: `Green: ${greenPct}% · Red: ${redPct}%`
+      });
+    }
+  }
+
+  function escapeHTML(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function handleShareResult() {
@@ -690,9 +716,14 @@
     const red = gorfState.redPercent;
     const winner = green >= red ? `GREEN ${green}%` : `RED ${red}%`;
 
+    let shareUrl = '';
+    if (window.HodousTestHub && window.HodousTestHub.generateShareUrl) {
+      shareUrl = window.HodousTestHub.generateShareUrl('green-or-red', winner);
+    }
+
     const shareText = lang === 'en'
-      ? `🌱 Hodous — Green Flag or Red Flag Assessment\nResult: ${winner} (Green: ${green}% · Red: ${red}%)\nTake the test: https://xhodous.github.io/test.html`
-      : `🌱 آزمون Green Flag یا Red Flag هودوس\nنتیجه من: ${winner} (سبز: ${green}٪ · قرمز: ${red}٪)\nانجام آزمون: https://xhodous.github.io/test.html`;
+      ? `🌱 Hodous — Green Flag or Red Flag Assessment\nResult: ${winner} (Green: ${green}% · Red: ${red}%)${shareUrl ? '\n🔗 View Result: ' + shareUrl : ''}`
+      : `🌱 آزمون Green Flag یا Red Flag هودوس\nنتیجه من: ${winner} (سبز: ${green}٪ · قرمز: ${red}٪)${shareUrl ? '\n🔗 مشاهده کارنامه:\n' + shareUrl : ''}`;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(shareText).then(() => {
@@ -805,16 +836,24 @@
 
     // Launch Test 2 from Hub
     if (cardLaunchGorf) {
-      cardLaunchGorf.addEventListener('click', () => {
+      const launchGorfAction = () => {
         playSubtleClick();
-        resetTest();
-      });
+        if (window.HodousTestHub && window.HodousTestHub.promptNickname) {
+          window.HodousTestHub.promptNickname('Green Flag یا Red Flag؟', (nickname) => {
+            gorfState.participantName = nickname;
+            resetTest();
+          });
+        } else {
+          resetTest();
+        }
+      };
+
+      cardLaunchGorf.addEventListener('click', launchGorfAction);
 
       cardLaunchGorf.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          playSubtleClick();
-          resetTest();
+          launchGorfAction();
         }
       });
     }

@@ -179,7 +179,8 @@
   const bgfState = {
     currentQuestion: 0,
     answers: {}, // map question index (0..9) => rating (1..10)
-    isFinished: false
+    isFinished: false,
+    participantName: ''
   };
 
   // Subtle web audio feedback
@@ -479,6 +480,30 @@
         resultDetailsEl.classList.add('is-revealed');
       }
     }, 1300);
+
+    // Participant Badge & Central Archive / Webhook Logging
+    const bgfBadge = document.getElementById('bgf-participant-badge');
+    const participantName = bgfState.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
+    if (bgfBadge) {
+      bgfBadge.innerHTML = lang === 'en'
+        ? `Top Priorities for: <b>${escapeHTML(participantName)}</b>`
+        : `۵ اولویت اصلی برای: <b>${escapeHTML(participantName)}</b>`;
+    }
+
+    if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.top1) {
+      window.HodousTestHub.saveResult({
+        testId: 'biggest-green-flag',
+        testTitle: 'بزرگترین Green Flag تو چیه؟',
+        nickname: participantName,
+        score: `${ranking.top1.title} (${ranking.top1.score}/10)`,
+        details: ranking.top5.map((it, i) => `#${i + 1} ${it.title} (${it.score}/10)`).join(' · ')
+      });
+    }
+  }
+
+  function escapeHTML(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function handleShareRanking() {
@@ -487,13 +512,19 @@
     const t = BGF_UI[lang] || BGF_UI.fa;
     const ranking = computeRankings();
 
+    let shareUrl = '';
+    if (window.HodousTestHub && window.HodousTestHub.generateShareUrl && ranking.top1) {
+      shareUrl = window.HodousTestHub.generateShareUrl('biggest-green-flag', `${ranking.top1.title} (${ranking.top1.score}/10)`);
+    }
+
     const lines = [
       lang === 'en' ? '🌱 My Top Green Flag Priorities:' : '🌱 ۵ اولویت اصلی گرین‌فلگ من در رفتار دیگران:',
       ...ranking.top5.map((item, idx) => `#${idx + 1} ${item.title} (${item.score}/10)`),
+      shareUrl ? (lang === 'en' ? `🔗 View Result: ${shareUrl}` : `🔗 مشاهده کارنامه:\n${shareUrl}`) : '',
       lang === 'en'
         ? 'Take the test: https://xhodous.github.io/test.html'
         : 'انجام آزمون: https://xhodous.github.io/test.html'
-    ];
+    ].filter(Boolean);
 
     const shareText = lines.join('\n');
 
@@ -604,16 +635,24 @@
 
     // Launch Test 3 from Hub
     if (cardLaunchBgf) {
-      cardLaunchBgf.addEventListener('click', () => {
+      const launchBgfAction = () => {
         playSubtleClick();
-        resetTest();
-      });
+        if (window.HodousTestHub && window.HodousTestHub.promptNickname) {
+          window.HodousTestHub.promptNickname('بزرگترین Green Flag تو چیه؟', (nickname) => {
+            bgfState.participantName = nickname;
+            resetTest();
+          });
+        } else {
+          resetTest();
+        }
+      };
+
+      cardLaunchBgf.addEventListener('click', launchBgfAction);
 
       cardLaunchBgf.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          playSubtleClick();
-          resetTest();
+          launchBgfAction();
         }
       });
     }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Hodous — Song</title>
-  <meta name="description" content="Hodous Song — A quiet sonic sanctuary for sound, frequency, and personal audio exploration." />
+  <title>Hodous — Sonic Constellation</title>
+  <meta name="description" content="Hodous Song — A scattered sonic constellation of floating tracks and acoustic resonance in the cosmic universe." />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -39,7 +39,7 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      height: 48px;
+      height: 44px;
       transition: opacity 0.3s ease;
     }
 
@@ -52,7 +52,7 @@
 
     @keyframes soundBarPulse {
       0% { height: 8px; opacity: 0.35; }
-      100% { height: 44px; opacity: 0.95; }
+      100% { height: 40px; opacity: 0.95; }
     }
 
     .audio-bar:nth-child(1) { animation-delay: 0.05s; }
@@ -66,45 +66,219 @@
     .audio-bar:nth-child(9) { animation-delay: 0.45s; }
     .audio-bar:nth-child(10) { animation-delay: 0.3s; }
 
-    /* Pure CSS Play/Pause Button */
-    .css-play-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: #1B3554;
+    /* Cosmic Floating Animations */
+    @keyframes cosmicFloatA {
+      0% { transform: translateY(0px) rotate(-1.5deg); }
+      50% { transform: translateY(-12px) rotate(0.5deg); }
+      100% { transform: translateY(0px) rotate(-1.5deg); }
+    }
+    @keyframes cosmicFloatB {
+      0% { transform: translateY(0px) rotate(1.5deg); }
+      50% { transform: translateY(-16px) rotate(-0.5deg); }
+      100% { transform: translateY(0px) rotate(1.5deg); }
+    }
+    @keyframes cosmicFloatC {
+      0% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(-2deg); }
+    }
+    @keyframes cosmicFloatD {
+      0% { transform: translateY(0px) rotate(1deg); }
+      50% { transform: translateY(-14px) rotate(-1deg); }
+      100% { transform: translateY(0px) rotate(1deg); }
+    }
+
+    /* Scattered Constellation Grid */
+    .cosmic-constellation-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 32px 24px;
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 10px 16px 150px 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cosmic-track-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.76);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(192, 230, 253, 0.9);
+      border-radius: 26px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(27, 53, 84, 0.08);
+      user-select: none;
+    }
+
+    .cosmic-track-card:nth-child(1) { animation: cosmicFloatA 5.4s ease-in-out infinite; }
+    .cosmic-track-card:nth-child(2) { animation: cosmicFloatB 6.2s ease-in-out infinite 0.4s; }
+    .cosmic-track-card:nth-child(3) { animation: cosmicFloatC 4.9s ease-in-out infinite 1.1s; }
+    .cosmic-track-card:nth-child(4) { animation: cosmicFloatD 5.8s ease-in-out infinite 0.7s; }
+    .cosmic-track-card:nth-child(5) { animation: cosmicFloatB 6.5s ease-in-out infinite 1.4s; }
+    .cosmic-track-card:nth-child(6) { animation: cosmicFloatA 5.1s ease-in-out infinite 0.2s; }
+    .cosmic-track-card:nth-child(7) { animation: cosmicFloatC 6.0s ease-in-out infinite 1.7s; }
+    .cosmic-track-card:nth-child(8) { animation: cosmicFloatD 5.5s ease-in-out infinite 0.9s; }
+
+    .cosmic-track-card:hover {
+      transform: translateY(-10px) scale(1.04) !important;
+      background: rgba(255, 255, 255, 0.96);
+      border-color: #5B86B6;
+      box-shadow: 0 20px 42px rgba(27, 53, 84, 0.16), 0 0 24px rgba(192, 230, 253, 0.85);
+    }
+
+    .cosmic-track-card.is-active-playing {
+      background: #EBF5FD;
+      border-color: #1B3554;
+      box-shadow: 0 16px 40px rgba(27, 53, 84, 0.22), 0 0 32px rgba(128, 170, 211, 0.85);
+    }
+
+    .track-cover-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 22px rgba(11, 34, 61, 0.14);
+      background: #0B223D;
+    }
+
+    .track-cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cosmic-track-card:hover .track-cover-img {
+      transform: scale(1.07);
+    }
+
+    .track-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(11, 34, 61, 0.35) 0%, rgba(11, 34, 61, 0.65) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 14px rgba(27, 53, 84, 0.2);
+      opacity: 0;
+      transition: opacity 0.25s ease;
     }
-    .css-play-btn:hover {
+
+    .cosmic-track-card:hover .track-play-overlay,
+    .cosmic-track-card.is-active-playing .track-play-overlay {
+      opacity: 1;
+    }
+
+    .play-orb-disc {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1B3554;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cosmic-track-card:hover .play-orb-disc {
+      transform: scale(1.12);
       background: #0B223D;
-      transform: scale(1.06);
-      box-shadow: 0 6px 20px rgba(27, 53, 84, 0.3);
     }
-    .css-play-icon {
-      width: 0;
-      height: 0;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-left: 12px solid #FFFFFF;
-      margin-left: 3px;
+
+    .card-equalizer {
+      display: none;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
     }
-    .css-pause-icon {
-      width: 12px;
-      height: 14px;
-      border-left: 3.5px solid #FFFFFF;
-      border-right: 3.5px solid #FFFFFF;
+
+    .cosmic-track-card.is-active-playing .card-equalizer {
+      display: flex;
+    }
+    .cosmic-track-card.is-active-playing .card-play-symbol {
       display: none;
     }
-    .is-playing .css-play-icon { display: none; }
-    .is-playing .css-pause-icon { display: block; }
 
-    /* Prev / Next Track Buttons */
-    .css-nav-btn {
+    .equalizer-bar {
+      width: 3px;
+      background: #FFFFFF;
+      border-radius: 99px;
+      animation: eqBarPulse 0.85s ease-in-out infinite alternate;
+    }
+    .equalizer-bar:nth-child(1) { animation-delay: 0.05s; }
+    .equalizer-bar:nth-child(2) { animation-delay: 0.25s; }
+    .equalizer-bar:nth-child(3) { animation-delay: 0.15s; }
+    .equalizer-bar:nth-child(4) { animation-delay: 0.35s; }
+
+    @keyframes eqBarPulse {
+      0% { height: 4px; }
+      100% { height: 18px; }
+    }
+
+    /* Master Floating Dock Player (Apple Style) */
+    .master-dock-player {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(94%, 780px);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(192, 230, 253, 0.95);
+      border-radius: 28px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 16px 40px rgba(11, 34, 61, 0.16), 0 0 24px rgba(192, 230, 253, 0.55);
+      z-index: 100;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Scrubber seek slider */
+    .audio-seek-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      border-radius: 9999px;
+      background: rgba(192, 230, 253, 0.9);
+      outline: none;
+      cursor: pointer;
+    }
+    .audio-seek-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #1B3554;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(27, 53, 84, 0.35);
+      transition: transform 0.15s ease;
+    }
+    .audio-seek-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    /* Dock Nav Buttons */
+    .dock-nav-btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -115,193 +289,50 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      user-select: none;
-      box-shadow: 0 2px 6px rgba(27, 53, 84, 0.06);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(27, 53, 84, 0.05);
+      flex-shrink: 0;
     }
-    .css-nav-btn:hover {
+    .dock-nav-btn:hover {
       background: #E8F4FC;
       border-color: #80AAD3;
       color: #0B223D;
       transform: scale(1.08);
     }
-    .css-nav-btn:active {
-      transform: scale(0.94);
-    }
-    .css-nav-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      transform: none;
-      pointer-events: none;
+    .dock-nav-btn:active {
+      transform: scale(0.95);
     }
 
-    /* Saved Library Track Rows */
-    .saved-track-row {
+    .dock-play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1B3554;
+      color: #FFFFFF;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid #C0E6FD;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-    }
-    .saved-track-row:hover {
-      background: #FFFFFF;
-      border-color: #80AAD3;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(91, 134, 182, 0.12);
-    }
-    .saved-track-row.is-current {
-      background: #EBF4FC;
-      border-color: #5B86B6;
-      box-shadow: 0 4px 14px rgba(27, 53, 84, 0.12);
-    }
-    .mini-track-play-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #E8F4FC;
-      color: #1B3554;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      flex-shrink: 0;
-      border: 1px solid #C0E6FD;
-      transition: all 0.2s ease;
-    }
-    .saved-track-row:hover .mini-track-play-btn {
-      background: #1B3554;
-      color: #FFFFFF;
-      border-color: #1B3554;
-    }
-    .saved-track-row.is-current .mini-track-play-btn {
-      background: #1B3554;
-      color: #FFFFFF;
-      border-color: #1B3554;
-    }
-    .mini-eq {
-      display: none;
-      align-items: flex-end;
-      gap: 2px;
-      height: 12px;
-    }
-    .saved-track-row.is-current.is-playing-now .mini-eq {
-      display: flex;
-    }
-    .saved-track-row.is-current.is-playing-now .mini-play-icon {
-      display: none;
-    }
-    .mini-eq-bar {
-      width: 2px;
-      background: #FFFFFF;
-      border-radius: 99px;
-      animation: miniEqPulse 0.8s ease-in-out infinite alternate;
-    }
-    @keyframes miniEqPulse {
-      0% { height: 3px; }
-      100% { height: 12px; }
-    }
-    .mini-eq-bar:nth-child(1) { animation-delay: 0.05s; }
-    .mini-eq-bar:nth-child(2) { animation-delay: 0.25s; }
-    .mini-eq-bar:nth-child(3) { animation-delay: 0.15s; }
-
-    .track-delete-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      color: #80AAD3;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(27, 53, 84, 0.25);
       flex-shrink: 0;
     }
-    .track-delete-btn:hover {
-      background: #FEE2E2;
-      color: #DC2626;
-      transform: scale(1.1);
-    }
-
-    /* Rename & Edit Controls */
-    .track-edit-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      color: #80AAD3;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-    .track-edit-btn:hover {
-      background: #E8F4FC;
-      color: #1B3554;
-      transform: scale(1.1);
-    }
-
-    .track-rename-input {
-      background: #FFFFFF;
-      border: 1.5px solid #5B86B6;
-      border-radius: 8px;
-      padding: 3px 8px;
-      font-size: 13px;
-      color: #0B223D;
-      outline: none;
-      width: 100%;
-      font-family: inherit;
-      box-shadow: 0 1px 3px rgba(27, 53, 84, 0.08);
-    }
-    .track-rename-input:focus {
-      border-color: #1B3554;
-      box-shadow: 0 0 0 2px rgba(91, 134, 182, 0.25);
-    }
-
-    .track-rename-actions {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .track-rename-btn {
-      padding: 3px 10px;
-      font-size: 11px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.15s ease;
-    }
-    .track-rename-save {
-      background: #1B3554;
-      color: #FFFFFF;
-    }
-    .track-rename-save:hover {
+    .dock-play-btn:hover {
       background: #0B223D;
+      transform: scale(1.08);
     }
-    .track-rename-cancel {
-      background: #E8F4FC;
-      color: #5B86B6;
+    .dock-play-btn:active {
+      transform: scale(0.95);
     }
-    .track-rename-cancel:hover {
-      background: #C0E6FD;
-      color: #1B3554;
-    }
+
+    .play-symbol { margin-left: 2px; }
+    .pause-symbol { display: none; }
+    .is-playing .play-symbol { display: none; }
+    .is-playing .pause-symbol { display: inline-block; }
   </style>
 </head>
 <body class="bg-[#F4F9FD] text-[#1B3554] antialiased min-h-screen flex flex-col">
@@ -310,28 +341,25 @@
        TOP NAVIGATION
        ==================================================================== -->
   <header class="top-nav">
-    <!-- Top-Left 3-Line Hamburger Button (Pure HTML & CSS) -->
     <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Navigation Menu" title="Navigation">
       <span class="hamburger-line line-1"></span>
       <span class="hamburger-line line-2"></span>
       <span class="hamburger-line line-3"></span>
     </button>
 
-    <!-- Center Brand Mark -->
     <a href="index.html" class="text-[15px] font-medium tracking-tight text-[#0B223D] hover:text-[#3F6593] transition-colors">
       Hodous
     </a>
 
-    <!-- Top-Right Status -->
     <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none">
-      Song Space
+      Sonic Constellation
     </div>
   </header>
 
   <!-- Drawer Backdrop Overlay -->
   <div id="nav-backdrop" class="nav-backdrop"></div>
 
-  <!-- Slide-out Navigation Drawer (Home, Song, Test) -->
+  <!-- Slide-out Navigation Drawer -->
   <aside id="nav-drawer" class="nav-drawer">
     <div class="space-y-6">
       <div class="border-b border-[#C0E6FD] pb-4">
@@ -364,21 +392,21 @@
   </aside>
 
   <!-- ====================================================================
-       SONG SPACE & INTERACTIVE PLAYER SECTION
+       SCATTERED CELESTIAL SONIC UNIVERSE
        ==================================================================== -->
-  <div class="hero-cosmic-universe flex-1 flex flex-col">
-    <!-- Starfield Canvas (520 sharp diamond stars) -->
+  <div class="hero-cosmic-universe flex-1 flex flex-col relative overflow-hidden">
+    <!-- Starfield Canvas (Dense diamond stars) -->
     <canvas id="star-canvas"></canvas>
 
     <!-- Nebula Glow Layer -->
     <div class="ambient-nebula-glow"></div>
 
-    <main class="relative z-10 w-full max-w-2xl mx-auto px-6 pt-32 pb-20 flex-1 flex flex-col items-center justify-center text-center">
+    <main class="relative z-10 w-full mx-auto px-4 pt-28 pb-16 flex-1 flex flex-col items-center text-center">
 
       <!-- Breadcrumb Tag -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#C0E6FD] text-xs text-[#3F6593] font-medium tracking-widest uppercase mb-5 shadow-2xs">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#C0E6FD] text-xs text-[#3F6593] font-medium tracking-widest uppercase mb-4 shadow-2xs">
         <span class="w-1.5 h-1.5 rounded-full bg-[#3F6593] animate-pulse"></span>
-        Auditory Space
+        Sonic Constellation • منظومه نغمه‌های شناور
       </div>
 
       <!-- Headline -->
@@ -386,11 +414,11 @@
         Song
       </h1>
 
-      <p class="text-sm sm:text-base text-[#3F6593] font-normal max-w-md mx-auto leading-relaxed mb-8">
-        A quiet sanctuary for sound, acoustic resonance, and auditory exploration.
+      <p class="text-xs sm:text-sm text-[#3F6593] font-normal max-w-lg mx-auto leading-relaxed mb-6" dir="rtl">
+        مجموعه‌ای از نغمه‌های شناور در مدار کیهان با کاورهای اختصاصی. روی هر قطعه کلیک کنید تا در مدار پخش طنین‌انداز شود.
       </p>
 
-      <!-- Pure CSS Ambient Waveform Visualizer -->
+      <!-- Ambient Waveform Visualizer -->
       <div id="audio-visualizer-wrap" class="audio-visualizer-wrap mb-8 opacity-40">
         <div class="audio-bar"></div>
         <div class="audio-bar"></div>
@@ -404,152 +432,71 @@
         <div class="audio-bar"></div>
       </div>
 
-      <!-- Interactive Upload & Player Card -->
-      <div class="w-full p-8 sm:p-10 rounded-3xl bg-white/85 border border-[#C0E6FD] backdrop-blur-xl shadow-xl text-center space-y-6">
-
-        <div class="space-y-2">
-          <h2 class="text-lg sm:text-xl font-medium text-[#0B223D] tracking-tight">
-            بارگذاری و پخش آهنگ دلخواه
-          </h2>
-          <p class="text-xs sm:text-sm text-[#3F6593] font-normal max-w-sm mx-auto leading-relaxed" dir="rtl">
-            فایل صوتی خود (MP3, M4A, WAV) را انتخاب کنید تا در کتابخانه اختصاصی مرورگرتان ذخیره و پخش شود (ظرفیت مجاز: حداکثر ۱۰ قطعه).
-          </p>
-        </div>
-
-        <!-- Hidden Native File Input (Positioned off-screen, NOT display:none, with multiple selection enabled) -->
-        <input type="file" id="audio-file-input" multiple accept=".mp3,.m4a,.wav,.ogg,.aac,.flac,audio/*" style="position:fixed;top:-2000px;left:-2000px;opacity:0;pointer-events:none;" />
-
-        <!-- Drop Zone & Upload Trigger -->
-        <div id="drop-zone" class="drop-zone flex flex-col items-center justify-center gap-3">
-          <div class="w-12 h-12 rounded-2xl bg-[#E8F4FC] border border-[#C0E6FD] flex items-center justify-center text-xl text-[#1B3554] select-none font-bold shadow-2xs">
-            ＋
-          </div>
-          <div class="space-y-1.5">
-            <button type="button" id="upload-trigger-btn" class="upload-btn">
-              <span>انتخاب فایل‌های صوتی از سیستم</span>
-            </button>
-            <p class="text-xs text-[#5B86B6] font-normal pt-1" dir="rtl">
-              یا فایل‌های صوتی را باهم بکشید و اینجا رها کنید (Drag & Drop)
-            </p>
-          </div>
-        </div>
-
-        <!-- Dynamic Loaded Track Player Box -->
-        <div id="player-container" class="hidden pt-5 border-t border-[#C0E6FD] space-y-4">
-          <div class="p-5 rounded-2xl bg-[#F0F7FD] border border-[#C0E6FD] space-y-4">
-            <!-- Track Info & Actions -->
-            <div class="flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
-              <div class="flex items-center gap-3 text-left overflow-hidden min-w-0">
-                <!-- Navigation & Play/Pause Controls -->
-                <div class="flex items-center gap-1.5 shrink-0">
-                  <button type="button" id="prev-track-btn" class="css-nav-btn shrink-0" aria-label="Previous Track" title="آهنگ قبلی">
-                    <span>⏮</span>
-                  </button>
-                  <button id="play-pause-btn" class="css-play-btn shrink-0" aria-label="Play or Pause">
-                    <span class="css-play-icon"></span>
-                    <span class="css-pause-icon"></span>
-                  </button>
-                  <button type="button" id="next-track-btn" class="css-nav-btn shrink-0" aria-label="Next Track" title="آهنگ بعدی">
-                    <span>⏭</span>
-                  </button>
-                </div>
-
-                <div class="min-w-0">
-                  <div class="flex items-center gap-1.5">
-                    <p id="current-track-title" class="text-sm font-semibold text-[#0B223D] truncate">
-                      Track Name
-                    </p>
-                    <button type="button" id="player-rename-btn" class="text-xs text-[#5B86B6] hover:text-[#0B223D] hover:bg-[#C0E6FD]/40 rounded px-1 transition-colors shrink-0" title="تغییر نام این آهنگ">
-                      ✎
-                    </button>
-                  </div>
-                  <p class="text-xs text-[#5B86B6] font-normal">
-                    <span id="current-track-time">0:00</span> / <span id="current-track-duration">0:00</span>
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                <button type="button" id="change-track-btn" class="text-xs font-medium text-[#1B3554] hover:text-[#0B223D] bg-white hover:bg-[#E8F4FC] border border-[#C0E6FD] px-3 py-1.5 rounded-xl transition-colors shadow-2xs">
-                  ＋ افزودن آهنگ
-                </button>
-                <span id="player-status-badge" class="text-[11px] font-medium text-[#1B3554] bg-[#C0E6FD]/60 px-2.5 py-1 rounded-full border border-[#C0E6FD] hidden sm:inline-block">
-                  آماده پخش
-                </span>
-              </div>
-            </div>
-
-            <!-- Scrubber Seek Bar -->
-            <div class="space-y-1">
-              <input type="range" id="seek-bar" min="0" max="100" value="0" step="0.1" class="audio-seek-slider" aria-label="Audio Seek Bar" />
-            </div>
-          </div>
-
-          <!-- Native Audio Element -->
-          <audio id="audio-player" preload="metadata"></audio>
-        </div>
-
-        <!-- Quota Warning Notification (When limit reached) -->
-        <div id="audio-limit-msg" class="hidden p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-800 font-medium text-center" dir="rtl">
-        </div>
-
-        <!-- Saved Audio Tracks Library Section (IndexedDB Persistent) -->
-        <div id="saved-library-section" class="pt-5 border-t border-[#C0E6FD] text-right space-y-3">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2" dir="rtl">
-              <h3 class="text-sm sm:text-base font-semibold text-[#0B223D]">
-                کتابخانه آهنگ‌های ذخیره‌شده
-              </h3>
-              <span id="saved-count-badge" class="text-[11px] font-medium bg-[#E8F4FC] text-[#1B3554] border border-[#C0E6FD] px-2.5 py-0.5 rounded-full">
-                ۰ آهنگ
-              </span>
-            </div>
-            <div class="flex items-center gap-2 text-xs">
-              <button type="button" id="add-more-btn" class="text-[#1B3554] hover:text-[#0B223D] bg-[#E8F4FC] hover:bg-[#C0E6FD]/60 border border-[#C0E6FD] px-3 py-1 rounded-xl transition-all font-medium shadow-2xs">
-                ＋ افزودن فایل
-              </button>
-              <button type="button" id="clear-all-btn" class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 px-2.5 py-1 rounded-xl transition-all hidden shadow-2xs font-medium">
-                پاکسازی همه
-              </button>
-            </div>
-          </div>
-
-          <!-- Saved Tracks List Container -->
-          <div id="saved-tracks-list" class="space-y-2 max-h-72 overflow-y-auto pr-1">
-            <!-- Dynamic items rendered by script.js -->
-          </div>
-
-          <!-- Empty Library State -->
-          <div id="empty-library-state" class="py-6 px-4 rounded-2xl bg-[#F0F7FD]/60 border border-dashed border-[#C0E6FD] text-center space-y-1.5">
-            <p class="text-xs text-[#3F6593] font-medium" dir="rtl">
-              هنوز آهنگی ذخیره نشده است.
-            </p>
-            <p class="text-[11px] text-[#5B86B6] leading-relaxed" dir="rtl">
-              با انتخاب یا رها کردن فایل صوتی در کادر بالا، آهنگ‌ها برای همیشه در مرورگر شما ذخیره می‌مانند و حتی با بستن مرورگر یا رفرش پاک نمی‌شوند.
-            </p>
-          </div>
-        </div>
-
-        <!-- Error Feedback Message (Hidden unless playback error occurs) -->
-        <div id="audio-error-msg" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium" dir="rtl">
-          خطا در خواندن فایل صوتی. لطفاً از یک فایل استاندارد با فرمت MP3 یا WAV استفاده کنید.
-        </div>
-
-        <div id="awaiting-badge" class="pt-1">
-          <span class="inline-block text-[11px] font-medium tracking-wider uppercase text-[#3F6593] bg-[#E8F4FC] px-3.5 py-1 rounded-full border border-[#C0E6FD]">
-            Awaiting Your Selection
-          </span>
-        </div>
+      <!-- ==============================================================
+           SCATTERED FLOATING SONGS GRID (Cosmic Constellation)
+           ============================================================== -->
+      <div id="cosmic-constellation" class="cosmic-constellation-container">
+        <!-- Rendered dynamically by script.js with covers and metadata -->
       </div>
 
-      <!-- Return Button -->
-      <div class="mt-12">
+      <!-- Return Button to Portal -->
+      <div class="mt-4 mb-20">
         <a href="index.html" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white hover:bg-[#F0F7FD] border border-[#C0E6FD] text-xs text-[#1B3554] tracking-wider uppercase transition-all shadow-2xs font-medium">
           ← Return to Portal
         </a>
       </div>
 
     </main>
+  </div>
+
+  <!-- ====================================================================
+       MASTER FLOATING BOTTOM DOCK PLAYER (Apple Minimal Aesthetic)
+       ==================================================================== -->
+  <div id="master-dock-player" class="master-dock-player">
+    <div class="flex items-center gap-3 min-w-0 flex-1 overflow-hidden" dir="rtl">
+      <!-- Mini Artwork Thumbnail -->
+      <div class="w-11 h-11 rounded-xl overflow-hidden bg-[#0B223D] shrink-0 border border-[#C0E6FD] shadow-xs">
+        <img id="dock-cover-thumb" src="covers/taylor_swift_rwylm.jpg" alt="Cover" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Title & Artist -->
+      <div class="min-w-0 flex-1 text-right">
+        <p id="dock-track-title" class="text-xs sm:text-sm font-semibold text-[#0B223D] truncate">
+          right where you left me
+        </p>
+        <p id="dock-track-artist" class="text-[11px] text-[#5B86B6] truncate mt-0.5">
+          Taylor Swift • evermore
+        </p>
+      </div>
+    </div>
+
+    <!-- Scrubber and Time Display (Desktop / Tablet) -->
+    <div class="hidden md:flex flex-col items-center gap-1 w-56 shrink-0">
+      <input type="range" id="dock-seek-bar" min="0" max="100" value="0" step="0.1" class="audio-seek-slider" aria-label="Audio Seek" />
+      <div class="flex justify-between w-full text-[10px] text-[#5B86B6] font-mono">
+        <span id="dock-time-current">0:00</span>
+        <span id="dock-time-duration">0:30</span>
+      </div>
+    </div>
+
+    <!-- Transport Controls (Prev, Play/Pause, Next) -->
+    <div class="flex items-center gap-2 shrink-0">
+      <button type="button" id="dock-prev-btn" class="dock-nav-btn" aria-label="Previous Track" title="آهنگ قبلی">
+        <span>⏮</span>
+      </button>
+
+      <button type="button" id="dock-play-btn" class="dock-play-btn" aria-label="Play or Pause">
+        <span class="play-symbol">▶</span>
+        <span class="pause-symbol">❚❚</span>
+      </button>
+
+      <button type="button" id="dock-next-btn" class="dock-nav-btn" aria-label="Next Track" title="آهنگ بعدی">
+        <span>⏭</span>
+      </button>
+    </div>
+
+    <!-- Hidden Native Audio Element -->
+    <audio id="dock-audio-element" preload="metadata"></audio>
   </div>
 
   <!-- Footer -->
@@ -565,7 +512,7 @@
     </div>
   </footer>
 
-  <!-- Script (Starfield Canvas + Pure Audio Player) -->
+  <!-- Script (Starfield Canvas + Scattered Cosmic Audio System) -->
   <script src="script.js"></script>
 </body>
 </html>

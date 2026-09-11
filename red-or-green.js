@@ -250,7 +250,8 @@
     currentQuestion: 0,
     answers: {}, // questionIndex (0..9) => score (1..10)
     soundEnabled: true,
-    result: null
+    result: null,
+    participantName: ''
   };
 
   function saveState() {
@@ -817,6 +818,30 @@
     // Action Buttons
     if (btnRestart) btnRestart.textContent = t.retakeBtn;
     if (btnShare) btnShare.textContent = t.shareBtn;
+
+    // Participant Badge & Central Archive / Webhook Logging
+    const rogBadge = document.getElementById('rog-participant-badge');
+    const participantName = state.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
+    if (rogBadge) {
+      rogBadge.innerHTML = lang === 'en'
+        ? `Personal Assessment for: <b>${escapeHTML(participantName)}</b>`
+        : `کارنامه اختصاصی برای: <b>${escapeHTML(participantName)}</b>`;
+    }
+
+    if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.biggest) {
+      window.HodousTestHub.saveResult({
+        testId: 'biggest-red-flag',
+        testTitle: 'بزرگترین ردفلگ برای تو چیه؟',
+        nickname: participantName,
+        score: `${ranking.biggest.title} (${ranking.biggest.score}/10)`,
+        details: ranking.summaryText
+      });
+    }
+  }
+
+  function escapeHTML(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   // ========================================================================
@@ -829,10 +854,27 @@
 
     // Launch Card Click (View Hub -> Setup View)
     if (cardLaunchRog) {
-      cardLaunchRog.addEventListener('click', () => {
+      const launchRogAction = () => {
         initAudio();
-        document.body.classList.add('theme-pastel-red');
-        showView(viewTheme);
+        if (window.HodousTestHub && window.HodousTestHub.promptNickname) {
+          window.HodousTestHub.promptNickname('بزرگترین ردفلگ برای تو چیه؟', (nickname) => {
+            state.participantName = nickname;
+            saveState();
+            document.body.classList.add('theme-pastel-red');
+            showView(viewTheme);
+          });
+        } else {
+          document.body.classList.add('theme-pastel-red');
+          showView(viewTheme);
+        }
+      };
+
+      cardLaunchRog.addEventListener('click', launchRogAction);
+      cardLaunchRog.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          launchRogAction();
+        }
       });
     }
 
@@ -906,14 +948,20 @@
         const t = UI_TEXT[lang] || UI_TEXT.fa;
         const ranking = computeRankings();
 
+        let shareUrl = '';
+        if (window.HodousTestHub && window.HodousTestHub.generateShareUrl && ranking.biggest) {
+          shareUrl = window.HodousTestHub.generateShareUrl('biggest-red-flag', `${ranking.biggest.title} (${ranking.biggest.score}/10)`);
+        }
+
         const shareLines = [
           lang === 'en' ? '🚩 My Relational Red Flags Ranking:' : '🚩 رنکینگ خطوط قرمز من در رفتار دیگران:',
           lang === 'en' 
             ? `Top Red Flag: ${ranking.biggest.title} (${ranking.biggest.score}/10)`
             : `بزرگترین ردفلگ من: ${ranking.biggest.title} (${ranking.biggest.score}/۱۰)`,
           ...ranking.top5.map((item, idx) => `${idx + 1}. ${item.title} — ${item.score}/10`),
+          shareUrl ? (lang === 'en' ? `🔗 View Result: ${shareUrl}` : `🔗 مشاهده کارنامه:\n${shareUrl}`) : '',
           'Hodous · Red Flag Test'
-        ];
+        ].filter(Boolean);
         const shareText = shareLines.join('\n');
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
