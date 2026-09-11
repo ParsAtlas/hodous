@@ -1,0 +1,13 @@
+{
+  "name": "personal-portfolio",
+  "version": "1.0.0",
+  "description": "A sleek, modern, and easily customizable personal portfolio website.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000",
+    "start": "npx --yes serve . -l 3000"
+  },
+  "keywords": ["portfolio", "resume", "personal-website", "html5", "tailwind"],
+  "author": "Your Name",
+  "license": "MIT"
+}

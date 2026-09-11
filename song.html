@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Hodous — Song</title>
+  <meta name="description" content="Hodous Song — A quiet sonic sanctuary for sound, frequency, and personal audio exploration." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bglight: '#F4F9FD',
+            iceblue: '#C0E6FD',
+            mistblue: '#80AAD3',
+            steelblue: '#5B86B6',
+            slateblue: '#3F6593',
+            deepnavy: '#1B3554',
+            midnightdeep: '#0B223D'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles (Pure CSS, Zero SVG) -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Pure CSS Sound Wave Visualizer */
+    .audio-visualizer-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 48px;
+      transition: opacity 0.3s ease;
+    }
+
+    .audio-bar {
+      width: 2.5px;
+      background: linear-gradient(180deg, #1B3554 0%, #5B86B6 100%);
+      border-radius: 999px;
+      animation: soundBarPulse 1.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes soundBarPulse {
+      0% { height: 8px; opacity: 0.35; }
+      100% { height: 44px; opacity: 0.95; }
+    }
+
+    .audio-bar:nth-child(1) { animation-delay: 0.05s; }
+    .audio-bar:nth-child(2) { animation-delay: 0.2s; }
+    .audio-bar:nth-child(3) { animation-delay: 0.4s; }
+    .audio-bar:nth-child(4) { animation-delay: 0.15s; }
+    .audio-bar:nth-child(5) { animation-delay: 0.5s; }
+    .audio-bar:nth-child(6) { animation-delay: 0.25s; }
+    .audio-bar:nth-child(7) { animation-delay: 0.35s; }
+    .audio-bar:nth-child(8) { animation-delay: 0.1s; }
+    .audio-bar:nth-child(9) { animation-delay: 0.45s; }
+    .audio-bar:nth-child(10) { animation-delay: 0.3s; }
+
+    /* Pure CSS Play/Pause Button */
+    .css-play-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #1B3554;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(27, 53, 84, 0.2);
+    }
+    .css-play-btn:hover {
+      background: #0B223D;
+      transform: scale(1.06);
+      box-shadow: 0 6px 20px rgba(27, 53, 84, 0.3);
+    }
+    .css-play-icon {
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 12px solid #FFFFFF;
+      margin-left: 3px;
+    }
+    .css-pause-icon {
+      width: 12px;
+      height: 14px;
+      border-left: 3.5px solid #FFFFFF;
+      border-right: 3.5px solid #FFFFFF;
+      display: none;
+    }
+    .is-playing .css-play-icon { display: none; }
+    .is-playing .css-pause-icon { display: block; }
+  </style>
+</head>
+<body class="bg-[#F4F9FD] text-[#1B3554] antialiased min-h-screen flex flex-col">
+
+  <!-- ====================================================================
+       TOP NAVIGATION
+       ==================================================================== -->
+  <header class="top-nav">
+    <!-- Top-Left 3-Line Hamburger Button (Pure HTML & CSS) -->
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Navigation Menu" title="Navigation">
+      <span class="hamburger-line line-1"></span>
+      <span class="hamburger-line line-2"></span>
+      <span class="hamburger-line line-3"></span>
+    </button>
+
+    <!-- Center Brand Mark -->
+    <a href="index.html" class="text-[15px] font-medium tracking-tight text-[#0B223D] hover:text-[#3F6593] transition-colors">
+      Hodous
+    </a>
+
+    <!-- Top-Right Status -->
+    <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none">
+      Song Space
+    </div>
+  </header>
+
+  <!-- Drawer Backdrop Overlay -->
+  <div id="nav-backdrop" class="nav-backdrop"></div>
+
+  <!-- Slide-out Navigation Drawer (Home, Song, Test) -->
+  <aside id="nav-drawer" class="nav-drawer">
+    <div class="space-y-6">
+      <div class="border-b border-[#C0E6FD] pb-4">
+        <span class="text-xs font-medium tracking-[0.22em] uppercase text-[#5B86B6] block">
+          Menu
+        </span>
+      </div>
+
+      <nav class="space-y-2">
+        <a href="index.html" class="nav-drawer-link">
+          <span>Home</span>
+          <span class="text-[11px] text-[#5B86B6]">Portal</span>
+        </a>
+
+        <a href="song.html" class="nav-drawer-link is-active">
+          <span>Song</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#1B3554]"></span>
+        </a>
+
+        <a href="test.html" class="nav-drawer-link">
+          <span>Test</span>
+          <span class="text-[11px] text-[#5B86B6]">Portal</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-[#C0E6FD] text-xs text-[#5B86B6] font-normal">
+      Hodous • Future & Mind
+    </div>
+  </aside>
+
+  <!-- ====================================================================
+       SONG SPACE & INTERACTIVE PLAYER SECTION
+       ==================================================================== -->
+  <div class="hero-cosmic-universe flex-1 flex flex-col">
+    <!-- Starfield Canvas (520 sharp diamond stars) -->
+    <canvas id="star-canvas"></canvas>
+
+    <!-- Nebula Glow Layer -->
+    <div class="ambient-nebula-glow"></div>
+
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-6 pt-32 pb-20 flex-1 flex flex-col items-center justify-center text-center">
+
+      <!-- Breadcrumb Tag -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#C0E6FD] text-xs text-[#3F6593] font-medium tracking-widest uppercase mb-5 shadow-2xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#3F6593] animate-pulse"></span>
+        Auditory Space
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl font-medium tracking-tight text-[#0B223D] mb-3">
+        Song
+      </h1>
+
+      <p class="text-sm sm:text-base text-[#3F6593] font-normal max-w-md mx-auto leading-relaxed mb-8">
+        A quiet sanctuary for sound, acoustic resonance, and auditory exploration.
+      </p>
+
+      <!-- Pure CSS Ambient Waveform Visualizer -->
+      <div id="audio-visualizer-wrap" class="audio-visualizer-wrap mb-8 opacity-40">
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+      </div>
+
+      <!-- Interactive Upload & Player Card -->
+      <div class="w-full p-8 sm:p-10 rounded-3xl bg-white/85 border border-[#C0E6FD] backdrop-blur-xl shadow-xl text-center space-y-6">
+
+        <div class="space-y-2">
+          <h2 class="text-lg sm:text-xl font-medium text-[#0B223D] tracking-tight">
+            بارگذاری و پخش آهنگ دلخواه
+          </h2>
+          <p class="text-xs sm:text-sm text-[#3F6593] font-normal max-w-sm mx-auto leading-relaxed" dir="rtl">
+            فایل صوتی خود (MP3, M4A, WAV) را انتخاب کنید تا بلافاصله بدون اینترنت و بدون فیلترشکن در پلیر اختصاصی پخش شود.
+          </p>
+        </div>
+
+        <!-- Hidden Native File Input (Positioned off-screen, NOT display:none, ensuring full macOS Safari & Mobile compatibility) -->
+        <input type="file" id="audio-file-input" accept=".mp3,.m4a,.wav,.ogg,.aac,.flac,audio/*" style="position:fixed;top:-2000px;left:-2000px;opacity:0;pointer-events:none;" />
+
+        <!-- Drop Zone & Upload Trigger -->
+        <div id="drop-zone" class="drop-zone flex flex-col items-center justify-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-[#E8F4FC] border border-[#C0E6FD] flex items-center justify-center text-xl text-[#1B3554] select-none font-bold shadow-2xs">
+            ＋
+          </div>
+          <div class="space-y-1.5">
+            <button type="button" id="upload-trigger-btn" class="upload-btn">
+              <span>انتخاب فایل صوتی از سیستم</span>
+            </button>
+            <p class="text-xs text-[#5B86B6] font-normal pt-1" dir="rtl">
+              یا فایل صوتی را بکشید و اینجا رها کنید (Drag & Drop)
+            </p>
+          </div>
+        </div>
+
+        <!-- Dynamic Loaded Track Player Box -->
+        <div id="player-container" class="hidden pt-5 border-t border-[#C0E6FD] space-y-4">
+          <div class="p-5 rounded-2xl bg-[#F0F7FD] border border-[#C0E6FD] space-y-4">
+            <!-- Track Info & Actions -->
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 text-left overflow-hidden">
+                <button id="play-pause-btn" class="css-play-btn shrink-0" aria-label="Play or Pause">
+                  <span class="css-play-icon"></span>
+                  <span class="css-pause-icon"></span>
+                </button>
+                <div class="min-w-0">
+                  <p id="current-track-title" class="text-sm font-semibold text-[#0B223D] truncate">
+                    Track Name
+                  </p>
+                  <p class="text-xs text-[#5B86B6] font-normal">
+                    <span id="current-track-time">0:00</span> / <span id="current-track-duration">0:00</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <button type="button" id="change-track-btn" class="text-xs font-medium text-[#1B3554] hover:text-[#0B223D] bg-white hover:bg-[#E8F4FC] border border-[#C0E6FD] px-3 py-1.5 rounded-xl transition-colors shadow-2xs">
+                  تعویض آهنگ
+                </button>
+                <span id="player-status-badge" class="text-[11px] font-medium text-[#1B3554] bg-[#C0E6FD]/60 px-2.5 py-1 rounded-full border border-[#C0E6FD] hidden sm:inline-block">
+                  آماده پخش
+                </span>
+              </div>
+            </div>
+
+            <!-- Scrubber Seek Bar -->
+            <div class="space-y-1">
+              <input type="range" id="seek-bar" min="0" max="100" value="0" step="0.1" class="audio-seek-slider" aria-label="Audio Seek Bar" />
+            </div>
+          </div>
+
+          <!-- Native Audio Element -->
+          <audio id="audio-player" preload="metadata"></audio>
+        </div>
+
+        <!-- Error Feedback Message (Hidden unless playback error occurs) -->
+        <div id="audio-error-msg" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium" dir="rtl">
+          خطا در خواندن فایل صوتی. لطفاً از یک فایل استاندارد با فرمت MP3 یا WAV استفاده کنید.
+        </div>
+
+        <div id="awaiting-badge" class="pt-1">
+          <span class="inline-block text-[11px] font-medium tracking-wider uppercase text-[#3F6593] bg-[#E8F4FC] px-3.5 py-1 rounded-full border border-[#C0E6FD]">
+            Awaiting Your Selection
+          </span>
+        </div>
+      </div>
+
+      <!-- Return Button -->
+      <div class="mt-12">
+        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white hover:bg-[#F0F7FD] border border-[#C0E6FD] text-xs text-[#1B3554] tracking-wider uppercase transition-all shadow-2xs font-medium">
+          ← Return to Portal
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="space-y-1">
+        <span class="text-[15px] font-medium tracking-tight text-[#0B223D]">Hodous</span>
+        <p class="text-xs text-[#5B86B6] font-normal">A contemplation of science, depth, sound, and time.</p>
+      </div>
+      <div class="text-xs text-[#5B86B6] font-normal tracking-wider">
+        © 2026 Hodous. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script (Starfield Canvas + Pure Audio Player) -->
+  <script src="script.js"></script>
+</body>
+</html>

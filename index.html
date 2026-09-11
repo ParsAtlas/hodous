@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Hodous</title>
+  <meta name="description" content="Hodous — A minimalist personal brand of calm, science, philosophy, and future contemplation." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            iceblue: '#C0E6FD',
+            mistblue: '#80AAD3',
+            steelblue: '#5B86B6',
+            slateblue: '#3F6593',
+            deepnavy: '#1B3554',
+            midnightblue: '#000F22'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles (Pure CSS, Zero SVG) -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-[#E3F0FC] text-[#1B3554] antialiased">
+
+  <!-- ====================================================================
+       TOP NAVIGATION (Top-Left 3-Line Hamburger Menu & 3 Destinations)
+       ==================================================================== -->
+  <header class="top-nav">
+    <!-- Top-Left 3-Line Hamburger Button (Pure HTML & CSS, Zero SVG) -->
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Navigation Menu" title="Navigation">
+      <span class="hamburger-line line-1"></span>
+      <span class="hamburger-line line-2"></span>
+      <span class="hamburger-line line-3"></span>
+    </button>
+
+    <!-- Center Wordmark -->
+    <a href="index.html" class="text-[15px] font-medium tracking-tight text-[#000F22] hover:text-[#3F6593] transition-colors">
+      Hodous
+    </a>
+
+    <!-- Top-Right Quiet Celestial Coordinate -->
+    <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none">
+      20h 39m · +11°
+    </div>
+  </header>
+
+  <!-- Drawer Backdrop Overlay -->
+  <div id="nav-backdrop" class="nav-backdrop"></div>
+
+  <!-- Slide-out Navigation Drawer (Home, Song, Test) -->
+  <aside id="nav-drawer" class="nav-drawer">
+    <div class="space-y-6">
+      <div class="border-b border-[#5B86B6]/20 pb-4">
+        <span class="text-xs font-light tracking-[0.22em] uppercase text-[#5B86B6] block">
+          Navigation Menu
+        </span>
+      </div>
+
+      <nav class="space-y-2.5">
+        <!-- 1. Home -->
+        <a href="index.html" class="nav-drawer-link is-active" id="nav-link-home">
+          <span>Home</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#1B3554]"></span>
+        </a>
+
+        <!-- 2. Song -->
+        <a href="song.html" class="nav-drawer-link" id="nav-link-song">
+          <span>Song</span>
+          <span class="text-[11px] text-[#3F6593] tracking-wider uppercase font-medium bg-[#C0E6FD]/40 px-2 py-0.5 rounded-full">Audio</span>
+        </a>
+
+        <!-- 3. Test -->
+        <a href="test.html" class="nav-drawer-link" id="nav-link-test">
+          <span>Test</span>
+          <span class="text-[11px] text-[#3F6593] tracking-wider uppercase font-medium bg-[#C0E6FD]/40 px-2 py-0.5 rounded-full">Portal</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Drawer Footer Note -->
+    <div class="pt-6 border-t border-[#5B86B6]/20 text-xs text-[#5B86B6] font-light">
+      Hodous • Mind & Cosmos
+    </div>
+  </aside>
+
+  <!-- ====================================================================
+       HERO (Serene, Airy Light Blue Atmosphere with Dense Stars)
+       ==================================================================== -->
+  <div class="hero-cosmic-universe">
+    <!-- Starfield Canvas (Dense Small Shimmering Stars, Zero SVG) -->
+    <canvas id="star-canvas"></canvas>
+
+    <!-- Layered Radiant Nebula Glow Highlights -->
+    <div class="ambient-nebula-glow"></div>
+    <div class="ambient-nebula-secondary"></div>
+
+    <!-- ================================================================
+         TWO LARGER CLICKABLE PORTAL STARS: "song" & "test"
+         Direct Entry Points (Pure HTML & CSS3, Zero SVG)
+         ================================================================ -->
+    <div class="portal-stars-system" aria-label="Portal Navigation Stars">
+      
+      <!-- Left Portal Star: "song" -->
+      <a href="song.html" id="portal-star-song" class="portal-star portal-star-song" title="ورود به بخش Song" aria-label="Song Space">
+        <div class="portal-star-figure">
+          <div class="portal-star-halo"></div>
+          <div class="portal-star-flare-h"></div>
+          <div class="portal-star-flare-v"></div>
+          <div class="portal-star-flare-diag"></div>
+          <div class="portal-star-core"></div>
+        </div>
+        <div class="portal-star-badge">
+          <span class="portal-star-dot"></span>
+          <span class="portal-star-name">song</span>
+          <span class="portal-star-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Right Portal Star: "test" -->
+      <a href="test.html" id="portal-star-test" class="portal-star portal-star-test" title="ورود به بخش Test" aria-label="Test Space">
+        <div class="portal-star-figure">
+          <div class="portal-star-halo"></div>
+          <div class="portal-star-flare-h"></div>
+          <div class="portal-star-flare-v"></div>
+          <div class="portal-star-flare-diag"></div>
+          <div class="portal-star-core"></div>
+        </div>
+        <div class="portal-star-badge">
+          <span class="portal-star-dot"></span>
+          <span class="portal-star-name">test</span>
+          <span class="portal-star-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Main Content Flow -->
+    <main class="relative z-10 w-full max-w-4xl mx-auto px-6 pt-24 sm:pt-28 pb-10 flex flex-col items-center">
+
+      <!-- ================================================================
+           HODOUS TITLE (Apple SF Pro Medium, Elegant Navy on Light Blue)
+           ================================================================ -->
+      <section class="relative text-center select-none pt-4 pb-4">
+        <!-- Soft Radiant Glow Behind Title -->
+        <div class="title-faint-glow"></div>
+
+        <h1 class="hodous-hero-title relative z-10">
+          Hodous
+        </h1>
+      </section>
+
+      <!-- ================================================================
+           CARL SAGAN QUOTE (Click to Reveal Persian Translation)
+           ================================================================ -->
+      <section id="quote-section" class="w-full max-w-2xl mx-auto py-4 sm:py-6 text-center">
+        <div id="quote-box" class="quote-interactive-box group" title="Click to reveal translation">
+          <blockquote class="quote-text text-lg sm:text-xl md:text-[22px] italic leading-relaxed">
+            “Somewhere, something incredible is waiting to be known.”
+          </blockquote>
+
+          <div class="quote-author mt-2.5 flex items-center justify-center gap-2">
+            <span>— CARL SAGAN</span>
+            <span class="text-[10px] text-[#3F6593] font-normal tracking-normal opacity-75 group-hover:opacity-100 transition-opacity">
+              (click for translation)
+            </span>
+          </div>
+
+          <!-- Persian Translation in San Francisco Arabic -->
+          <div id="quote-persian-reveal" class="quote-persian-reveal">
+            <p class="text-sm sm:text-base font-normal leading-relaxed">
+              «جایی، چیزی شگفت‌انگیز در انتظار شناخته شدن است.»
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           INTERACTIVE DOOR 
+           - Inside door & door leaf remain DARK
+           - Surrounding door has only minimal Midnight Blue halo
+           ================================================================ -->
+      <section id="door-section" class="w-full max-w-md mx-auto door-ambient-zone">
+        
+        <!-- Localized minimal Midnight Blue halo strictly around door -->
+        <div class="door-midnight-halo"></div>
+
+        <!-- Instruction & Animated Pure CSS Arrow ("open the door" in Hodous font) -->
+        <div class="door-instruction-wrap">
+          <span class="door-instruction-text">open the door</span>
+          <div class="door-css-arrow">
+            <div class="door-css-arrow-stem"></div>
+            <div class="door-css-arrow-head"></div>
+          </div>
+        </div>
+
+        <!-- Architectural Minimalist 3D Half-Open Door -->
+        <div id="interactive-door" class="door-installation" title="Click to open the door">
+          <!-- Outer Trim Frame -->
+          <div class="door-frame"></div>
+
+          <!-- Glowing Threshold Line -->
+          <div class="door-threshold"></div>
+
+          <!-- Inside the Door: Deep Cosmic Void (Dark tone preserved) -->
+          <div class="door-interior-void">
+            <!-- Dedicated Constellation Canvas Inside Door (Zero SVG) -->
+            <canvas id="delphinus-canvas"></canvas>
+          </div>
+
+          <!-- Volumetric Floor Light Beam -->
+          <div class="door-light-beam"></div>
+
+          <!-- 3D Ajar Door Leaf (Remains Dark) -->
+          <div id="door-leaf" class="door-leaf">
+            <div class="door-handle"></div>
+          </div>
+        </div>
+
+        <!-- Scientific Astronomical Observation Caption -->
+        <div id="delphinus-caption" class="astronomy-caption text-center mt-3 sm:mt-4 space-y-0.5">
+          <p class="text-[#000F22] font-semibold tracking-[0.16em] uppercase">
+            Delphinus · August Sky
+          </p>
+          <p class="text-[10px] text-[#3F6593] tracking-[0.24em] uppercase font-medium">
+            RA 20h 39m · Dec +11°
+          </p>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ====================================================================
+       MINIMAL FOOTER (Light Theme)
+       ==================================================================== -->
+  <footer class="site-footer">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="space-y-1">
+        <span class="text-[15px] font-semibold tracking-tight text-[#000F22]">
+          Hodous
+        </span>
+        <p class="text-xs text-[#3F6593] font-normal">
+          A contemplation of science, depth, and time.
+        </p>
+      </div>
+
+      <div class="text-xs text-[#5B86B6] font-normal tracking-wider">
+        © 2026 Hodous. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Starfield, Delphinus Constellation & Interaction Script -->
+  <script src="script.js"></script>
+</body>
+</html>

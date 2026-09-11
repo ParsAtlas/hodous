@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Hodous — بزرگترین ردفلگ برای تو چیه؟</title>
+  <meta name="description" content="Hodous — بزرگترین Red Flag تو چیه؟ ارزیابی خطوط قرمز و حساسیت‌های رفتاری در روابط" />
+
+  <!-- Custom Styles (Pure CSS, Zero SVG, Apple San Francisco Typography, Pastel Red Theme) -->
+  <link rel="stylesheet" href="red-or-green.css" />
+</head>
+<body>
+
+  <!-- ====================================================================
+       TOP NAVIGATION (Hodous Top Navigation & Hamburger Menu)
+       ==================================================================== -->
+  <header class="top-nav">
+    <!-- Top-Left 3-Line Hamburger Button (Pure HTML & CSS, Zero SVG) -->
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Navigation Menu" title="Navigation">
+      <span class="hamburger-line line-1"></span>
+      <span class="hamburger-line line-2"></span>
+      <span class="hamburger-line line-3"></span>
+    </button>
+
+    <!-- Center Wordmark -->
+    <a href="index.html" class="text-[15px] font-medium tracking-tight text-[#000F22] hover:text-[#3F6593] transition-colors" style="text-decoration:none;">
+      Hodous
+    </a>
+
+    <!-- Top-Right Quiet Status -->
+    <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none" style="direction:ltr; font-family:var(--font-stack);">
+      Test
+    </div>
+  </header>
+
+  <!-- Drawer Backdrop Overlay -->
+  <div id="nav-backdrop" class="nav-backdrop"></div>
+
+  <!-- Slide-out Navigation Drawer (Home, Song, Test) -->
+  <aside id="nav-drawer" class="nav-drawer">
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <div style="border-bottom: 1px solid rgba(91, 134, 182, 0.2); padding-bottom: 14px;">
+        <span style="font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: #5B86B6; display: block; direction: ltr;">
+          Menu
+        </span>
+      </div>
+
+      <nav style="display:flex; flex-direction:column; gap:8px;">
+        <a href="index.html" class="nav-drawer-link">
+          <span>Home</span>
+          <span style="font-size: 11px; color: #5B86B6; direction: ltr;">Portal</span>
+        </a>
+
+        <a href="song.html" class="nav-drawer-link">
+          <span>Song</span>
+          <span style="font-size: 11px; color: #5B86B6; direction: ltr;">Audio</span>
+        </a>
+
+        <a href="test.html" class="nav-drawer-link is-active">
+          <span>Test</span>
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: #D24B4B;"></span>
+        </a>
+      </nav>
+    </div>
+
+    <div style="padding-top: 20px; border-top: 1px solid rgba(91, 134, 182, 0.2); font-size: 12px; color: #5B86B6; font-weight: 300;">
+      Hodous • Mind & Cosmos
+    </div>
+  </aside>
+
+  <!-- ====================================================================
+       STARFIELD CANVAS (Dense Small Shimmering Stars, Zero SVG)
+       ==================================================================== -->
+  <canvas id="star-canvas"></canvas>
+
+  <!-- Ambient Radiant Nebula Glow Highlights (Pastel Red / Ruby) -->
+  <div class="ambient-nebula-glow"></div>
+
+  <!-- ====================================================================
+       MAIN APPLICATION VIEWPORT
+       ==================================================================== -->
+  <main class="app-viewport">
+
+    <!-- Sub-Nav Session Bar (Return to Test & Sound Toggle) -->
+    <div id="test-session-bar" class="test-session-bar" style="display: none;">
+      <button id="btn-back-to-hub" class="btn-back-to-hub" type="button">
+        <span>→</span>
+        <span>بازگشت</span>
+      </button>
+
+      <button id="sound-toggle-btn" class="sound-toggle-btn" type="button" aria-label="تنظیم صدا">
+        <span class="sound-indicator-dot"></span>
+        <span id="sound-status-text">صدا فعال</span>
+      </button>
+    </div>
+
+    <!-- ==================================================================
+         VIEW 0: TEST HUB (Featured Red Flag Test Card)
+         ================================================================== -->
+    <section id="view-hub" class="view-section is-active" aria-label="بخش تست">
+      
+      <div class="test-page-header">
+        <h1 class="test-page-title">Test</h1>
+      </div>
+
+      <!-- Single Featured Test Card: بزرگترین Red Flag تو چیه؟ (Clickable) -->
+      <div id="card-launch-rog" class="test-hero-card" role="button" tabindex="0" title="ورود به آزمون بزرگترین ردفلگ برای تو چیه؟">
+        
+        <div style="margin-bottom: 14px;">
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#C92A2A; background:rgba(255,227,227,0.7); padding:4px 14px; border-radius:999px; border:1px solid rgba(224,49,49,0.25);">
+            <span style="width:6px; height:6px; border-radius:50%; background:#E03131;"></span>
+            <span id="hub-card-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)</span>
+          </span>
+        </div>
+
+        <!-- Title: بزرگترین Red Flag تو چیه؟ with "Red" in red -->
+        <h2 id="hub-card-title" class="test-hero-title">
+          بزرگترین <span class="card-title-red">ردفلگ</span> برای تو چیه؟
+        </h2>
+
+        <!-- Subtitle 1: اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟ -->
+        <p id="hub-card-sub1" class="test-hero-sub-primary">
+          اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟
+        </p>
+
+        <!-- Subtitle 2: اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟ -->
+        <p id="hub-card-sub2" class="test-hero-desc">
+          اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟
+        </p>
+
+        <div style="margin-top: 10px;">
+          <span class="test-hero-cta">
+            <span id="hub-card-cta-text">شروع ارزیابی خطوط قرمز</span>
+            <span id="hub-card-cta-arrow">←</span>
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================================================================
+         VIEW 2: TEST SETUP (Language Selection & Theme Selection)
+         ================================================================== -->
+    <section id="view-theme" class="view-section" aria-label="تنظیمات آزمون">
+      <div class="theme-select-card">
+        <h2 id="setup-main-headline" class="section-headline">
+          تنظیمات آزمون
+        </h2>
+        <p id="setup-sub-headline" class="section-subheadline">
+          زبان آزمون و ظاهر کارت سؤال را مشخص کنید
+        </p>
+
+        <!-- 1. LANGUAGE SELECTION -->
+        <div class="setup-group-block">
+          <label id="label-lang-select" class="setup-group-label">
+            زبان آزمون / Test Language
+          </label>
+          <div class="lang-options-grid">
+            <div class="lang-option-box is-selected" data-lang="fa" role="button" tabindex="0">
+              <div class="lang-title-row">
+                <span class="lang-code-tag">FA</span>
+                <span class="lang-name-tag">فارسی</span>
+              </div>
+              <div class="theme-radio-circle">
+                <span class="theme-radio-inner"></span>
+              </div>
+            </div>
+            <div class="lang-option-box" data-lang="en" role="button" tabindex="0">
+              <div class="lang-title-row">
+                <span class="lang-code-tag">EN</span>
+                <span class="lang-name-tag">English</span>
+              </div>
+              <div class="theme-radio-circle">
+                <span class="theme-radio-inner"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. THEME SELECTION -->
+        <div class="setup-group-block">
+          <label id="label-theme-select" class="setup-group-label">
+            پوسته کارت سؤال / Card Theme
+          </label>
+          <div class="theme-options-grid">
+            <!-- WHITE PASTEL THEME PREVIEW -->
+            <div class="theme-option-box is-selected" data-theme="white" role="button" tabindex="0">
+              <div class="theme-preview-mini theme-preview-white">
+                <div class="preview-pill-bar"></div>
+                <div class="preview-text-line" id="preview-text-white">پس‌زمینه روشن و مینیمال (پاستیلی)</div>
+                <div class="preview-opt-mini" id="preview-opt-white">مقیاس ۱ تا ۱۰</div>
+              </div>
+              <div class="theme-title-row">
+                <span class="theme-name-tag">WHITE</span>
+                <div class="theme-radio-circle">
+                  <span class="theme-radio-inner"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLACK RUBY THEME PREVIEW -->
+            <div class="theme-option-box" data-theme="black" role="button" tabindex="0">
+              <div class="theme-preview-mini theme-preview-black">
+                <div class="preview-pill-bar"></div>
+                <div class="preview-text-line" id="preview-text-black">پس‌زمینه تیره و مخملی (یاقوتی)</div>
+                <div class="preview-opt-mini" id="preview-opt-black">مقیاس ۱ تا ۱۰</div>
+              </div>
+              <div class="theme-title-row">
+                <span class="theme-name-tag">BLACK</span>
+                <div class="theme-radio-circle">
+                  <span class="theme-radio-inner"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-start-test" class="btn-primary" type="button">
+          <span id="btn-start-test-text">شروع تست</span>
+          <span id="btn-start-test-arrow">←</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 3: QUESTION CARD SCREEN (15 Scenarios · 1 to 10 Rating Scale)
+         ================================================================== -->
+    <section id="view-quiz" class="view-section" aria-label="کارت سؤال">
+      <div id="question-card" class="question-card-container theme-white">
+
+        <!-- Card Header Meta: Counter & Brand Stamp -->
+        <div class="card-header-meta">
+          <span id="question-counter" class="question-counter-label">
+            سؤال ۱ از ۱۰
+          </span>
+          <span class="question-brand-stamp">
+            بزرگترین <span class="stamp-red">ردفلگ</span> برای تو چیه؟
+          </span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div id="progress-bar-fill" class="progress-bar-fill" style="width: 6.6%;"></div>
+        </div>
+
+        <!-- Question Statement -->
+        <h3 id="question-statement" class="question-statement-text">
+          در حال بارگذاری سؤال...
+        </h3>
+
+        <!-- Rating Scale 1 to 10 Container (Elimination Mode) -->
+        <div class="rating-scale-wrapper">
+          <div style="text-align:center; margin-bottom: 12px;">
+            <span id="scale-hint-text" class="scale-hint-text">
+              هر عدد فقط یک بار قابل انتخاب است و پس از انتخاب از گزینه‌ها حذف می‌شود
+            </span>
+          </div>
+
+          <div id="scale-buttons-grid" class="scale-buttons-grid" role="radiogroup" aria-label="مقیاس ۱ تا ۱۰">
+            <!-- Dynamic available buttons injected via JS -->
+          </div>
+
+          <!-- Scale Explanatory Legends -->
+          <div class="scale-labels-legend">
+            <span id="scale-legend-min" class="scale-legend-min">۱ = کمترین میزان Red Flag</span>
+            <span id="scale-legend-max" class="scale-legend-max">۱۰ = بیشترین میزان Red Flag</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 4: COMPILATION & ANIMATION STAGE
+         ================================================================== -->
+    <section id="view-animation" class="view-section" aria-label="محاسبه و تحلیل رنکینگ">
+      <div class="animation-stage">
+        <p id="animation-subtitle-text" class="animation-subtitle">
+          در حال تحلیل خطوط قرمز و استخراج رنکینگ...
+        </p>
+
+        <div id="flipper-card" class="flipper-card-scene">
+          <!-- Front Face: RED FLAG -->
+          <div class="flipper-card-face flipper-face-red">
+            <span class="flipper-brand-stamp">RED FLAG ASSESSMENT</span>
+            <span class="flipper-face-title">RED FLAG</span>
+            <div class="flipper-face-pill"></div>
+          </div>
+
+          <!-- Back Face: RANKING -->
+          <div class="flipper-card-face flipper-face-green">
+            <span class="flipper-brand-stamp">RELATIONAL CRITERIA</span>
+            <span class="flipper-face-title">RANKING</span>
+            <div class="flipper-face-pill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 5: FINAL RESULT PRESENTATION (Top 5 Ranking & Deep Synthesis)
+         ================================================================== -->
+    <section id="view-result" class="view-section" aria-label="نتیجه ارزیابی و رنکینگ">
+      <div id="result-card" class="result-card">
+
+        <span id="result-kicker-text" class="result-kicker">تحلیل اختصاصی معیارهای ارتباطی</span>
+
+        <!-- 1. BIGGEST RED FLAG HERO CARD -->
+        <div class="result-hero-banner">
+          <h2 id="result-biggest-prefix" class="result-hero-kicker">
+            بزرگترین <span class="card-title-red">ردفلگ</span> برای تو:
+          </h2>
+          <div class="biggest-red-flag-card">
+            <div class="biggest-card-top">
+              <h3 id="result-biggest-title" class="biggest-flag-title">نقض حریم شخصی و افشای راز</h3>
+              <div id="result-biggest-score" class="biggest-flag-score">۱۰ / ۱۰</div>
+            </div>
+            <p id="result-biggest-desc" class="biggest-flag-desc">
+              توضیح کوتاه و شخصی‌سازی‌شده درباره بزرگترین خط قرمز رفتاری شما...
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. TOP 5 RANKING SECTION -->
+        <div class="ranking-section-block">
+          <div class="section-title-wrap">
+            <span class="dimension-dot"></span>
+            <h3 id="ranking-section-title" class="ranking-section-title">
+              رنکینگ ۵ مورد با بیشترین حساسیت برای تو
+            </h3>
+          </div>
+
+          <!-- List of 5 Dynamic Ranking Cards (#1 to #5) -->
+          <div id="ranking-cards-container" class="ranking-cards-container">
+            <!-- Injected dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- 3. BEHAVIORAL DISTANCING SUMMARY -->
+        <div class="result-narrative-box">
+          <div id="summary-section-title" class="narrative-title">
+            جمع‌بندی سبک ارتباطی و فاصله‌گیری از رفتارهای ناسالم
+          </div>
+          <p id="result-summary-text" class="narrative-text">
+            در حال پردازش جمع‌بندی معیارهای ارتباطی...
+          </p>
+        </div>
+
+        <!-- 4. ETHICS DISCLAIMER ALERT -->
+        <div id="result-disclaimer" class="result-ethics-disclaimer">
+          توجه: این تست درباره معیارهای شخص برای تشخیص Red Flag در دیگران است، نه تشخیص شخصیت یا سلامت روان.
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="result-actions-grid">
+          <button id="btn-restart" class="btn-secondary btn-restart" type="button">
+            انجام دوباره تست
+          </button>
+
+          <button id="btn-share" class="btn-primary btn-share" type="button">
+            اشتراک‌گذاری رنکینگ
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast for Share Fallback -->
+  <div id="share-toast" class="share-toast" role="status" aria-live="polite">
+    رنکینگ در کلیپ‌بورد کپی شد
+  </div>
+
+  <!-- Assessment Logic Script (Zero External Dependencies) -->
+  <script src="red-or-green.js"></script>
+</body>
+</html>
