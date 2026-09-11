@@ -102,6 +102,135 @@
     }
     .is-playing .css-play-icon { display: none; }
     .is-playing .css-pause-icon { display: block; }
+
+    /* Prev / Next Track Buttons */
+    .css-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid #C0E6FD;
+      color: #1B3554;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      box-shadow: 0 2px 6px rgba(27, 53, 84, 0.06);
+    }
+    .css-nav-btn:hover {
+      background: #E8F4FC;
+      border-color: #80AAD3;
+      color: #0B223D;
+      transform: scale(1.08);
+    }
+    .css-nav-btn:active {
+      transform: scale(0.94);
+    }
+    .css-nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+      pointer-events: none;
+    }
+
+    /* Saved Library Track Rows */
+    .saved-track-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid #C0E6FD;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .saved-track-row:hover {
+      background: #FFFFFF;
+      border-color: #80AAD3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(91, 134, 182, 0.12);
+    }
+    .saved-track-row.is-current {
+      background: #EBF4FC;
+      border-color: #5B86B6;
+      box-shadow: 0 4px 14px rgba(27, 53, 84, 0.12);
+    }
+    .mini-track-play-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #E8F4FC;
+      color: #1B3554;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      border: 1px solid #C0E6FD;
+      transition: all 0.2s ease;
+    }
+    .saved-track-row:hover .mini-track-play-btn {
+      background: #1B3554;
+      color: #FFFFFF;
+      border-color: #1B3554;
+    }
+    .saved-track-row.is-current .mini-track-play-btn {
+      background: #1B3554;
+      color: #FFFFFF;
+      border-color: #1B3554;
+    }
+    .mini-eq {
+      display: none;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+    .saved-track-row.is-current.is-playing-now .mini-eq {
+      display: flex;
+    }
+    .saved-track-row.is-current.is-playing-now .mini-play-icon {
+      display: none;
+    }
+    .mini-eq-bar {
+      width: 2px;
+      background: #FFFFFF;
+      border-radius: 99px;
+      animation: miniEqPulse 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes miniEqPulse {
+      0% { height: 3px; }
+      100% { height: 12px; }
+    }
+    .mini-eq-bar:nth-child(1) { animation-delay: 0.05s; }
+    .mini-eq-bar:nth-child(2) { animation-delay: 0.25s; }
+    .mini-eq-bar:nth-child(3) { animation-delay: 0.15s; }
+
+    .track-delete-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #80AAD3;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .track-delete-btn:hover {
+      background: #FEE2E2;
+      color: #DC2626;
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body class="bg-[#F4F9FD] text-[#1B3554] antialiased min-h-screen flex flex-col">
@@ -212,12 +341,12 @@
             بارگذاری و پخش آهنگ دلخواه
           </h2>
           <p class="text-xs sm:text-sm text-[#3F6593] font-normal max-w-sm mx-auto leading-relaxed" dir="rtl">
-            فایل صوتی خود (MP3, M4A, WAV) را انتخاب کنید تا بلافاصله بدون اینترنت و بدون فیلترشکن در پلیر اختصاصی پخش شود.
+            فایل صوتی خود (MP3, M4A, WAV) را انتخاب کنید تا برای همیشه در کتابخانه اختصاصی مرورگرتان ذخیره و پخش شود.
           </p>
         </div>
 
-        <!-- Hidden Native File Input (Positioned off-screen, NOT display:none, ensuring full macOS Safari & Mobile compatibility) -->
-        <input type="file" id="audio-file-input" accept=".mp3,.m4a,.wav,.ogg,.aac,.flac,audio/*" style="position:fixed;top:-2000px;left:-2000px;opacity:0;pointer-events:none;" />
+        <!-- Hidden Native File Input (Positioned off-screen, NOT display:none, with multiple selection enabled) -->
+        <input type="file" id="audio-file-input" multiple accept=".mp3,.m4a,.wav,.ogg,.aac,.flac,audio/*" style="position:fixed;top:-2000px;left:-2000px;opacity:0;pointer-events:none;" />
 
         <!-- Drop Zone & Upload Trigger -->
         <div id="drop-zone" class="drop-zone flex flex-col items-center justify-center gap-3">
@@ -226,10 +355,10 @@
           </div>
           <div class="space-y-1.5">
             <button type="button" id="upload-trigger-btn" class="upload-btn">
-              <span>انتخاب فایل صوتی از سیستم</span>
+              <span>انتخاب فایل‌های صوتی از سیستم</span>
             </button>
             <p class="text-xs text-[#5B86B6] font-normal pt-1" dir="rtl">
-              یا فایل صوتی را بکشید و اینجا رها کنید (Drag & Drop)
+              یا فایل‌های صوتی را باهم بکشید و اینجا رها کنید (Drag & Drop)
             </p>
           </div>
         </div>
@@ -238,12 +367,22 @@
         <div id="player-container" class="hidden pt-5 border-t border-[#C0E6FD] space-y-4">
           <div class="p-5 rounded-2xl bg-[#F0F7FD] border border-[#C0E6FD] space-y-4">
             <!-- Track Info & Actions -->
-            <div class="flex items-center justify-between gap-3">
-              <div class="flex items-center gap-3 text-left overflow-hidden">
-                <button id="play-pause-btn" class="css-play-btn shrink-0" aria-label="Play or Pause">
-                  <span class="css-play-icon"></span>
-                  <span class="css-pause-icon"></span>
-                </button>
+            <div class="flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+              <div class="flex items-center gap-3 text-left overflow-hidden min-w-0">
+                <!-- Navigation & Play/Pause Controls -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <button type="button" id="prev-track-btn" class="css-nav-btn shrink-0" aria-label="Previous Track" title="آهنگ قبلی">
+                    <span>⏮</span>
+                  </button>
+                  <button id="play-pause-btn" class="css-play-btn shrink-0" aria-label="Play or Pause">
+                    <span class="css-play-icon"></span>
+                    <span class="css-pause-icon"></span>
+                  </button>
+                  <button type="button" id="next-track-btn" class="css-nav-btn shrink-0" aria-label="Next Track" title="آهنگ بعدی">
+                    <span>⏭</span>
+                  </button>
+                </div>
+
                 <div class="min-w-0">
                   <p id="current-track-title" class="text-sm font-semibold text-[#0B223D] truncate">
                     Track Name
@@ -254,9 +393,9 @@
                 </div>
               </div>
 
-              <div class="flex items-center gap-2 shrink-0">
+              <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
                 <button type="button" id="change-track-btn" class="text-xs font-medium text-[#1B3554] hover:text-[#0B223D] bg-white hover:bg-[#E8F4FC] border border-[#C0E6FD] px-3 py-1.5 rounded-xl transition-colors shadow-2xs">
-                  تعویض آهنگ
+                  ＋ افزودن آهنگ
                 </button>
                 <span id="player-status-badge" class="text-[11px] font-medium text-[#1B3554] bg-[#C0E6FD]/60 px-2.5 py-1 rounded-full border border-[#C0E6FD] hidden sm:inline-block">
                   آماده پخش
@@ -272,6 +411,43 @@
 
           <!-- Native Audio Element -->
           <audio id="audio-player" preload="metadata"></audio>
+        </div>
+
+        <!-- Saved Audio Tracks Library Section (IndexedDB Persistent) -->
+        <div id="saved-library-section" class="pt-5 border-t border-[#C0E6FD] text-right space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2" dir="rtl">
+              <h3 class="text-sm sm:text-base font-semibold text-[#0B223D]">
+                کتابخانه آهنگ‌های ذخیره‌شده
+              </h3>
+              <span id="saved-count-badge" class="text-[11px] font-medium bg-[#E8F4FC] text-[#1B3554] border border-[#C0E6FD] px-2.5 py-0.5 rounded-full">
+                ۰ آهنگ
+              </span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <button type="button" id="add-more-btn" class="text-[#1B3554] hover:text-[#0B223D] bg-[#E8F4FC] hover:bg-[#C0E6FD]/60 border border-[#C0E6FD] px-3 py-1 rounded-xl transition-all font-medium shadow-2xs">
+                ＋ افزودن فایل
+              </button>
+              <button type="button" id="clear-all-btn" class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 px-2.5 py-1 rounded-xl transition-all hidden shadow-2xs font-medium">
+                پاکسازی همه
+              </button>
+            </div>
+          </div>
+
+          <!-- Saved Tracks List Container -->
+          <div id="saved-tracks-list" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+            <!-- Dynamic items rendered by script.js -->
+          </div>
+
+          <!-- Empty Library State -->
+          <div id="empty-library-state" class="py-6 px-4 rounded-2xl bg-[#F0F7FD]/60 border border-dashed border-[#C0E6FD] text-center space-y-1.5">
+            <p class="text-xs text-[#3F6593] font-medium" dir="rtl">
+              هنوز آهنگی ذخیره نشده است.
+            </p>
+            <p class="text-[11px] text-[#5B86B6] leading-relaxed" dir="rtl">
+              با انتخاب یا رها کردن فایل صوتی در کادر بالا، آهنگ‌ها برای همیشه در مرورگر شما ذخیره می‌مانند و حتی با بستن مرورگر یا رفرش پاک نمی‌شوند.
+            </p>
+          </div>
         </div>
 
         <!-- Error Feedback Message (Hidden unless playback error occurs) -->
