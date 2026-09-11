@@ -4,8 +4,48 @@
    Apple San Francisco Stack · Pure HTML5, CSS3 & Web Audio API
    ========================================================================== */
 
+/* ==========================================================================
+   Apple San Francisco & San Francisco Arabic Web Fonts (Universal Bundle)
+   Guaranteed iPhone & macOS Typography Across All Devices (Android, Windows, etc.)
+   ========================================================================== */
+@font-face {
+  font-family: 'SF Pro';
+  src: url('fonts/SFPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+2000-206F, U+2190-21FF;
+}
+
+@font-face {
+  font-family: 'SF Pro';
+  src: url('fonts/SFPro-Bold.woff2') format('woff2');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+2000-206F, U+2190-21FF;
+}
+
+@font-face {
+  font-family: 'SF Arabic';
+  src: url('fonts/SFArabic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200B-200F, U+202A-202E;
+}
+
+@font-face {
+  font-family: 'SF Arabic';
+  src: url('fonts/SFArabic-Bold.woff2') format('woff2');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200B-200F, U+202A-202E;
+}
+
 :root {
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Arabic", "SF Pro Arabic", "Geeza Pro", "Helvetica Neue", Arial, sans-serif;
+  --font-stack: 'SF Pro', 'SF Arabic', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Arabic", "SF Pro Arabic", "Geeza Pro", "Helvetica Neue", sans-serif;
   --accent-red: #D24B4B;
   --accent-green: #2E8258;
   --ice-blue: #C0E6FD;
