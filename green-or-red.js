@@ -688,8 +688,8 @@
     const winner = green >= red ? `GREEN ${green}%` : `RED ${red}%`;
 
     const shareText = lang === 'en'
-      ? `🌱 Hodous — Green Flag or Red Flag Assessment\nResult: ${winner} (Green: ${green}% · Red: ${red}%)\nTake the test: https://parsatlas.github.io/hodous/test.html`
-      : `🌱 آزمون Green Flag یا Red Flag هودوس\nنتیجه من: ${winner} (سبز: ${green}٪ · قرمز: ${red}٪)\nانجام آزمون: https://parsatlas.github.io/hodous/test.html`;
+      ? `🌱 Hodous — Green Flag or Red Flag Assessment\nResult: ${winner} (Green: ${green}% · Red: ${red}%)\nTake the test: https://xhodous.github.io/test.html`
+      : `🌱 آزمون Green Flag یا Red Flag هودوس\nنتیجه من: ${winner} (سبز: ${green}٪ · قرمز: ${red}٪)\nانجام آزمون: https://xhodous.github.io/test.html`;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(shareText).then(() => {
