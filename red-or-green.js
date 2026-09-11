@@ -494,7 +494,7 @@
   // 7. VIEW MANAGEMENT & ATMOSPHERE
   // ========================================================================
   function showView(targetView) {
-    [viewHub, viewTheme, viewQuiz, viewAnimation, viewResult].forEach(v => {
+    document.querySelectorAll('.view-section').forEach(v => {
       if (v) v.classList.remove('is-active');
     });
 
@@ -506,7 +506,9 @@
     // When user starts the test (viewTheme, viewQuiz, viewAnimation, viewResult), page turns pastel red!
     if (targetView === viewHub) {
       document.body.classList.remove('theme-pastel-red');
+      document.body.classList.remove('theme-gorf-pastel');
     } else {
+      document.body.classList.remove('theme-gorf-pastel');
       document.body.classList.add('theme-pastel-red');
     }
 
@@ -527,6 +529,18 @@
     document.documentElement.dir = t.dir;
     document.body.dir = t.dir;
     document.body.classList.toggle('lang-en', isEn);
+
+    // Update global lang toggle button if present
+    const globalLangBtn = document.getElementById('global-lang-toggle');
+    if (globalLangBtn) {
+      const btnTxt = globalLangBtn.querySelector('.global-lang-text');
+      if (btnTxt) btnTxt.textContent = isEn ? 'FA' : 'EN';
+    }
+
+    // Sync with Test 2
+    if (typeof window.updateGorfLanguage === 'function') {
+      window.updateGorfLanguage(state.selectedLanguage);
+    }
 
     // Update setup lang boxes
     langBoxes.forEach(box => {
@@ -1099,6 +1113,10 @@
     } else {
       showView(viewHub);
     }
+
+    // Expose language switcher for global access
+    window.applyHodousLanguage = applyLanguage;
+    window.HodousState = state;
   });
 
 })();

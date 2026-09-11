@@ -8,6 +8,7 @@
 
   <!-- Custom Styles (Pure CSS, Zero SVG, Apple San Francisco Typography, Pastel Red Theme) -->
   <link rel="stylesheet" href="red-or-green.css" />
+  <link rel="stylesheet" href="green-or-red.css" />
 </head>
 <body>
 
@@ -27,9 +28,14 @@
       Hodous
     </a>
 
-    <!-- Top-Right Quiet Status -->
-    <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none" style="direction:ltr; font-family:var(--font-stack);">
-      Test
+    <!-- Top-Right Actions: Language Switcher & Quiet Status -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button id="global-lang-toggle" class="global-lang-toggle" type="button" aria-label="تغییر زبان / Switch Language" title="تغییر زبان آزمون‌ها">
+        <span class="global-lang-text">EN</span>
+      </button>
+      <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none" style="direction:ltr; font-family:var(--font-stack);">
+        Test
+      </div>
     </div>
   </header>
 
@@ -95,7 +101,7 @@
     </div>
 
     <!-- ==================================================================
-         VIEW 0: TEST HUB (Featured Red Flag Test Card)
+         VIEW 0: TEST HUB (Two Independent Tests)
          ================================================================== -->
     <section id="view-hub" class="view-section is-active" aria-label="بخش تست">
       
@@ -103,36 +109,74 @@
         <h1 class="test-page-title">Test</h1>
       </div>
 
-      <!-- Single Featured Test Card: بزرگترین Red Flag تو چیه؟ (Clickable) -->
-      <div id="card-launch-rog" class="test-hero-card" role="button" tabindex="0" title="ورود به آزمون بزرگترین ردفلگ برای تو چیه؟">
-        
-        <div style="margin-bottom: 14px;">
-          <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#C92A2A; background:rgba(255,227,227,0.7); padding:4px 14px; border-radius:999px; border:1px solid rgba(224,49,49,0.25);">
-            <span style="width:6px; height:6px; border-radius:50%; background:#E03131;"></span>
-            <span id="hub-card-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)</span>
-          </span>
+      <div class="test-hub-grid">
+
+        <!-- Card 1: Featured Red Flag Elimination Test (بزرگترین ردفلگ برای تو چیه؟) -->
+        <div id="card-launch-rog" class="test-hero-card" role="button" tabindex="0" title="ورود به آزمون بزرگترین ردفلگ برای تو چیه؟">
+          
+          <div style="margin-bottom: 14px;">
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#C92A2A; background:rgba(255,227,227,0.7); padding:4px 14px; border-radius:999px; border:1px solid rgba(224,49,49,0.25);">
+              <span style="width:6px; height:6px; border-radius:50%; background:#E03131;"></span>
+              <span id="hub-card-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)</span>
+            </span>
+          </div>
+
+          <!-- Title: بزرگترین Red Flag تو چیه؟ with "Red" in red -->
+          <h2 id="hub-card-title" class="test-hero-title">
+            بزرگترین <span class="card-title-red">ردفلگ</span> برای تو چیه؟
+          </h2>
+
+          <!-- Subtitle 1: اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟ -->
+          <p id="hub-card-sub1" class="test-hero-sub-primary">
+            اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟
+          </p>
+
+          <!-- Subtitle 2: اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟ -->
+          <p id="hub-card-sub2" class="test-hero-desc">
+            اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟
+          </p>
+
+          <div style="margin-top: 10px;">
+            <span class="test-hero-cta">
+              <span id="hub-card-cta-text">شروع ارزیابی خطوط قرمز</span>
+              <span id="hub-card-cta-arrow">←</span>
+            </span>
+          </div>
+
         </div>
 
-        <!-- Title: بزرگترین Red Flag تو چیه؟ with "Red" in red -->
-        <h2 id="hub-card-title" class="test-hero-title">
-          بزرگترین <span class="card-title-red">ردفلگ</span> برای تو چیه؟
-        </h2>
+        <!-- Card 2: Green Flag یا Red Flag؟ (New 15-Question Test with 3D Flip Card) -->
+        <div id="card-launch-gorf" class="test-hero-card card-gorf" role="button" tabindex="0" title="ورود به آزمون Green Flag یا Red Flag؟">
+          
+          <div style="margin-bottom: 14px;">
+            <span class="badge-gorf-pastel">
+              <span class="badge-gorf-dot-pair">
+                <span class="dot-green-mini"></span>
+                <span class="dot-red-mini"></span>
+              </span>
+              <span id="hub-card-gorf-badge-text">۱۵ سؤال موقعیتی · چرخش ۳بعدی کارت</span>
+            </span>
+          </div>
 
-        <!-- Subtitle 1: اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟ -->
-        <p id="hub-card-sub1" class="test-hero-sub-primary">
-          اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟
-        </p>
+          <h2 id="hub-card-gorf-title" class="test-hero-title">
+            <span class="card-title-green-gorf">Green Flag</span> یا <span class="card-title-red-gorf">Red Flag</span>؟
+          </h2>
 
-        <!-- Subtitle 2: اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟ -->
-        <p id="hub-card-sub2" class="test-hero-desc">
-          اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟
-        </p>
+          <p id="hub-card-gorf-sub1" class="test-hero-sub-primary">
+            الگوهای ارتباطی تو بیشتر به کدام سمت گرایش دارند؟
+          </p>
 
-        <div style="margin-top: 10px;">
-          <span class="test-hero-cta">
-            <span id="hub-card-cta-text">شروع ارزیابی خطوط قرمز</span>
-            <span id="hub-card-cta-arrow">←</span>
-          </span>
+          <p id="hub-card-gorf-sub2" class="test-hero-desc">
+            بررسی الگوهای رفتاری در روابط از طریق ۱۵ موقعیت روان‌شناختی روزمره همراه با چرخش ۳بعدی کارت نتیجه.
+          </p>
+
+          <div style="margin-top: 10px;">
+            <span class="test-hero-cta" style="background: linear-gradient(135deg, #166534 0%, #0F172A 100%);">
+              <span id="hub-card-gorf-cta-text">شروع آزمون Green یا Red</span>
+              <span>←</span>
+            </span>
+          </div>
+
         </div>
 
       </div>
@@ -366,6 +410,139 @@
       </div>
     </section>
 
+    <!-- ==================================================================
+         VIEW: GREEN FLAG یا RED FLAG (15 Questions Screen)
+         ================================================================== -->
+    <section id="view-gorf-quiz" class="view-section" aria-label="سؤالات آزمون گرین یا ردفلگ">
+      <div class="gorf-card-container">
+        
+        <!-- Top Delicate Progress Bar (1/15 to 15/15) -->
+        <div class="gorf-progress-wrapper">
+          <div class="gorf-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div id="gorf-progress-fill" class="gorf-progress-fill" style="width: 6.7%;"></div>
+          </div>
+        </div>
+
+        <!-- Meta Bar: Counter & Test Badge (Zero Category/Header) -->
+        <div class="gorf-meta-row">
+          <span id="gorf-counter-badge" class="gorf-counter-badge">1 / 15</span>
+          <span id="gorf-test-title-stamp" class="gorf-test-title-stamp">Green Flag یا Red Flag؟</span>
+        </div>
+
+        <!-- Question Statement -->
+        <h2 id="gorf-question-text" class="gorf-question-text">
+          در حال بارگذاری سؤال...
+        </h2>
+
+        <!-- Options Container (الف / ب / ج) -->
+        <div id="gorf-options-list" class="gorf-options-list" role="radiogroup" aria-label="گزینه‌های پاسخ">
+          <!-- Injected via JS -->
+        </div>
+
+        <!-- Navigation Buttons: Back & Next -->
+        <div class="gorf-nav-row">
+          <button id="gorf-btn-prev" class="gorf-btn-prev" type="button" disabled>
+            <span class="gorf-btn-prev-text">قبلی</span>
+          </button>
+
+          <button id="gorf-btn-next" class="gorf-btn-next" type="button" disabled>
+            <span class="gorf-btn-next-text">ادامه</span>
+            <span>←</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW: GREEN FLAG یا RED FLAG (Result View with 3D Flip Card)
+         ================================================================== -->
+    <section id="view-gorf-result" class="view-section" aria-label="نتیجه آزمون گرین یا ردفلگ">
+      <div class="gorf-result-card">
+        
+        <span class="gorf-result-kicker">تحلیل الگوی پاسخ‌ها و رفتار ارتباطی</span>
+
+        <!-- 3D FLIP CARD SCENE -->
+        <div class="gorf-flip-scene">
+          <div id="gorf-flip-card" class="gorf-flip-card">
+            
+            <!-- Front Face: GREEN -->
+            <div class="gorf-card-face gorf-card-front">
+              <span class="gorf-face-header-stamp">HODOUS RELATIONAL PATTERN</span>
+              <div class="gorf-face-center">
+                <div class="gorf-face-icon-circle">
+                  <span class="gorf-css-check"></span>
+                </div>
+                <div class="gorf-face-title">GREEN</div>
+              </div>
+              <div class="gorf-face-pill"></div>
+            </div>
+
+            <!-- Back Face: RED -->
+            <div class="gorf-card-face gorf-card-back">
+              <span class="gorf-face-header-stamp">HODOUS RELATIONAL PATTERN</span>
+              <div class="gorf-face-center">
+                <div class="gorf-face-icon-circle">
+                  <span class="gorf-css-flag"></span>
+                </div>
+                <div class="gorf-face-title">RED</div>
+              </div>
+              <div class="gorf-face-pill"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Result Details (Revealed smoothly after 3D flip) -->
+        <div id="gorf-result-details" class="gorf-result-details">
+          
+          <!-- Exact Percentage Readout (e.g. GREEN 78% or RED 64% or GREEN 50% — RED 50%) -->
+          <div id="gorf-percentage-headline" class="gorf-percentage-headline is-green">
+            GREEN 0%
+          </div>
+
+          <!-- Dual Balance Comparison Bar -->
+          <div class="gorf-balance-bar-container">
+            <div class="gorf-balance-bar-track">
+              <div id="gorf-balance-bar-green" class="gorf-balance-bar-green" style="width: 50%;"></div>
+              <div id="gorf-balance-bar-red" class="gorf-balance-bar-red" style="width: 50%;"></div>
+            </div>
+            <div class="gorf-balance-labels">
+              <span id="label-val-green" class="label-val-green">GREEN 50%</span>
+              <span id="label-val-red" class="label-val-red">RED 50%</span>
+            </div>
+          </div>
+
+          <!-- Descriptive Narrative (Non-judgmental pattern description) -->
+          <div class="gorf-narrative-box">
+            <p id="gorf-narrative-text" class="gorf-narrative-text">
+              پاسخ‌های تو در این تست بیشتر به سمت الگوهای Green Flag متمایل بود.
+            </p>
+          </div>
+
+          <!-- Mandatory Ethics Disclaimer -->
+          <div id="gorf-disclaimer-text" class="gorf-disclaimer-box">
+            این آزمون صرفاً برای سرگرمی و خودشناسی طراحی شده و تشخیص روانشناختی یا ارزیابی قطعی شخصیت نیست.
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="gorf-actions-grid">
+            <button id="btn-gorf-restart" class="gorf-btn-action gorf-btn-secondary" type="button">
+              <span class="gorf-btn-restart-text">انجام دوباره تست</span>
+            </button>
+            <button id="btn-gorf-share" class="gorf-btn-action gorf-btn-primary" type="button">
+              <span class="gorf-btn-share-text">اشتراک‌گذاری نتیجه</span>
+            </button>
+            <button id="btn-gorf-back-hub" class="gorf-btn-action gorf-btn-secondary" type="button">
+              <span class="gorf-btn-hub-text">بازگشت به آزمون‌ها</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Notification Toast for Share Fallback -->
@@ -373,7 +550,8 @@
     رنکینگ در کلیپ‌بورد کپی شد
   </div>
 
-  <!-- Assessment Logic Script (Zero External Dependencies) -->
+  <!-- Assessment Logic Scripts (Zero External Dependencies) -->
   <script src="red-or-green.js"></script>
+  <script src="green-or-red.js"></script>
 </body>
 </html>
