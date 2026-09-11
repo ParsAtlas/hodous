@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Hodous — Sonic Constellation</title>
-  <meta name="description" content="Hodous Song — A scattered sonic constellation of floating tracks and acoustic resonance in the cosmic universe." />
+  <title>Hodous — Cosmic Playlist & White Planets</title>
+  <meta name="description" content="Hodous Cosmic Playlist — 7 floating tracks surrounded by a majestic white galaxy and orbital white planets." />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,13 +16,13 @@
             sans: ['"SF Pro"', '"SF Arabic"', '-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"SF Arabic"', '"SF Pro Arabic"', 'sans-serif'],
           },
           colors: {
-            bglight: '#F4F9FD',
+            cosmicnavy: '#060D17',
+            cosmicdeep: '#0B1729',
+            starwhite: '#FFFFFF',
             iceblue: '#C0E6FD',
             mistblue: '#80AAD3',
             steelblue: '#5B86B6',
-            slateblue: '#3F6593',
-            deepnavy: '#1B3554',
-            midnightdeep: '#0B223D'
+            slateblue: '#3F6593'
           }
         }
       }
@@ -33,299 +33,468 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* Pure CSS Sound Wave Visualizer */
-    .audio-visualizer-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      height: 44px;
-      transition: opacity 0.3s ease;
-    }
-
-    .audio-bar {
-      width: 2.5px;
-      background: linear-gradient(180deg, #1B3554 0%, #5B86B6 100%);
-      border-radius: 999px;
-      animation: soundBarPulse 1.4s ease-in-out infinite alternate;
-    }
-
-    @keyframes soundBarPulse {
-      0% { height: 8px; opacity: 0.35; }
-      100% { height: 40px; opacity: 0.95; }
-    }
-
-    .audio-bar:nth-child(1) { animation-delay: 0.05s; }
-    .audio-bar:nth-child(2) { animation-delay: 0.2s; }
-    .audio-bar:nth-child(3) { animation-delay: 0.4s; }
-    .audio-bar:nth-child(4) { animation-delay: 0.15s; }
-    .audio-bar:nth-child(5) { animation-delay: 0.5s; }
-    .audio-bar:nth-child(6) { animation-delay: 0.25s; }
-    .audio-bar:nth-child(7) { animation-delay: 0.35s; }
-    .audio-bar:nth-child(8) { animation-delay: 0.1s; }
-    .audio-bar:nth-child(9) { animation-delay: 0.45s; }
-    .audio-bar:nth-child(10) { animation-delay: 0.3s; }
-
-    /* Cosmic Floating Animations */
-    @keyframes cosmicFloatA {
-      0% { transform: translateY(0px) rotate(-1.5deg); }
-      50% { transform: translateY(-12px) rotate(0.5deg); }
-      100% { transform: translateY(0px) rotate(-1.5deg); }
-    }
-    @keyframes cosmicFloatB {
-      0% { transform: translateY(0px) rotate(1.5deg); }
-      50% { transform: translateY(-16px) rotate(-0.5deg); }
-      100% { transform: translateY(0px) rotate(1.5deg); }
-    }
-    @keyframes cosmicFloatC {
-      0% { transform: translateY(0px) rotate(-2deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
-      100% { transform: translateY(0px) rotate(-2deg); }
-    }
-    @keyframes cosmicFloatD {
-      0% { transform: translateY(0px) rotate(1deg); }
-      50% { transform: translateY(-14px) rotate(-1deg); }
-      100% { transform: translateY(0px) rotate(1deg); }
-    }
-
-    /* Scattered Constellation Grid */
-    .cosmic-constellation-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 32px 24px;
-      width: 100%;
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 10px 16px 150px 16px;
+    /* ==============================================================
+       COSMIC ENVIRONMENT: DEEP MIDNIGHT SKY WITH WHITE CELESTIAL BODIES
+       ============================================================== */
+    .hero-cosmic-universe {
+      background: radial-gradient(130% 110% at 50% 15%, #0A1728 0%, #060D17 50%, #02060B 100%) !important;
       position: relative;
-      z-index: 10;
-    }
-
-    .cosmic-track-card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.76);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(192, 230, 253, 0.9);
-      border-radius: 26px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 8px 24px rgba(27, 53, 84, 0.08);
-      user-select: none;
-    }
-
-    .cosmic-track-card:nth-child(1) { animation: cosmicFloatA 5.4s ease-in-out infinite; }
-    .cosmic-track-card:nth-child(2) { animation: cosmicFloatB 6.2s ease-in-out infinite 0.4s; }
-    .cosmic-track-card:nth-child(3) { animation: cosmicFloatC 4.9s ease-in-out infinite 1.1s; }
-    .cosmic-track-card:nth-child(4) { animation: cosmicFloatD 5.8s ease-in-out infinite 0.7s; }
-    .cosmic-track-card:nth-child(5) { animation: cosmicFloatB 6.5s ease-in-out infinite 1.4s; }
-    .cosmic-track-card:nth-child(6) { animation: cosmicFloatA 5.1s ease-in-out infinite 0.2s; }
-    .cosmic-track-card:nth-child(7) { animation: cosmicFloatC 6.0s ease-in-out infinite 1.7s; }
-    .cosmic-track-card:nth-child(8) { animation: cosmicFloatD 5.5s ease-in-out infinite 0.9s; }
-
-    .cosmic-track-card:hover {
-      transform: translateY(-10px) scale(1.04) !important;
-      background: rgba(255, 255, 255, 0.96);
-      border-color: #5B86B6;
-      box-shadow: 0 20px 42px rgba(27, 53, 84, 0.16), 0 0 24px rgba(192, 230, 253, 0.85);
-    }
-
-    .cosmic-track-card.is-active-playing {
-      background: #EBF5FD;
-      border-color: #1B3554;
-      box-shadow: 0 16px 40px rgba(27, 53, 84, 0.22), 0 0 32px rgba(128, 170, 211, 0.85);
-    }
-
-    .track-cover-frame {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 20px;
+      min-height: 100vh;
       overflow: hidden;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 22px rgba(11, 34, 61, 0.14);
-      background: #0B223D;
+      color: #FFFFFF;
     }
 
-    .track-cover-img {
+    #star-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .cosmic-track-card:hover .track-cover-img {
-      transform: scale(1.07);
-    }
-
-    .track-play-overlay {
+    /* Ambient Soft White Nebula Clouds */
+    .white-nebula-glow {
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle, rgba(11, 34, 61, 0.35) 0%, rgba(11, 34, 61, 0.65) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.25s ease;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .white-nebula-1 {
+      top: 10%;
+      right: 12%;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(192, 230, 253, 0.03) 50%, transparent 75%);
+    }
+    .white-nebula-2 {
+      bottom: 15%;
+      left: 10%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, rgba(128, 170, 211, 0.03) 50%, transparent 75%);
     }
 
-    .cosmic-track-card:hover .track-play-overlay,
-    .cosmic-track-card.is-active-playing .track-play-overlay {
-      opacity: 1;
+    /* Concentric White Orbit Trajectory Tracks around Playlist */
+    .white-orbit-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1.5px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .white-orbit-ring-1 {
+      width: 920px;
+      height: 920px;
+      animation: orbitRotateClockwise 140s linear infinite;
+    }
+    .white-orbit-ring-2 {
+      width: 1240px;
+      height: 1240px;
+      border-color: rgba(255, 255, 255, 0.1);
+      animation: orbitRotateCounter 200s linear infinite;
     }
 
-    .play-orb-disc {
-      width: 48px;
+    @keyframes orbitRotateClockwise {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes orbitRotateCounter {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+
+    /* ==============================================================
+       WHITE PLANETS (سیارات با رنگ سفید خالص و درخشان)
+       ============================================================== */
+
+    /* 1. White Planet Saturn (Top-Right) */
+    .planet-white-saturn-wrap {
+      position: absolute;
+      top: 14%;
+      right: 5%;
+      z-index: 6;
+      animation: cosmicFloatSaturn 7s ease-in-out infinite alternate;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    @keyframes cosmicFloatSaturn {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-18px) rotate(2deg); }
+    }
+    .planet-white-saturn {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #E2EEF8 48%, #A0C2DE 100%);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.8), inset -8px -8px 20px rgba(7, 23, 44, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .planet-white-saturn:hover {
+      box-shadow: 0 0 50px rgba(255, 255, 255, 1), inset -8px -8px 20px rgba(7, 23, 44, 0.5);
+      transform: scale(1.06);
+    }
+    .planet-white-saturn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 190px;
       height: 48px;
       border-radius: 50%;
-      background: #1B3554;
-      color: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 3.5px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 12px rgba(255, 255, 255, 0.6);
+      transform: translate(-50%, -50%) rotate(-26deg);
+      pointer-events: none;
     }
-
-    .cosmic-track-card:hover .play-orb-disc {
-      transform: scale(1.12);
-      background: #0B223D;
-    }
-
-    .card-equalizer {
-      display: none;
-      align-items: flex-end;
-      gap: 3px;
-      height: 18px;
-    }
-
-    .cosmic-track-card.is-active-playing .card-equalizer {
-      display: flex;
-    }
-    .cosmic-track-card.is-active-playing .card-play-symbol {
-      display: none;
-    }
-
-    .equalizer-bar {
-      width: 3px;
-      background: #FFFFFF;
-      border-radius: 99px;
-      animation: eqBarPulse 0.85s ease-in-out infinite alternate;
-    }
-    .equalizer-bar:nth-child(1) { animation-delay: 0.05s; }
-    .equalizer-bar:nth-child(2) { animation-delay: 0.25s; }
-    .equalizer-bar:nth-child(3) { animation-delay: 0.15s; }
-    .equalizer-bar:nth-child(4) { animation-delay: 0.35s; }
-
-    @keyframes eqBarPulse {
-      0% { height: 4px; }
-      100% { height: 18px; }
-    }
-
-    /* Master Floating Dock Player (Apple Style) */
-    .master-dock-player {
-      position: fixed;
-      bottom: 24px;
+    .planet-white-saturn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: min(94%, 780px);
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(192, 230, 253, 0.95);
-      border-radius: 28px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      box-shadow: 0 16px 40px rgba(11, 34, 61, 0.16), 0 0 24px rgba(192, 230, 253, 0.55);
-      z-index: 100;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 160px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
+      transform: translate(-50%, -50%) rotate(-26deg);
+      pointer-events: none;
     }
 
-    /* Scrubber seek slider */
+    /* 2. White Planet Moon with Orbiting Satellite (Top-Left) */
+    .planet-white-moon-wrap {
+      position: absolute;
+      top: 18%;
+      left: 6%;
+      z-index: 6;
+      animation: cosmicFloatMoon 6.2s ease-in-out infinite alternate;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    @keyframes cosmicFloatMoon {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-15px) rotate(-2deg); }
+    }
+    .planet-white-moon {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #FFFFFF 0%, #EAF2FB 55%, #9EC3E6 100%);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.9), 0 0 75px rgba(255, 255, 255, 0.4), inset -6px -6px 14px rgba(7, 23, 44, 0.45);
+      transition: transform 0.3s ease;
+    }
+    .planet-white-moon:hover {
+      transform: scale(1.08);
+    }
+    .moon-crater {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.45);
+      box-shadow: inset 1px 1px 3px rgba(11, 34, 61, 0.25);
+    }
+    .moon-crater-1 { top: 22%; left: 30%; width: 14px; height: 14px; }
+    .moon-crater-2 { top: 52%; left: 56%; width: 18px; height: 18px; }
+    .moon-crater-3 { top: 66%; left: 28%; width: 10px; height: 10px; }
+
+    .moon-satellite-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 130px;
+      height: 130px;
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: orbitSpin 12s linear infinite;
+      pointer-events: none;
+    }
+    .moon-satellite-dot {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      box-shadow: 0 0 12px #FFFFFF, 0 0 22px rgba(255, 255, 255, 0.9);
+      transform: translateX(-50%);
+    }
+    @keyframes orbitSpin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* 3. White Crescent Celestial Body (Bottom-Left) */
+    .planet-white-crescent-wrap {
+      position: absolute;
+      bottom: 18%;
+      left: 7%;
+      z-index: 6;
+      animation: cosmicFloatCrescent 8s ease-in-out infinite alternate;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    @keyframes cosmicFloatCrescent {
+      0% { transform: translateY(0px) rotate(-5deg); }
+      100% { transform: translateY(-16px) rotate(5deg); }
+    }
+    .planet-white-crescent {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      box-shadow: 14px 10px 0 0 #FFFFFF, 14px 10px 30px 0 rgba(255, 255, 255, 0.9);
+      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.75));
+      transition: transform 0.3s ease;
+    }
+    .planet-white-crescent:hover {
+      transform: scale(1.1);
+    }
+
+    /* 4. Double-Ringed White Planetoid (Bottom-Right) */
+    .planet-white-ringed-wrap {
+      position: absolute;
+      bottom: 16%;
+      right: 7%;
+      z-index: 6;
+      animation: cosmicFloatRinged 7.5s ease-in-out infinite alternate;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    @keyframes cosmicFloatRinged {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-16px) rotate(-3deg); }
+    }
+    .planet-white-ringed {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #D8EBF9 60%, #8FB5D6 100%);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.85), inset -5px -5px 12px rgba(7, 23, 44, 0.4);
+      transition: transform 0.3s ease;
+    }
+    .planet-white-ringed:hover {
+      transform: scale(1.08);
+    }
+    .planet-white-ringed::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 115px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.8);
+      transform: translate(-50%, -50%) rotate(32deg);
+      pointer-events: none;
+    }
+
+    /* 5. White Cosmic Sparkles & Asterisms */
+    .white-cosmic-sparkle {
+      position: absolute;
+      color: #FFFFFF;
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.95), 0 0 26px rgba(255, 255, 255, 0.7);
+      user-select: none;
+      pointer-events: none;
+      z-index: 4;
+      animation: starTwinklePulse 3.5s ease-in-out infinite alternate;
+    }
+    @keyframes starTwinklePulse {
+      0% { opacity: 0.35; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1.25); }
+    }
+
+    /* Responsive adjustments for planets on mobile screens */
+    @media (max-width: 900px) {
+      .planet-white-saturn-wrap { transform: scale(0.7); top: 8%; right: -2%; }
+      .planet-white-moon-wrap { transform: scale(0.7); top: 10%; left: -2%; }
+      .planet-white-crescent-wrap { transform: scale(0.65); bottom: 6%; left: 0%; }
+      .planet-white-ringed-wrap { transform: scale(0.65); bottom: 6%; right: 0%; }
+      .white-orbit-ring-1 { width: 500px; height: 500px; }
+      .white-orbit-ring-2 { display: none; }
+    }
+
+    /* ==============================================================
+       CENTRAL COSMIC PLAYLIST (پلی‌لیست کهکشانی ۷ قطعه)
+       ============================================================== */
+    .cosmic-playlist-card {
+      position: relative;
+      background: rgba(11, 23, 41, 0.78);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 36px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.65), 0 0 45px rgba(255, 255, 255, 0.12);
+      padding: 28px 28px;
+      color: #FFFFFF;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    .cosmic-playlist-card:hover {
+      border-color: rgba(255, 255, 255, 0.38);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 55px rgba(255, 255, 255, 0.18);
+    }
+
+    /* Hero Now-Playing Deck */
+    .playlist-hero-deck {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 26px;
+      padding: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 640px) {
+      .playlist-hero-deck {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    /* Vinyl Disc Slide & Spin Animation */
+    .deck-cover-container {
+      position: relative;
+      width: 105px;
+      height: 105px;
+      flex-shrink: 0;
+    }
+    .deck-cover-artwork {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 255, 255, 0.2);
+    }
+    .deck-vinyl-record {
+      position: absolute;
+      top: 5px;
+      left: 14px;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #2a2a2a 0%, #151515 45%, #000000 100%);
+      border: 2px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+      z-index: 1;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .deck-vinyl-record::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #E2EEF8;
+      border: 2px solid #FFFFFF;
+    }
+    .is-playing .deck-vinyl-record {
+      transform: translateX(34px);
+      animation: vinylSpin 4.5s linear infinite;
+    }
+    @keyframes vinylSpin {
+      from { transform: translateX(34px) rotate(0deg); }
+      to { transform: translateX(34px) rotate(360deg); }
+    }
+
+    /* Scrubber Seek Slider */
     .audio-seek-slider {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 5px;
+      height: 6px;
       border-radius: 9999px;
-      background: rgba(192, 230, 253, 0.9);
+      background: rgba(255, 255, 255, 0.2);
       outline: none;
       cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .audio-seek-slider:hover {
+      background: rgba(255, 255, 255, 0.35);
     }
     .audio-seek-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: #1B3554;
+      background: #FFFFFF;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(27, 53, 84, 0.35);
+      box-shadow: 0 0 10px #FFFFFF, 0 2px 6px rgba(0, 0, 0, 0.4);
       transition: transform 0.15s ease;
     }
     .audio-seek-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.25);
+      transform: scale(1.3);
     }
 
-    /* Dock Nav Buttons */
-    .dock-nav-btn {
-      width: 36px;
-      height: 36px;
+    /* Deck Transport Buttons */
+    .deck-nav-btn {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: #FFFFFF;
-      border: 1px solid #C0E6FD;
-      color: #1B3554;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
+      font-size: 14px;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(27, 53, 84, 0.05);
       flex-shrink: 0;
     }
-    .dock-nav-btn:hover {
-      background: #E8F4FC;
-      border-color: #80AAD3;
-      color: #0B223D;
+    .deck-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: #FFFFFF;
       transform: scale(1.08);
     }
-    .dock-nav-btn:active {
+    .deck-nav-btn:active {
       transform: scale(0.95);
     }
+    .deck-nav-btn.is-active-toggle {
+      background: rgba(192, 230, 253, 0.35);
+      border-color: #C0E6FD;
+      color: #C0E6FD;
+    }
 
-    .dock-play-btn {
-      width: 44px;
-      height: 44px;
+    .deck-play-btn {
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: #1B3554;
-      color: #FFFFFF;
+      background: #FFFFFF;
+      color: #060D17;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       border: none;
-      font-size: 15px;
+      font-size: 16px;
+      font-weight: bold;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 14px rgba(27, 53, 84, 0.25);
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.6), 0 4px 14px rgba(0, 0, 0, 0.3);
       flex-shrink: 0;
     }
-    .dock-play-btn:hover {
-      background: #0B223D;
+    .deck-play-btn:hover {
       transform: scale(1.08);
+      box-shadow: 0 0 32px rgba(255, 255, 255, 0.9);
     }
-    .dock-play-btn:active {
+    .deck-play-btn:active {
       transform: scale(0.95);
     }
 
@@ -333,26 +502,101 @@
     .pause-symbol { display: none; }
     .is-playing .play-symbol { display: none; }
     .is-playing .pause-symbol { display: inline-block; }
+
+    /* Tracklist Row Design */
+    .playlist-tracks-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .playlist-track-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      user-select: none;
+    }
+    .playlist-track-row:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateX(-4px);
+    }
+    .playlist-track-row.is-active-row {
+      background: rgba(192, 230, 253, 0.16);
+      border-color: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 22px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Miniature Equalizer for Active Track Row */
+    .row-eq-bars {
+      display: none;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 16px;
+      width: 20px;
+      justify-content: center;
+    }
+    .is-active-row.is-playing-row .row-eq-bars {
+      display: flex;
+    }
+    .is-active-row.is-playing-row .row-number-badge {
+      display: none;
+    }
+    .row-eq-bar {
+      width: 3px;
+      background: #FFFFFF;
+      border-radius: 99px;
+      animation: soundBarPulse 1s ease-in-out infinite alternate;
+    }
+    .row-eq-bar:nth-child(1) { animation-delay: 0.1s; height: 6px; }
+    .row-eq-bar:nth-child(2) { animation-delay: 0.3s; height: 14px; }
+    .row-eq-bar:nth-child(3) { animation-delay: 0.2s; height: 10px; }
+
+    /* Rename & Delete Action Buttons for Custom Tracks */
+    .track-action-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .track-action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: #FFFFFF;
+      transform: scale(1.1);
+    }
   </style>
 </head>
-<body class="bg-[#F4F9FD] text-[#1B3554] antialiased min-h-screen flex flex-col">
+<body class="bg-[#02060B] text-white antialiased min-h-screen flex flex-col">
 
   <!-- ====================================================================
        TOP NAVIGATION
        ==================================================================== -->
-  <header class="top-nav">
-    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Navigation Menu" title="Navigation">
-      <span class="hamburger-line line-1"></span>
-      <span class="hamburger-line line-2"></span>
-      <span class="hamburger-line line-3"></span>
+  <header class="top-nav" style="background: rgba(6, 13, 23, 0.85); border-bottom-color: rgba(255, 255, 255, 0.15);">
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Navigation Menu" title="Navigation" style="color: #FFFFFF;">
+      <span class="hamburger-line line-1" style="background: #FFFFFF;"></span>
+      <span class="hamburger-line line-2" style="background: #FFFFFF;"></span>
+      <span class="hamburger-line line-3" style="background: #FFFFFF;"></span>
     </button>
 
-    <a href="index.html" class="text-[15px] font-medium tracking-tight text-[#0B223D] hover:text-[#3F6593] transition-colors">
+    <a href="index.html" class="text-[15px] font-medium tracking-tight text-white hover:text-[#C0E6FD] transition-colors">
       Hodous
     </a>
 
-    <div class="text-[11px] tracking-[0.2em] uppercase text-[#5B86B6] font-normal hidden sm:inline select-none">
-      Sonic Constellation
+    <div class="text-[11px] tracking-[0.2em] uppercase text-[#80AAD3] font-normal hidden sm:inline select-none">
+      Cosmic Galaxy Playlist
     </div>
   </header>
 
@@ -360,142 +604,230 @@
   <div id="nav-backdrop" class="nav-backdrop"></div>
 
   <!-- Slide-out Navigation Drawer -->
-  <aside id="nav-drawer" class="nav-drawer">
+  <aside id="nav-drawer" class="nav-drawer" style="background: rgba(10, 23, 40, 0.96); color: #FFFFFF; border-right-color: rgba(255,255,255,0.15);">
     <div class="space-y-6">
-      <div class="border-b border-[#C0E6FD] pb-4">
-        <span class="text-xs font-medium tracking-[0.22em] uppercase text-[#5B86B6] block">
+      <div class="border-b border-white/10 pb-4">
+        <span class="text-xs font-medium tracking-[0.22em] uppercase text-[#80AAD3] block">
           Menu
         </span>
       </div>
 
       <nav class="space-y-2">
-        <a href="index.html" class="nav-drawer-link">
+        <a href="index.html" class="nav-drawer-link text-white hover:bg-white/10">
           <span>Home</span>
-          <span class="text-[11px] text-[#5B86B6]">Portal</span>
+          <span class="text-[11px] text-[#80AAD3]">Portal</span>
         </a>
 
-        <a href="song.html" class="nav-drawer-link is-active">
+        <a href="song.html" class="nav-drawer-link is-active" style="background: rgba(255,255,255,0.12); color:#FFFFFF;">
           <span>Song</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-[#1B3554]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
         </a>
 
-        <a href="test.html" class="nav-drawer-link">
+        <a href="test.html" class="nav-drawer-link text-white hover:bg-white/10">
           <span>Test</span>
-          <span class="text-[11px] text-[#5B86B6]">Portal</span>
+          <span class="text-[11px] text-[#80AAD3]">Portal</span>
         </a>
       </nav>
     </div>
 
-    <div class="pt-6 border-t border-[#C0E6FD] text-xs text-[#5B86B6] font-normal">
+    <div class="pt-6 border-t border-white/10 text-xs text-[#80AAD3] font-normal">
       Hodous • Future & Mind
     </div>
   </aside>
 
   <!-- ====================================================================
-       SCATTERED CELESTIAL SONIC UNIVERSE
+       HERO COSMIC UNIVERSE (GALAXY & WHITE PLANETS AROUND PLAYLIST)
        ==================================================================== -->
   <div class="hero-cosmic-universe flex-1 flex flex-col relative overflow-hidden">
-    <!-- Starfield Canvas (Dense diamond stars) -->
+    <!-- Starfield Canvas (Dense White Diamond Stars + Shooting Stars) -->
     <canvas id="star-canvas"></canvas>
 
-    <!-- Nebula Glow Layer -->
-    <div class="ambient-nebula-glow"></div>
+    <!-- Ambient White Nebular Glows -->
+    <div class="white-nebula-glow white-nebula-1"></div>
+    <div class="white-nebula-glow white-nebula-2"></div>
 
-    <main class="relative z-10 w-full mx-auto px-4 pt-28 pb-16 flex-1 flex flex-col items-center text-center">
+    <!-- Orbit Trajectory Tracks Encircling the Playlist -->
+    <div class="white-orbit-ring white-orbit-ring-1"></div>
+    <div class="white-orbit-ring white-orbit-ring-2"></div>
+
+    <!-- ============================================================
+         WHITE PLANETS (سیارات و اجرام کیهانی به رنگ سفید خالص)
+         ============================================================ -->
+
+    <!-- Planet 1: White Saturn (Top Right) with 3D Rings -->
+    <div class="planet-white-saturn-wrap" title="سیاره زحل سفید با حلقه ۳بعدی">
+      <div class="planet-white-saturn"></div>
+    </div>
+
+    <!-- Planet 2: White Moon with Orbiting Satellite (Top Left) -->
+    <div class="planet-white-moon-wrap" title="ماه درخشان سفید با ماهواره مداری">
+      <div class="planet-white-moon">
+        <div class="moon-crater moon-crater-1"></div>
+        <div class="moon-crater moon-crater-2"></div>
+        <div class="moon-crater moon-crater-3"></div>
+      </div>
+      <div class="moon-satellite-orbit">
+        <div class="moon-satellite-dot"></div>
+      </div>
+    </div>
+
+    <!-- Planet 3: White Crescent Sphere (Bottom Left) -->
+    <div class="planet-white-crescent-wrap" title="سیاره هلالی سفید">
+      <div class="planet-white-crescent"></div>
+    </div>
+
+    <!-- Planet 4: Double-Ringed White Planetoid (Bottom Right) -->
+    <div class="planet-white-ringed-wrap" title="سیاره سفید با دو حلقه متحدالمرکز">
+      <div class="planet-white-ringed"></div>
+    </div>
+
+    <!-- Floating White Stars & Sparkles Pinned at Orbital Nodes -->
+    <div class="white-cosmic-sparkle" style="top: 12%; left: 32%; font-size: 18px;">✦</div>
+    <div class="white-cosmic-sparkle" style="top: 28%; right: 28%; font-size: 14px; animation-delay: 1.2s;">✧</div>
+    <div class="white-cosmic-sparkle" style="bottom: 24%; right: 32%; font-size: 16px; animation-delay: 0.7s;">⋆</div>
+    <div class="white-cosmic-sparkle" style="bottom: 12%; left: 36%; font-size: 20px; animation-delay: 2.1s;">★</div>
+    <div class="white-cosmic-sparkle" style="top: 48%; left: 3%; font-size: 13px; animation-delay: 1.5s;">✦</div>
+    <div class="white-cosmic-sparkle" style="top: 52%; right: 3%; font-size: 15px; animation-delay: 0.4s;">✧</div>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 w-full max-w-4xl mx-auto px-4 pt-24 pb-16 flex-1 flex flex-col items-center">
 
       <!-- Breadcrumb Tag -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#C0E6FD] text-xs text-[#3F6593] font-medium tracking-widest uppercase mb-4 shadow-2xs">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#3F6593] animate-pulse"></span>
-        Sonic Constellation • منظومه نغمه‌های شناور
+      <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-xs text-white font-medium tracking-widest uppercase mb-4 shadow-sm backdrop-blur-md">
+        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+        Cosmic Galaxy • منظومه ۷ آهنگ در احاطه سیارات سفید
       </div>
 
       <!-- Headline -->
-      <h1 class="text-4xl sm:text-6xl font-semibold tracking-tight mb-3" style="background: linear-gradient(150deg, #09192C 0%, #17324F 42%, #3B6696 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 18px rgba(192, 230, 253, 0.65));">
-        Song
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-center mb-2" style="text-shadow: 0 0 35px rgba(255,255,255,0.7);">
+        Cosmic Playlist
       </h1>
 
-      <p class="text-xs sm:text-sm text-[#3F6593] font-normal max-w-lg mx-auto leading-relaxed mb-6" dir="rtl">
-        مجموعه‌ای از نغمه‌های شناور در مدار کیهان با کاورهای اختصاصی. روی هر قطعه کلیک کنید تا در مدار پخش طنین‌انداز شود.
+      <p class="text-xs sm:text-sm text-[#80AAD3] font-normal max-w-md mx-auto text-center leading-relaxed mb-6" dir="rtl">
+        ۷ قطعه صوتی در مرکز کهکشان. برای تغییر مدار پخش روی هر آهنگ کلیک کنید.
       </p>
 
-      <!-- Ambient Waveform Visualizer -->
-      <div id="audio-visualizer-wrap" class="audio-visualizer-wrap mb-8 opacity-40">
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-        <div class="audio-bar"></div>
-      </div>
-
       <!-- ==============================================================
-           SCATTERED FLOATING SONGS GRID (Cosmic Constellation)
+           CENTRAL PLAYLIST CARD CONTAINER (کارت پلی‌لیست مرکزی)
            ============================================================== -->
-      <div id="cosmic-constellation" class="cosmic-constellation-container">
-        <!-- Rendered dynamically by script.js with covers and metadata -->
+      <div class="w-full max-w-3xl">
+        <div id="cosmic-playlist-card" class="cosmic-playlist-card">
+
+          <!-- Playlist Header Row -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5 flex-wrap gap-3" dir="rtl">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-white text-base">✦</span>
+                <h2 class="text-lg sm:text-xl font-bold text-white tracking-wide">پلی‌لیست کهکشانی</h2>
+                <span id="playlist-count-badge" class="text-[11px] bg-white/15 border border-white/25 px-2.5 py-0.5 rounded-full text-[#C0E6FD] font-mono">۷ قطعه</span>
+              </div>
+              <p class="text-xs text-[#80AAD3] mt-0.5">در احاطه سیارات سفید و ستاره‌های درخشان</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button type="button" id="btn-play-all" class="px-3.5 py-1.5 rounded-full bg-white text-[#060D17] text-xs font-semibold hover:bg-[#E2EEF8] transition-all flex items-center gap-1.5 shadow-sm">
+                <span>▶</span>
+                <span>پخش همه</span>
+              </button>
+
+              <button type="button" id="btn-shuffle" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs text-white transition-all flex items-center gap-1.5" title="پخش تصادفی">
+                <span>🔀</span>
+              </button>
+
+              <!-- Upload / Add Track for Personal Songs -->
+              <button type="button" id="btn-upload-track" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs text-[#C0E6FD] transition-all flex items-center gap-1.5" title="افزودن آهنگ">
+                <span>+</span>
+                <span class="hidden sm:inline">افزودن آهنگ</span>
+              </button>
+              <input type="file" id="playlist-file-input" accept="audio/*" multiple class="hidden" />
+            </div>
+          </div>
+
+          <!-- Featured Now-Playing Hero Deck -->
+          <div id="playlist-hero-deck" class="playlist-hero-deck">
+            <!-- Vinyl Record + Cover Art -->
+            <div class="deck-cover-container">
+              <img id="deck-cover-img" src="covers/taylor_swift_rwylm.jpg" alt="Cover" class="deck-cover-artwork" />
+              <div class="deck-vinyl-record"></div>
+            </div>
+
+            <!-- Track Info & Controls -->
+            <div class="flex-1 min-w-0 flex flex-col justify-between w-full" dir="rtl">
+              <div class="flex items-center justify-between mb-2">
+                <div class="min-w-0 flex-1">
+                  <h3 id="deck-track-title" class="text-base sm:text-lg font-bold text-white truncate">
+                    right where you left me
+                  </h3>
+                  <p id="deck-track-artist" class="text-xs text-[#80AAD3] truncate mt-0.5">
+                    Taylor Swift • evermore
+                  </p>
+                </div>
+
+                <!-- Subtle Equalizer Waveform -->
+                <div id="deck-visualizer-bars" class="flex items-end gap-1 h-5 px-2 opacity-60">
+                  <span class="row-eq-bar"></span>
+                  <span class="row-eq-bar"></span>
+                  <span class="row-eq-bar"></span>
+                  <span class="row-eq-bar"></span>
+                </div>
+              </div>
+
+              <!-- Scrubber Bar -->
+              <div class="w-full my-2">
+                <input type="range" id="deck-seek-bar" min="0" max="100" value="0" step="0.1" class="audio-seek-slider" aria-label="Seek Bar" />
+                <div class="flex justify-between text-[11px] text-[#80AAD3] font-mono mt-1" dir="ltr">
+                  <span id="deck-time-current">0:00</span>
+                  <span id="deck-time-duration">4:05</span>
+                </div>
+              </div>
+
+              <!-- Deck Transport Controls -->
+              <div class="flex items-center justify-between mt-1">
+                <div class="flex items-center gap-2">
+                  <button type="button" id="deck-repeat-btn" class="deck-nav-btn text-xs" title="تکرار">
+                    <span>🔁</span>
+                  </button>
+                  <button type="button" id="deck-mute-btn" class="deck-nav-btn text-xs" title="صدا">
+                    <span id="deck-volume-icon">🔊</span>
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <button type="button" id="deck-prev-btn" class="deck-nav-btn" aria-label="Previous Track" title="آهنگ قبلی">
+                    <span>⏮</span>
+                  </button>
+
+                  <button type="button" id="deck-play-btn" class="deck-play-btn" aria-label="Play or Pause">
+                    <span class="play-symbol">▶</span>
+                    <span class="pause-symbol">❚❚</span>
+                  </button>
+
+                  <button type="button" id="deck-next-btn" class="deck-nav-btn" aria-label="Next Track" title="آهنگ بعدی">
+                    <span>⏭</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- The 7 Tracks List (لیست ۷ آهنگ) -->
+          <div id="playlist-tracks-container" class="playlist-tracks-container" dir="rtl">
+            <!-- Dynamically populated by script.js -->
+          </div>
+
+        </div>
       </div>
 
       <!-- Return Button to Portal -->
-      <div class="mt-4 mb-20">
-        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white hover:bg-[#F0F7FD] border border-[#C0E6FD] text-xs text-[#1B3554] tracking-wider uppercase transition-all shadow-2xs font-medium">
-          ← Return to Portal
+      <div class="mt-8 mb-12">
+        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs text-white tracking-wider uppercase transition-all shadow-sm font-medium">
+          ← بازگشت به پورتال اصلی
         </a>
       </div>
 
     </main>
-  </div>
 
-  <!-- ====================================================================
-       MASTER FLOATING BOTTOM DOCK PLAYER (Apple Minimal Aesthetic)
-       ==================================================================== -->
-  <div id="master-dock-player" class="master-dock-player">
-    <div class="flex items-center gap-3 min-w-0 flex-1 overflow-hidden" dir="rtl">
-      <!-- Mini Artwork Thumbnail -->
-      <div class="w-11 h-11 rounded-xl overflow-hidden bg-[#0B223D] shrink-0 border border-[#C0E6FD] shadow-xs">
-        <img id="dock-cover-thumb" src="covers/taylor_swift_rwylm.jpg" alt="Cover" class="w-full h-full object-cover" />
-      </div>
-
-      <!-- Title & Artist -->
-      <div class="min-w-0 flex-1 text-right">
-        <p id="dock-track-title" class="text-xs sm:text-sm font-semibold text-[#0B223D] truncate">
-          right where you left me
-        </p>
-        <p id="dock-track-artist" class="text-[11px] text-[#5B86B6] truncate mt-0.5">
-          Taylor Swift • evermore
-        </p>
-      </div>
-    </div>
-
-    <!-- Scrubber and Time Display (Desktop / Tablet) -->
-    <div class="hidden md:flex flex-col items-center gap-1 w-56 shrink-0">
-      <input type="range" id="dock-seek-bar" min="0" max="100" value="0" step="0.1" class="audio-seek-slider" aria-label="Audio Seek" />
-      <div class="flex justify-between w-full text-[10px] text-[#5B86B6] font-mono">
-        <span id="dock-time-current">0:00</span>
-        <span id="dock-time-duration">0:30</span>
-      </div>
-    </div>
-
-    <!-- Transport Controls (Prev, Play/Pause, Next) -->
-    <div class="flex items-center gap-2 shrink-0">
-      <button type="button" id="dock-prev-btn" class="dock-nav-btn" aria-label="Previous Track" title="آهنگ قبلی">
-        <span>⏮</span>
-      </button>
-
-      <button type="button" id="dock-play-btn" class="dock-play-btn" aria-label="Play or Pause">
-        <span class="play-symbol">▶</span>
-        <span class="pause-symbol">❚❚</span>
-      </button>
-
-      <button type="button" id="dock-next-btn" class="dock-nav-btn" aria-label="Next Track" title="آهنگ بعدی">
-        <span>⏭</span>
-      </button>
-    </div>
-
-    <!-- Hidden Native Audio Element -->
+    <!-- Hidden Native Audio Element for Playlist -->
     <audio id="dock-audio-element" preload="metadata"></audio>
   </div>
 
