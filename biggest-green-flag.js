@@ -491,12 +491,22 @@
     }
 
     if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.top1) {
+      const detailedChoices = BGF_ITEMS.map((item, idx) => {
+        const score = bgfState.answers[idx] || 0;
+        return {
+          qNum: idx + 1,
+          title: item.fa ? item.fa.title : item.title,
+          choice: score > 0 ? `اولویت: ${score} از ۱۰` : 'ثبت نشده'
+        };
+      });
+
       window.HodousTestHub.saveResult({
         testId: 'biggest-green-flag',
         testTitle: 'بزرگترین Green Flag تو چیه؟',
         nickname: participantName,
         score: `${ranking.top1.title} (${ranking.top1.score}/10)`,
-        details: ranking.top5.map((it, i) => `#${i + 1} ${it.title} (${it.score}/10)`).join(' · ')
+        details: ranking.top5.map((it, i) => `#${i + 1} ${it.title} (${it.score}/10)`).join(' · '),
+        choices: detailedChoices
       });
     }
   }

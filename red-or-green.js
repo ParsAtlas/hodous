@@ -829,12 +829,22 @@
     }
 
     if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.biggest) {
+      const detailedChoices = QUESTIONS.map((q, idx) => {
+        const val = state.answers[idx];
+        return {
+          qNum: idx + 1,
+          title: q.fa ? q.fa.title : q.title,
+          choice: val !== undefined ? `امتیاز رتبه‌بندی: ${val} از ۱۰` : 'ثبت نشده'
+        };
+      });
+
       window.HodousTestHub.saveResult({
         testId: 'biggest-red-flag',
         testTitle: 'بزرگترین ردفلگ برای تو چیه؟',
         nickname: participantName,
         score: `${ranking.biggest.title} (${ranking.biggest.score}/10)`,
-        details: ranking.summaryText
+        details: ranking.summaryText,
+        choices: detailedChoices
       });
     }
   }

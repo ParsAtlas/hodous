@@ -167,11 +167,11 @@
     <section id="view-hub" class="view-section is-active" aria-label="بخش تست">
       
       <div class="test-page-header">
-        <h1 class="test-page-title">Test</h1>
+        <h1 class="test-page-title" id="admin-secret-trigger" style="user-select:none; cursor:pointer;" title="Hodous Assessment">Test</h1>
         <div style="margin-top: 8px; display: flex; justify-content: center;">
-          <button type="button" id="btn-open-results-log" style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#5B86B6; background:rgba(255,255,255,0.85); border:1px solid #C0E6FD; padding:5px 16px; border-radius:999px; cursor:pointer; transition:all 0.2s; font-family:inherit; box-shadow:0 2px 8px rgba(27,53,84,0.06);">
-            <span>📋</span>
-            <span>مشاهده آرشیو نتایج شرکت‌کنندگان</span>
+          <button type="button" id="btn-open-results-log" style="display:none; align-items:center; gap:8px; font-size:12px; color:#1B3554; background:rgba(255,255,255,0.95); border:1px solid #1B3554; padding:6px 20px; border-radius:999px; cursor:pointer; transition:all 0.2s; font-family:inherit; box-shadow:0 3px 12px rgba(27,53,84,0.12); font-weight:600;">
+            <span>🔒</span>
+            <span>پنل مدیریت نتایج (مشاهده انتخاب‌های شرکت‌کنندگان)</span>
           </button>
         </div>
       </div>
@@ -811,38 +811,48 @@
          RESULTS ARCHIVE MODAL (View Past Participants)
          ================================================================== -->
     <div id="modal-results-log" class="nickname-modal-overlay" style="display: none;">
-      <div class="nickname-modal-card" style="max-width: 580px; width: 94%;" dir="rtl">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <h3 style="font-size: 18px; font-weight: 600; color: #0B223D;">
-            آرشیو نتایج آزمون‌دهندگان
-          </h3>
+      <div class="nickname-modal-card" style="max-width: 640px; width: 95%; max-height: 88vh; display: flex; flex-direction: column;" dir="rtl">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #E0EEF9; padding-bottom: 10px;">
+          <div>
+            <h3 style="font-size: 17px; font-weight: 700; color: #0B223D; display: flex; align-items: center; gap: 8px; margin: 0;">
+              <span>🔒</span>
+              <span>پنل مدیریت نتایج و پاسخ‌ها</span>
+            </h3>
+            <span style="font-size: 11px; color: #5B86B6; margin-top: 2px; display: inline-block;">
+              فقط این دستگاه مجاز به مشاهده ریز انتخاب‌های شرکت‌کنندگان است
+            </span>
+          </div>
           <button type="button" id="btn-close-results-log" style="font-size: 18px; color: #80AAD3; background: transparent; border: none; cursor: pointer; padding: 4px;">
             ✕
           </button>
         </div>
 
-        <p style="font-size: 12px; color: #5B86B6; margin-bottom: 14px; line-height: 1.5;">
-          نتایج تمامی افرادی که در آزمون‌ها شرکت کرده‌اند. (نتایج به صورت زنده در مرورگر شما ذخیره و آرشیو می‌شوند):
-        </p>
-
         <!-- Webhook Integration Card for Google Sheets -->
-        <div style="background:#F0F7FD; border:1px solid #C0E6FD; border-radius:16px; padding:10px 14px; margin-bottom:14px; font-size:11px; color:#1B3554;">
+        <div style="background:#F0F7FD; border:1px solid #C0E6FD; border-radius:14px; padding:10px 14px; margin-bottom:12px; font-size:11px; color:#1B3554;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <span style="font-weight:600;">اتصال به Google Sheets (ارسال خودکار ابری):</span>
-            <button type="button" id="btn-save-webhook-url" style="background:#1B3554; color:#fff; border:none; border-radius:8px; padding:2px 10px; cursor:pointer; font-size:10px;">ذخیره وب‌هوک</button>
+            <span style="font-weight:700;">📡 ثبت خودکار انتخاب‌های بقیه افراد در Google Sheets:</span>
+            <button type="button" id="btn-save-webhook-url" style="background:#1B3554; color:#fff; border:none; border-radius:8px; padding:3px 12px; cursor:pointer; font-size:10px; font-weight:600;">ذخیره وب‌هوک</button>
           </div>
-          <input type="text" id="input-webhook-url" placeholder="آدرس Webhook گوگل‌شیت را اینجا بگذارید..." style="width:100%; padding:6px 10px; border-radius:10px; border:1px solid #C0E6FD; font-size:11px; direction:ltr; outline:none; background:#fff;" />
+          <p style="font-size:10.5px; color:#5B86B6; margin:0 0 6px 0; line-height:1.4;">
+            برای اینکه آزمون‌هایی که دیگران روی گوشی خود می‌دهند مستقیماً به اکسل شما بیاید، آدرس Webhook را اینجا بگذارید:
+          </p>
+          <input type="text" id="input-webhook-url" placeholder="https://script.google.com/macros/s/.../exec" style="width:100%; padding:6px 10px; border-radius:8px; border:1px solid #C0E6FD; font-size:11px; direction:ltr; outline:none; background:#fff;" />
         </div>
 
-        <div id="results-log-list" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; padding-left: 4px;">
+        <div id="results-log-list" style="flex: 1; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; padding-left: 4px;">
           <!-- Populated by JS -->
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
-          <button type="button" id="btn-clear-results-log" style="color: #DC2626; background: transparent; border: none; cursor: pointer; font-size: 11px;">
-            پاکسازی آرشیو
-          </button>
-          <span id="results-log-count" style="color: #5B86B6; font-size: 11px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; border-top: 1px solid #E0EEF9; padding-top: 10px;">
+          <div style="display: flex; gap: 14px; align-items: center;">
+            <button type="button" id="btn-clear-results-log" style="color: #DC2626; background: transparent; border: none; cursor: pointer; font-size: 11px;">
+              🗑 پاکسازی تاریخچه
+            </button>
+            <button type="button" id="btn-exit-admin-mode" style="color: #64748B; background: transparent; border: none; cursor: pointer; font-size: 11px;">
+              🔴 خروج از حالت مدیر در این دستگاه
+            </button>
+          </div>
+          <span id="results-log-count" style="color: #5B86B6; font-size: 11px; font-weight: 600;">
             ۰ نتیجه ثبت شده
           </span>
         </div>
@@ -928,6 +938,7 @@
           nickname: name,
           score: data.score,
           details: data.details || '',
+          choices: data.choices || [],
           dateStr: new Date().toLocaleDateString('fa-IR'),
           timeStr: new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }),
           timestamp: Date.now()
@@ -964,20 +975,84 @@
       }
     };
 
-    // Results Archive UI logic
+    // Results Archive & Device Admin Protection Logic
     document.addEventListener('DOMContentLoaded', () => {
       const openBtn = document.getElementById('btn-open-results-log');
       const closeBtn = document.getElementById('btn-close-results-log');
       const clearBtn = document.getElementById('btn-clear-results-log');
+      const exitAdminBtn = document.getElementById('btn-exit-admin-mode');
       const modal = document.getElementById('modal-results-log');
       const listContainer = document.getElementById('results-log-list');
       const countEl = document.getElementById('results-log-count');
       const webhookInput = document.getElementById('input-webhook-url');
       const saveWebhookBtn = document.getElementById('btn-save-webhook-url');
       const bannerEl = document.getElementById('url-param-banner');
+      const secretTrigger = document.getElementById('admin-secret-trigger') || document.querySelector('.test-page-title');
 
-      // Check query parameters for shared result view
+      // 1. Device Admin Identification & Activation
       const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === 'hodous' || urlParams.get('admin') === 'true' || urlParams.get('admin') === '1') {
+        localStorage.setItem('hodous_device_is_admin', 'true');
+        try {
+          const cleanUrl = window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        } catch (e) {}
+      }
+
+      function isDeviceAdmin() {
+        return localStorage.getItem('hodous_device_is_admin') === 'true';
+      }
+
+      function updateAdminUI() {
+        if (openBtn) {
+          openBtn.style.display = isDeviceAdmin() ? 'inline-flex' : 'none';
+        }
+      }
+
+      updateAdminUI();
+
+      // Secret Gesture: 3 rapid clicks on "Test" title within 1.5 seconds
+      let clickCount = 0;
+      let clickTimer = null;
+      if (secretTrigger) {
+        secretTrigger.addEventListener('click', () => {
+          clickCount++;
+          clearTimeout(clickTimer);
+          clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
+
+          if (clickCount >= 3) {
+            clickCount = 0;
+            if (isDeviceAdmin()) {
+              renderResultsArchive();
+              if (modal) modal.style.display = 'flex';
+            } else {
+              const pass = prompt('ورود به پنل مدیریت (فقط صاحب دستگاه):\nلطفاً رمز عبور را وارد کنید:');
+              if (pass === '1234' || pass === 'hodous' || pass === 'admin') {
+                localStorage.setItem('hodous_device_is_admin', 'true');
+                updateAdminUI();
+                alert('این دستگاه با موفقیت به عنوان دستگاه مدیر تأیید شد!\nدکمه پنل مدیریت فقط در همین دستگاه شما فعال شد.');
+                renderResultsArchive();
+                if (modal) modal.style.display = 'flex';
+              } else if (pass !== null) {
+                alert('رمز اشتباه است.');
+              }
+            }
+          }
+        });
+      }
+
+      if (exitAdminBtn) {
+        exitAdminBtn.addEventListener('click', () => {
+          if (confirm('آیا می‌خواهید دسترسی مدیر از این دستگاه برداشته شود؟ (دکمه پنل مخفی خواهد شد)')) {
+            localStorage.removeItem('hodous_device_is_admin');
+            updateAdminUI();
+            if (modal) modal.style.display = 'none';
+            alert('حالت مدیر در این دستگاه غیرفعال شد. برای فعال‌سازی مجدد، می‌توانید ۳ بار روی عنوان Test کلیک کنید.');
+          }
+        });
+      }
+
+      // Check query parameters for shared result view (Only if user param present)
       const qUser = urlParams.get('user');
       const qTest = urlParams.get('test');
       const qScore = urlParams.get('score');
@@ -1004,7 +1079,7 @@
         saveWebhookBtn.addEventListener('click', () => {
           const val = webhookInput.value.trim();
           localStorage.setItem('hodous_webhook_url', val);
-          alert('آدرس وب‌هوک ذخیره شد! نتایج آزمون‌ها از این پس به گوگل‌شیت شما ارسال می‌شود.');
+          alert('آدرس وب‌هوک ذخیره شد! نتایج آزمون‌های شرکت‌کنندگان از این پس به گوگل‌شیت شما ارسال می‌شود.');
         });
       }
 
@@ -1026,32 +1101,78 @@
 
         if (list.length === 0) {
           listContainer.innerHTML = `
-            <div style="padding:20px; text-align:center; color:#80AAD3; font-size:12px; background:#F4F9FD; border-radius:16px;">
-              هنوز نتیجه‌ای ثبت نشده است. با تکمیل آزمون‌ها، کارنامه افراد در اینجا آرشیو می‌شود.
+            <div style="padding:24px; text-align:center; color:#80AAD3; font-size:12px; background:#F4F9FD; border-radius:16px; line-height:1.6;">
+              هنوز نتیجه‌ای ثبت نشده است. با تکمیل آزمون‌ها، کارنامه افراد و تک‌تک انتخاب‌هایشان در اینجا لیست می‌شود.
             </div>
           `;
           return;
         }
 
         listContainer.innerHTML = '';
-        list.forEach(item => {
-          const row = document.createElement('div');
-          row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:#FFFFFF; border:1px solid #C0E6FD; border-radius:16px; font-size:12px;";
-          row.innerHTML = `
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="width:8px; height:8px; border-radius:50%; background:#1B3554;"></span>
-              <div>
-                <span style="font-weight:700; color:#0B223D;">${escapeHTML(item.nickname)}</span>
-                <span style="color:#5B86B6; margin:0 4px;">•</span>
-                <span style="color:#3F6593;">${escapeHTML(item.testTitle)}</span>
+        list.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.style.cssText = "background:#FFFFFF; border:1px solid #C0E6FD; border-radius:14px; padding:12px 14px; font-size:12px; box-shadow:0 2px 6px rgba(27,53,84,0.03);";
+
+          const hasChoices = item.choices && Array.isArray(item.choices) && item.choices.length > 0;
+
+          card.innerHTML = `
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="width:9px; height:9px; border-radius:50%; background:#1B3554; display:inline-block;"></span>
+                <div>
+                  <span style="font-weight:700; color:#0B223D; font-size:13px;">${escapeHTML(item.nickname)}</span>
+                  <span style="color:#5B86B6; margin:0 4px;">•</span>
+                  <span style="color:#3F6593; font-weight:500;">${escapeHTML(item.testTitle)}</span>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-weight:600; color:#1B3554; background:#E8F4FC; padding:3px 10px; border-radius:8px; font-size:11px;">${escapeHTML(item.score)}</span>
+                <span style="font-size:10px; color:#80AAD3;">${escapeHTML(item.dateStr || '')} ${escapeHTML(item.timeStr || '')}</span>
               </div>
             </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-weight:600; color:#1B3554; background:#E8F4FC; padding:2px 8px; border-radius:8px;">${escapeHTML(item.score)}</span>
-              <span style="font-size:10px; color:#80AAD3;">${escapeHTML(item.dateStr)}</span>
+
+            <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+              <button type="button" class="btn-toggle-choices-${index}" style="background:#F0F7FD; border:1px solid #C0E6FD; color:#1B3554; border-radius:8px; padding:4px 12px; font-size:11px; cursor:pointer; font-family:inherit; font-weight:600; display:inline-flex; align-items:center; gap:4px;">
+                <span>${hasChoices ? `🔍 مشاهده انتخاب‌ها (${item.choices.length} سؤال) ▼` : '🔍 مشاهده خلاصه ▼'}</span>
+              </button>
+            </div>
+
+            <div id="choices-details-${index}" style="display:none; margin-top:10px; padding:12px; background:#F8FBFE; border-radius:10px; border:1px solid #E2EFF9; font-size:11px;">
+              ${hasChoices ? `
+                <div style="font-weight:700; color:#0B223D; margin-bottom:8px; font-size:11.5px;">تک‌تک گزینه‌ها و پاسخ‌های ${escapeHTML(item.nickname)}:</div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  ${item.choices.map(c => `
+                    <div style="padding:6px 10px; background:#FFFFFF; border-radius:8px; border:1px solid #E4EFF8;">
+                      <div style="font-weight:600; color:#1B3554; margin-bottom:3px; font-size:11px;">
+                        [سؤال ${c.qNum}] ${escapeHTML(c.title || c.question)}
+                      </div>
+                      <div style="color:#0B223D; background:#F0F7FD; padding:3px 8px; border-radius:6px; font-size:11px; line-height:1.4;">
+                        <b>انتخاب:</b> ${escapeHTML(c.choice)}
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : `
+                <div style="color:#5B86B6; line-height:1.5;">
+                  ${escapeHTML(item.details || 'جزئیات گزینه‌ها ثبت نشده است.')}
+                </div>
+              `}
             </div>
           `;
-          listContainer.appendChild(row);
+
+          const toggleBtn = card.querySelector(`.btn-toggle-choices-${index}`);
+          const detailsBox = card.querySelector(`#choices-details-${index}`);
+          if (toggleBtn && detailsBox) {
+            toggleBtn.addEventListener('click', () => {
+              const isHidden = detailsBox.style.display === 'none';
+              detailsBox.style.display = isHidden ? 'block' : 'none';
+              toggleBtn.innerHTML = isHidden
+                ? `<span>▲ بستن انتخاب‌ها</span>`
+                : `<span>${hasChoices ? `🔍 مشاهده انتخاب‌ها (${item.choices.length} سؤال) ▼` : '🔍 مشاهده خلاصه ▼'}</span>`;
+            });
+          }
+
+          listContainer.appendChild(card);
         });
       }
 

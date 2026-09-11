@@ -693,12 +693,30 @@
 
     if (window.HodousTestHub && window.HodousTestHub.saveResult) {
       const scoreHeadline = greenPct === redPct ? 'GREEN 50% — RED 50%' : (greenPct > redPct ? `GREEN ${greenPct}%` : `RED ${redPct}%`);
+      const detailedChoices = GORF_QUESTIONS.map((q, idx) => {
+        const ansIdx = gorfState.answers[idx];
+        let choiceStr = 'پاسخ داده نشده';
+        if (ansIdx === 0) {
+          choiceStr = `[سبز/الف] ${q.fa ? q.fa.options[0] : q.options[0]}`;
+        } else if (ansIdx === 1) {
+          choiceStr = `[خنثی/ب] ${q.fa ? q.fa.options[1] : q.options[1]}`;
+        } else if (ansIdx === 2) {
+          choiceStr = `[قرمز/ج] ${q.fa ? q.fa.options[2] : q.options[2]}`;
+        }
+        return {
+          qNum: idx + 1,
+          title: q.fa ? q.fa.question : q.question,
+          choice: choiceStr
+        };
+      });
+
       window.HodousTestHub.saveResult({
         testId: 'green-or-red',
         testTitle: 'Green Flag یا Red Flag؟',
         nickname: participantName,
         score: scoreHeadline,
-        details: `Green: ${greenPct}% · Red: ${redPct}%`
+        details: `Green: ${greenPct}% · Red: ${redPct}%`,
+        choices: detailedChoices
       });
     }
   }
