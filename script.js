@@ -358,8 +358,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========================================================================
-  // 5. Audio Upload, Persistent IndexedDB Library & Interactive Playback
+  // 5. Audio Upload, Persistent IndexedDB Library, Rename & Quota Limit
   // ========================================================================
+  const MAX_TRACKS_LIMIT = 10;
+
   const audioFileInput = document.getElementById('audio-file-input');
   const uploadTriggerBtn = document.getElementById('upload-trigger-btn');
   const changeTrackBtn = document.getElementById('change-track-btn');
@@ -370,6 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const playPauseBtn = document.getElementById('play-pause-btn');
   const prevTrackBtn = document.getElementById('prev-track-btn');
   const nextTrackBtn = document.getElementById('next-track-btn');
+  const playerRenameBtn = document.getElementById('player-rename-btn');
   const trackTitle = document.getElementById('current-track-title');
   const trackTime = document.getElementById('current-track-time');
   const trackDuration = document.getElementById('current-track-duration');
@@ -378,6 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const awaitingBadge = document.getElementById('awaiting-badge');
   const playerStatusBadge = document.getElementById('player-status-badge');
   const audioErrorMsg = document.getElementById('audio-error-msg');
+  const audioLimitMsg = document.getElementById('audio-limit-msg');
   const seekBar = document.getElementById('seek-bar');
   const savedTracksList = document.getElementById('saved-tracks-list');
   const emptyLibraryState = document.getElementById('empty-library-state');
@@ -435,6 +439,32 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.warn('Could not save to IndexedDB:', err);
       return null;
+    }
+  }
+
+  async function updateTrackTitleInDB(id, newTitle) {
+    try {
+      const db = await openAudioDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const getReq = store.get(id);
+        getReq.onsuccess = () => {
+          const track = getReq.result;
+          if (!track) {
+            resolve(false);
+            return;
+          }
+          track.title = newTitle;
+          const putReq = store.put(track);
+          putReq.onsuccess = () => resolve(true);
+          putReq.onerror = () => reject(putReq.error);
+        };
+        getReq.onerror = () => reject(getReq.error);
+      });
+    } catch (err) {
+      console.warn('Could not update track title in IndexedDB:', err);
+      return false;
     }
   }
 
@@ -504,11 +534,32 @@ document.addEventListener('DOMContentLoaded', () => {
     return Math.round(kb) + ' KB';
   }
 
+  function showLimitWarning(msg) {
+    if (audioLimitMsg) {
+      audioLimitMsg.textContent = msg;
+      audioLimitMsg.classList.remove('hidden');
+      audioLimitMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => {
+        if (audioLimitMsg) audioLimitMsg.classList.add('hidden');
+      }, 7000);
+    } else {
+      alert(msg);
+    }
+  }
+
   function triggerFileInput() {
     if (audioFileInput) {
       audioFileInput.value = '';
       audioFileInput.click();
     }
+  }
+
+  function checkLimitAndTriggerFileInput() {
+    if (savedTracks.length >= MAX_TRACKS_LIMIT) {
+      showLimitWarning(`ظرفیت کتابخانه تکمیل است (حداکثر ${MAX_TRACKS_LIMIT} قطعه). برای افزودن آهنگ جدید، ابتدا یکی از آهنگ‌ها را حذف کنید.`);
+      return;
+    }
+    triggerFileInput();
   }
 
   // --- UI Update & Library Rendering ---
@@ -526,7 +577,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (savedCountBadge) {
       const count = savedTracks.length;
-      savedCountBadge.textContent = `${count} آهنگ`;
+      savedCountBadge.textContent = `${count} / ${MAX_TRACKS_LIMIT} قطعه`;
+      if (count >= MAX_TRACKS_LIMIT) {
+        savedCountBadge.className = "text-[11px] font-medium bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-0.5 rounded-full";
+      } else {
+        savedCountBadge.className = "text-[11px] font-medium bg-[#E8F4FC] text-[#1B3554] border border-[#C0E6FD] px-2.5 py-0.5 rounded-full";
+      }
     }
 
     if (clearAllBtn) {
@@ -572,8 +628,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="mini-eq-bar"></span>
             </div>
           </div>
-          <div class="min-w-0 flex-1 text-right" dir="rtl">
-            <p class="text-xs sm:text-sm font-medium text-[#0B223D] truncate">
+          <div class="min-w-0 flex-1 text-right track-title-wrapper" dir="rtl">
+            <p class="text-xs sm:text-sm font-medium text-[#0B223D] truncate track-display-title">
               ${escapeHtml(track.title || track.name)}
             </p>
             <p class="text-[11px] text-[#5B86B6] truncate mt-0.5">
@@ -581,16 +637,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </p>
           </div>
         </div>
-        <div class="flex items-center gap-1.5 shrink-0">
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" class="track-edit-btn" title="تغییر نام آهنگ" aria-label="تغییر نام">
+            ✎
+          </button>
           <button type="button" class="track-delete-btn" title="حذف از حافظه" aria-label="حذف">
             ✕
           </button>
         </div>
       `;
 
-      // Click to play/pause
+      // Click row to play/pause
       row.addEventListener('click', (e) => {
-        if (e.target.closest('.track-delete-btn')) return;
+        if (e.target.closest('.track-delete-btn') || e.target.closest('.track-edit-btn') || e.target.closest('.track-rename-input') || e.target.closest('.track-rename-btn')) return;
         if (currentTrackIndex === idx) {
           if (audioPlayer.paused) {
             audioPlayer.play().catch(() => {});
@@ -602,6 +661,67 @@ document.addEventListener('DOMContentLoaded', () => {
           loadTrackByIndex(idx, true);
         }
       });
+
+      // Rename Action (Inline edit)
+      const editBtn = row.querySelector('.track-edit-btn');
+      if (editBtn) {
+        editBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const titleWrapper = row.querySelector('.track-title-wrapper');
+          if (!titleWrapper) return;
+
+          const currentTitle = track.title || track.name;
+          titleWrapper.innerHTML = `
+            <div class="flex flex-col gap-1.5 py-1" dir="rtl">
+              <input type="text" class="track-rename-input" value="${escapeHtml(currentTitle)}" />
+              <div class="track-rename-actions">
+                <button type="button" class="track-rename-btn track-rename-save">ذخیره</button>
+                <button type="button" class="track-rename-btn track-rename-cancel">انصراف</button>
+              </div>
+            </div>
+          `;
+
+          const input = titleWrapper.querySelector('.track-rename-input');
+          input.focus();
+          input.select();
+
+          const doSave = async () => {
+            const newName = input.value.trim();
+            if (newName && newName !== currentTitle) {
+              await updateTrackTitleInDB(track.id, newName);
+              track.title = newName;
+              if (currentTrackIndex === idx && trackTitle) {
+                trackTitle.textContent = newName;
+              }
+            }
+            renderLibrary();
+          };
+
+          const saveBtn = titleWrapper.querySelector('.track-rename-save');
+          const cancelBtn = titleWrapper.querySelector('.track-rename-cancel');
+
+          saveBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            doSave();
+          });
+
+          cancelBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            renderLibrary();
+          });
+
+          input.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+              ev.preventDefault();
+              doSave();
+            } else if (ev.key === 'Escape') {
+              renderLibrary();
+            }
+          });
+
+          input.addEventListener('click', (ev) => ev.stopPropagation());
+        });
+      }
 
       // Delete action
       const delBtn = row.querySelector('.track-delete-btn');
@@ -717,9 +837,14 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTrackByIndex(prevIdx, true);
   }
 
-  // --- Process New Files (Single or Multiple) ---
+  // --- Process New Files with Quota Verification ---
   async function handleIncomingAudioFiles(fileList) {
     if (!fileList || fileList.length === 0) return;
+
+    if (savedTracks.length >= MAX_TRACKS_LIMIT) {
+      showLimitWarning(`ظرفیت کتابخانه تکمیل است (حداکثر ${MAX_TRACKS_LIMIT} قطعه). لطفاً ابتدا برای خالی شدن فضا، یک یا چند آهنگ را حذف کنید.`);
+      return;
+    }
 
     const validFiles = Array.from(fileList).filter(f =>
       f.type.startsWith('audio/') || /\.(mp3|m4a|wav|ogg|aac|flac|opus|wma)$/i.test(f.name)
@@ -733,20 +858,24 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const availableSlots = MAX_TRACKS_LIMIT - savedTracks.length;
+    const filesToSave = validFiles.slice(0, availableSlots);
+
+    if (validFiles.length > availableSlots) {
+      showLimitWarning(`تنها امکان افزودن ${availableSlots} آهنگ وجود داشت. سقف مجاز (${MAX_TRACKS_LIMIT} قطعه) تکمیل شد.`);
+    }
+
     if (playerStatusBadge) playerStatusBadge.textContent = 'در حال ذخیره‌سازی...';
 
-    let firstNewIndex = -1;
-    for (let i = 0; i < validFiles.length; i++) {
-      const file = validFiles[i];
-      await saveTrackToDB(file);
+    for (let i = 0; i < filesToSave.length; i++) {
+      await saveTrackToDB(filesToSave[i]);
     }
 
     await loadSavedTracksFromDB();
 
-    // Play the most recently added track
+    // Play the first newly added track
     if (savedTracks.length > 0) {
-      firstNewIndex = savedTracks.length - validFiles.length;
-      if (firstNewIndex < 0) firstNewIndex = 0;
+      const firstNewIndex = Math.max(0, savedTracks.length - filesToSave.length);
       loadTrackByIndex(firstNewIndex, true);
     }
   }
@@ -760,21 +889,37 @@ document.addEventListener('DOMContentLoaded', () => {
   if (uploadTriggerBtn) {
     uploadTriggerBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      triggerFileInput();
+      checkLimitAndTriggerFileInput();
     });
   }
 
   if (changeTrackBtn) {
     changeTrackBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      triggerFileInput();
+      checkLimitAndTriggerFileInput();
     });
   }
 
   if (addMoreBtn) {
     addMoreBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      triggerFileInput();
+      checkLimitAndTriggerFileInput();
+    });
+  }
+
+  if (playerRenameBtn) {
+    playerRenameBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if (currentTrackIndex < 0 || !savedTracks[currentTrackIndex]) return;
+      const currentTrack = savedTracks[currentTrackIndex];
+      const newName = prompt('نام جدید آهنگ را وارد کنید:', currentTrack.title || currentTrack.name);
+      if (newName && newName.trim() && newName.trim() !== currentTrack.title) {
+        const trimmed = newName.trim();
+        await updateTrackTitleInDB(currentTrack.id, trimmed);
+        currentTrack.title = trimmed;
+        if (trackTitle) trackTitle.textContent = trimmed;
+        renderLibrary();
+      }
     });
   }
 
@@ -813,7 +958,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (dropZone) {
     dropZone.addEventListener('click', () => {
-      triggerFileInput();
+      checkLimitAndTriggerFileInput();
     });
 
     ['dragenter', 'dragover'].forEach(eventType => {

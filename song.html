@@ -231,6 +231,77 @@
       color: #DC2626;
       transform: scale(1.1);
     }
+
+    /* Rename & Edit Controls */
+    .track-edit-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #80AAD3;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .track-edit-btn:hover {
+      background: #E8F4FC;
+      color: #1B3554;
+      transform: scale(1.1);
+    }
+
+    .track-rename-input {
+      background: #FFFFFF;
+      border: 1.5px solid #5B86B6;
+      border-radius: 8px;
+      padding: 3px 8px;
+      font-size: 13px;
+      color: #0B223D;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      box-shadow: 0 1px 3px rgba(27, 53, 84, 0.08);
+    }
+    .track-rename-input:focus {
+      border-color: #1B3554;
+      box-shadow: 0 0 0 2px rgba(91, 134, 182, 0.25);
+    }
+
+    .track-rename-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .track-rename-btn {
+      padding: 3px 10px;
+      font-size: 11px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .track-rename-save {
+      background: #1B3554;
+      color: #FFFFFF;
+    }
+    .track-rename-save:hover {
+      background: #0B223D;
+    }
+    .track-rename-cancel {
+      background: #E8F4FC;
+      color: #5B86B6;
+    }
+    .track-rename-cancel:hover {
+      background: #C0E6FD;
+      color: #1B3554;
+    }
   </style>
 </head>
 <body class="bg-[#F4F9FD] text-[#1B3554] antialiased min-h-screen flex flex-col">
@@ -341,7 +412,7 @@
             بارگذاری و پخش آهنگ دلخواه
           </h2>
           <p class="text-xs sm:text-sm text-[#3F6593] font-normal max-w-sm mx-auto leading-relaxed" dir="rtl">
-            فایل صوتی خود (MP3, M4A, WAV) را انتخاب کنید تا برای همیشه در کتابخانه اختصاصی مرورگرتان ذخیره و پخش شود.
+            فایل صوتی خود (MP3, M4A, WAV) را انتخاب کنید تا در کتابخانه اختصاصی مرورگرتان ذخیره و پخش شود (ظرفیت مجاز: حداکثر ۱۰ قطعه).
           </p>
         </div>
 
@@ -384,9 +455,14 @@
                 </div>
 
                 <div class="min-w-0">
-                  <p id="current-track-title" class="text-sm font-semibold text-[#0B223D] truncate">
-                    Track Name
-                  </p>
+                  <div class="flex items-center gap-1.5">
+                    <p id="current-track-title" class="text-sm font-semibold text-[#0B223D] truncate">
+                      Track Name
+                    </p>
+                    <button type="button" id="player-rename-btn" class="text-xs text-[#5B86B6] hover:text-[#0B223D] hover:bg-[#C0E6FD]/40 rounded px-1 transition-colors shrink-0" title="تغییر نام این آهنگ">
+                      ✎
+                    </button>
+                  </div>
                   <p class="text-xs text-[#5B86B6] font-normal">
                     <span id="current-track-time">0:00</span> / <span id="current-track-duration">0:00</span>
                   </p>
@@ -411,6 +487,10 @@
 
           <!-- Native Audio Element -->
           <audio id="audio-player" preload="metadata"></audio>
+        </div>
+
+        <!-- Quota Warning Notification (When limit reached) -->
+        <div id="audio-limit-msg" class="hidden p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-800 font-medium text-center" dir="rtl">
         </div>
 
         <!-- Saved Audio Tracks Library Section (IndexedDB Persistent) -->
