@@ -274,10 +274,13 @@ body {
 .test-page-title {
   direction: ltr;
   font-family: var(--font-stack);
-  font-size: clamp(36px, 6vw, 48px);
-  font-weight: 500;
+  font-size: clamp(38px, 6.5vw, 52px);
+  font-weight: 600;
   letter-spacing: -0.035em;
-  color: var(--midnight-blue);
+  background: linear-gradient(150deg, #09192C 0%, #17324F 42%, #3B6696 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(192, 230, 253, 0.65));
   line-height: 1.1;
 }
 
@@ -285,13 +288,13 @@ body {
 .test-hero-card {
   width: 100%;
   max-width: 560px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
-  border: 1.5px solid rgba(91, 134, 182, 0.35);
-  border-radius: 28px;
-  padding: 44px 36px;
-  box-shadow: 0 20px 50px -12px rgba(27, 53, 84, 0.1), 0 0 1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(192, 230, 253, 0.75);
+  border-radius: 30px;
+  padding: 48px 38px;
+  box-shadow: 0 24px 50px -15px rgba(27, 53, 84, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   cursor: pointer;
   transition: all 0.35s var(--transition-smooth);
   user-select: none;
@@ -300,8 +303,9 @@ body {
 
 .test-hero-card:hover {
   transform: translateY(-5px) scale(1.015);
-  border-color: rgba(27, 53, 84, 0.6);
-  box-shadow: 0 28px 65px -15px rgba(27, 53, 84, 0.18);
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(91, 134, 182, 0.6);
+  box-shadow: 0 32px 65px -15px rgba(27, 53, 84, 0.16), 0 0 24px rgba(192, 230, 253, 0.5);
 }
 
 .test-hero-title {

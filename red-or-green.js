@@ -929,7 +929,7 @@
     let width = 0;
     let height = 0;
     let stars = [];
-    const STAR_COUNT = 520;
+    const STAR_COUNT = 130;
     let animationFrameId = null;
 
     // Helper: pre-render a sharp diamond star sprite once into an offscreen canvas
@@ -1029,17 +1029,17 @@
       for (let i = 0; i < STAR_COUNT; i++) {
         const depth = Math.random();
         let type = 'micro4';
-        let baseAlpha = Math.random() * 0.35 + 0.35;
-        let twinkleAmp = 0.25;
+        let baseAlpha = Math.random() * 0.3 + 0.35;
+        let twinkleAmp = 0.2;
 
-        if (depth > 0.88) {
+        if (depth > 0.90) {
           type = 'royal8';
-          baseAlpha = Math.random() * 0.2 + 0.8;
-          twinkleAmp = 0.25;
-        } else if (depth > 0.60) {
+          baseAlpha = Math.random() * 0.25 + 0.75;
+          twinkleAmp = 0.22;
+        } else if (depth > 0.68) {
           type = 'diamond4';
-          baseAlpha = Math.random() * 0.3 + 0.55;
-          twinkleAmp = 0.25;
+          baseAlpha = Math.random() * 0.25 + 0.5;
+          twinkleAmp = 0.2;
         }
 
         stars.push({
@@ -1048,7 +1048,7 @@
           type,
           baseAlpha,
           twinkleAmp,
-          twinkleSpeed: Math.random() * 0.0025 + 0.001,
+          twinkleSpeed: Math.random() * 0.0012 + 0.0004,
           phase: Math.random() * Math.PI * 2
         });
       }
