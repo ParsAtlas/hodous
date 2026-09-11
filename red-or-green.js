@@ -507,8 +507,10 @@
     if (targetView === viewHub) {
       document.body.classList.remove('theme-pastel-red');
       document.body.classList.remove('theme-gorf-pastel');
+      document.body.classList.remove('theme-bgf-pastel');
     } else {
       document.body.classList.remove('theme-gorf-pastel');
+      document.body.classList.remove('theme-bgf-pastel');
       document.body.classList.add('theme-pastel-red');
     }
 
@@ -540,6 +542,11 @@
     // Sync with Test 2
     if (typeof window.updateGorfLanguage === 'function') {
       window.updateGorfLanguage(state.selectedLanguage);
+    }
+
+    // Sync with Test 3
+    if (typeof window.updateBgfLanguage === 'function') {
+      window.updateBgfLanguage(state.selectedLanguage);
     }
 
     // Update setup lang boxes

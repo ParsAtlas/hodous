@@ -440,8 +440,11 @@
 
     if (targetView === viewHub) {
       document.body.classList.remove('theme-gorf-pastel');
+      document.body.classList.remove('theme-bgf-pastel');
+      document.body.classList.remove('theme-pastel-red');
     } else {
       document.body.classList.remove('theme-pastel-red');
+      document.body.classList.remove('theme-bgf-pastel');
       document.body.classList.add('theme-gorf-pastel');
     }
 
@@ -869,12 +872,15 @@
         const btnTxt = globalLangBtn.querySelector('.global-lang-text');
         if (btnTxt) btnTxt.textContent = (newLang === 'fa') ? 'EN' : 'فا';
 
-        // Notify both tests
+        // Notify all tests
         if (typeof window.applyHodousLanguage === 'function') {
           window.applyHodousLanguage(newLang);
         }
         if (typeof window.updateGorfLanguage === 'function') {
           window.updateGorfLanguage(newLang);
+        }
+        if (typeof window.updateBgfLanguage === 'function') {
+          window.updateBgfLanguage(newLang);
         }
       });
     }

@@ -9,6 +9,7 @@
   <!-- Custom Styles (Pure CSS, Zero SVG, Apple San Francisco Typography, Pastel Red Theme) -->
   <link rel="stylesheet" href="red-or-green.css" />
   <link rel="stylesheet" href="green-or-red.css" />
+  <link rel="stylesheet" href="biggest-green-flag.css" />
 </head>
 <body>
 
@@ -173,6 +174,37 @@
           <div style="margin-top: 10px;">
             <span class="test-hero-cta" style="background: linear-gradient(135deg, #166534 0%, #0F172A 100%);">
               <span id="hub-card-gorf-cta-text">شروع آزمون Green یا Red</span>
+              <span>←</span>
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Card 3: بزرگترین Green Flag تو چیه؟ (New 10-Scenario Elimination Test) -->
+        <div id="card-launch-bgf" class="test-hero-card card-bgf" role="button" tabindex="0" title="ورود به آزمون بزرگترین گرین‌فلگ برای تو چیه؟">
+          
+          <div style="margin-bottom: 14px;">
+            <span class="badge-bgf-pastel">
+              <span class="dot-green-pulse"></span>
+              <span id="hub-card-bgf-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)</span>
+            </span>
+          </div>
+
+          <h2 id="hub-card-bgf-title" class="test-hero-title">
+            بزرگترین <span class="card-title-green">گرین‌فلگ</span> برای تو چیه؟
+          </h2>
+
+          <p id="hub-card-bgf-sub1" class="test-hero-sub-primary">
+            اگر این رفتارها را از یک نفر ببینی، چقدر برایت ارزشمندند؟
+          </p>
+
+          <p id="hub-card-bgf-sub2" class="test-hero-desc">
+            اگر این رفتارها را از یک نفر ببینی، چقدر برایت Green Flag محسوب می‌شوند؟
+          </p>
+
+          <div style="margin-top: 10px;">
+            <span class="test-hero-cta" style="background: linear-gradient(135deg, #15803D 0%, #0F172A 100%);">
+              <span id="hub-card-bgf-cta-text">شروع ارزیابی رفتارهای امن و بالغانه</span>
               <span>←</span>
             </span>
           </div>
@@ -543,6 +575,134 @@
       </div>
     </section>
 
+    <!-- ==================================================================
+         VIEW: بزرگترین GREEN FLAG تو چیه؟ (10 Scenarios Elimination Screen)
+         ================================================================== -->
+    <section id="view-bgf-quiz" class="view-section" aria-label="کارت سؤال آزمون گرین‌فلگ">
+      <div class="bgf-card-container">
+        
+        <!-- Top Delicate Progress Bar (1/10 to 10/10) -->
+        <div class="bgf-progress-wrapper">
+          <div class="bgf-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div id="bgf-progress-fill" class="bgf-progress-fill" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- Meta Bar: Counter & Brand Stamp -->
+        <div class="bgf-meta-row">
+          <span id="bgf-counter-badge" class="bgf-counter-badge">سؤال ۱ از ۱۰</span>
+          <span id="bgf-brand-stamp" class="bgf-brand-stamp">بزرگترین <span class="stamp-green">Green Flag</span> برای تو چیه؟</span>
+        </div>
+
+        <!-- Question Statement -->
+        <h2 id="bgf-question-text" class="bgf-question-text">
+          در حال بارگذاری سناریو...
+        </h2>
+
+        <!-- Rating Scale 1 to 10 Container (Elimination Mode) -->
+        <div class="bgf-scale-wrapper">
+          <span id="bgf-scale-hint" class="bgf-scale-hint">
+            هر عدد فقط یک بار قابل انتخاب است و پس از انتخاب از گزینه‌ها حذف می‌شود
+          </span>
+
+          <div id="bgf-scale-grid" class="bgf-scale-grid" role="radiogroup" aria-label="مقیاس ۱ تا ۱۰">
+            <!-- Dynamic 1..10 elimination buttons injected via JS -->
+          </div>
+
+          <!-- Scale Explanatory Legends -->
+          <div class="bgf-scale-legend">
+            <span id="bgf-scale-legend-min">۱ = اهمیت خیلی کمی دارد</span>
+            <span id="bgf-scale-legend-max">۱۰ = یکی از بزرگترین Green Flagهای ممکن است</span>
+          </div>
+        </div>
+
+        <!-- Navigation Row: Back Button -->
+        <div class="bgf-nav-row">
+          <button id="bgf-btn-prev" class="bgf-btn-prev" type="button" disabled>
+            <span class="bgf-btn-prev-text">قبلی</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW: بزرگترین GREEN FLAG تو چیه؟ (Result View & Top 5 Ranking)
+         ================================================================== -->
+    <section id="view-bgf-result" class="view-section" aria-label="نتیجه ارزیابی گرین‌فلگ‌ها">
+      <div class="bgf-result-card">
+        
+        <span class="bgf-result-kicker">رنکینگ اختصاصی رفتارهای امن و بالغانه</span>
+
+        <!-- 3D FLIP CARD SCENE -->
+        <div class="bgf-flip-scene">
+          <div id="bgf-flip-card" class="bgf-flip-card">
+            
+            <!-- Front Face: GREEN -->
+            <div class="bgf-card-face bgf-card-front">
+              <span style="font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; opacity:0.8;">HODOUS GREEN FLAG ASSESSMENT</span>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div class="bgf-css-star"></div>
+                <div style="font-family:var(--font-stack); font-size:36px; font-weight:800; letter-spacing:0.12em; color:#166534;">GREEN</div>
+              </div>
+              <div style="width:44px; height:4px; border-radius:999px; background:#16A34A; opacity:0.6;"></div>
+            </div>
+
+            <!-- Back Face: PRIORITIES -->
+            <div class="bgf-card-face bgf-card-back">
+              <span style="font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; opacity:0.8;">HODOUS GREEN FLAG ASSESSMENT</span>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div class="bgf-css-star"></div>
+                <div style="font-family:var(--font-stack); font-size:26px; font-weight:800; letter-spacing:0.08em; color:#14532D;">PRIORITIES</div>
+              </div>
+              <div style="width:44px; height:4px; border-radius:999px; background:#15803D; opacity:0.6;"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Result Details (Revealed after 3D card flip) -->
+        <div id="bgf-result-details" class="bgf-result-details">
+          
+          <h3 id="bgf-priorities-title" class="bgf-priorities-title">
+            Top Green Flag Priorities
+          </h3>
+
+          <!-- Top 5 Ranking Cards Container -->
+          <div id="bgf-ranking-list" class="bgf-ranking-list">
+            <!-- Dynamic 5 cards injected via JS -->
+          </div>
+
+          <!-- Synthesis Narrative -->
+          <div class="bgf-narrative-box">
+            <p id="bgf-narrative-text" class="bgf-narrative-text">
+              به نظر می‌رسد بیشترین ارزش را برای رفتارهایی قائل هستی که احساس امنیت، احترام و بلوغ عاطفی ایجاد می‌کنند.
+            </p>
+          </div>
+
+          <!-- Mandatory Ethics Disclaimer -->
+          <div id="bgf-disclaimer-text" class="bgf-disclaimer-box">
+            این آزمون صرفاً برای سرگرمی و خودشناسی طراحی شده و معیار قطعی برای قضاوت درباره افراد نیست.
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="bgf-actions-grid">
+            <button id="btn-bgf-restart" class="bgf-btn-action bgf-btn-secondary" type="button">
+              <span class="bgf-btn-restart-text">انجام دوباره تست</span>
+            </button>
+            <button id="btn-bgf-share" class="bgf-btn-action bgf-btn-primary" type="button">
+              <span class="bgf-btn-share-text">اشتراک‌گذاری رنکینگ</span>
+            </button>
+            <button id="btn-bgf-back-hub" class="bgf-btn-action bgf-btn-secondary" type="button">
+              <span class="bgf-btn-hub-text">بازگشت به آزمون‌ها</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Notification Toast for Share Fallback -->
@@ -553,5 +713,6 @@
   <!-- Assessment Logic Scripts (Zero External Dependencies) -->
   <script src="red-or-green.js"></script>
   <script src="green-or-red.js"></script>
+  <script src="biggest-green-flag.js"></script>
 </body>
 </html>
