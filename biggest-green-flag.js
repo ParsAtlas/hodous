@@ -383,117 +383,77 @@
   // ==========================================================================
   function computeRankings() {
     const lang = getCurrentLang();
-    const ranked = BGF_SCENARIOS.map((scenario, index) => {
-      const score = bgfState.answers[index] || 0;
-      const sData = scenario[lang] || scenario.fa;
-      return {
-        id: scenario.id,
-        title: sData.title,
-        question: sData.question,
-        score: score,
-        qNum: index + 1
-      };
-    });
+    const itemsFrom1to10 = [];
 
-    // Sort descending: score 10 down to 1
-    const sorted = [...ranked].sort((a, b) => b.score - a.score);
+    for (let num = 1; num <= 10; num++) {
+      let foundScenario = null;
+      let foundIdx = -1;
+      for (let idx = 0; idx < BGF_SCENARIOS.length; idx++) {
+        if (Number(bgfState.answers[idx]) === num) {
+          foundScenario = BGF_SCENARIOS[idx];
+          foundIdx = idx;
+          break;
+        }
+      }
 
-    return {
-      top10: sorted,
-      top1: sorted[0],
-      byQuestion: ranked
-    };
+      if (foundScenario) {
+        const sData = foundScenario[lang] || foundScenario.fa;
+        itemsFrom1to10.push({
+          num: num,
+          title: sData.title,
+          question: sData.question,
+          qIdx: foundIdx
+        });
+      }
+    }
+
+    // Fallback if missing
+    if (itemsFrom1to10.length < 10) {
+      BGF_SCENARIOS.forEach((scenario, idx) => {
+        const val = Number(bgfState.answers[idx]) || (idx + 1);
+        if (!itemsFrom1to10.some(it => it.qIdx === idx)) {
+          const sData = scenario[lang] || scenario.fa;
+          itemsFrom1to10.push({
+            num: val,
+            title: sData.title,
+            question: sData.question,
+            qIdx: idx
+          });
+        }
+      });
+      itemsFrom1to10.sort((a, b) => a.num - b.num);
+    }
+
+    return itemsFrom1to10;
   }
 
   function finishTestAndShowResult() {
     bgfState.isFinished = true;
     showBgfView(viewBgfResult);
-    execute3DCardFlip();
+    renderBgfResults();
   }
 
-  let currentBgfViewMode = 'rank';
-
-  function renderBgfItemsList(ranking) {
-    if (!rankingListEl) return;
-    rankingListEl.innerHTML = '';
-
-    const items = currentBgfViewMode === 'rank' ? ranking.top10 : ranking.byQuestion;
-
-    items.forEach((item, idx) => {
-      const card = document.createElement('div');
-      const rankNum = idx + 1;
-      const badgeNum = currentBgfViewMode === 'rank' ? rankNum : item.qNum;
-      const isTop = currentBgfViewMode === 'rank' && rankNum === 1;
-
-      card.className = `bgf-rank-card ${isTop ? 'is-top1' : ''}`;
-      card.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-radius:12px; background:#FFFFFF; border:1px solid #DCFCE7; box-shadow:0 2px 5px rgba(22,101,52,0.04);";
-
-      card.innerHTML = `
-        <div style="display:flex; align-items:center; gap:12px;">
-          <span style="width:26px; height:26px; border-radius:50%; background:${isTop ? '#16A34A' : (rankNum <= 3 && currentBgfViewMode === 'rank') ? '#15803D' : '#F0FDF4'}; color:${(rankNum <= 3 && currentBgfViewMode === 'rank') ? '#FFFFFF' : '#166534'}; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; flex-shrink:0;">
-            ${badgeNum}
-          </span>
-          <span style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">${item.title}</span>
-        </div>
-        <span style="font-weight:700; color:#166534; background:#DCFCE7; border:1px solid #BBF7D0; padding:3px 9px; border-radius:8px; font-size:11px; white-space:nowrap; flex-shrink:0;">
-          اولویت: ${item.score} / ۱۰
-        </span>
-      `;
-      rankingListEl.appendChild(card);
-    });
-  }
-
-  function setupBgfSortButtons(ranking) {
-    const btnRank = document.getElementById('btn-bgf-sort-rank');
-    const btnOrder = document.getElementById('btn-bgf-sort-order');
-    if (!btnRank || !btnOrder) return;
-
-    btnRank.onclick = () => {
-      currentBgfViewMode = 'rank';
-      btnRank.style.background = '#16A34A';
-      btnRank.style.color = '#FFFFFF';
-      btnRank.style.fontWeight = '600';
-      btnOrder.style.background = 'transparent';
-      btnOrder.style.color = '#166534';
-      btnOrder.style.fontWeight = '500';
-      renderBgfItemsList(ranking);
-    };
-
-    btnOrder.onclick = () => {
-      currentBgfViewMode = 'order';
-      btnOrder.style.background = '#16A34A';
-      btnOrder.style.color = '#FFFFFF';
-      btnOrder.style.fontWeight = '600';
-      btnRank.style.background = 'transparent';
-      btnRank.style.color = '#166534';
-      btnRank.style.fontWeight = '500';
-      renderBgfItemsList(ranking);
-    };
-  }
-
-  function execute3DCardFlip() {
+  function renderBgfResults() {
     const lang = getCurrentLang();
     const t = BGF_UI[lang] || BGF_UI.fa;
-    const ranking = computeRankings();
+    const items = computeRankings();
 
-    if (!flipCardEl) return;
-
-    // 1. Reset card animation
-    flipCardEl.classList.remove('flip-spin');
-    if (resultDetailsEl) {
-      resultDetailsEl.classList.remove('is-revealed');
+    if (rankingListEl) {
+      rankingListEl.innerHTML = '';
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.style.cssText = "display:flex; align-items:center; gap:12px; padding:11px 16px; border-radius:12px; background:#FFFFFF; border:1px solid #DCFCE7; box-shadow:0 2px 5px rgba(22,101,52,0.04);";
+        card.innerHTML = `
+          <div style="width:28px; height:28px; border-radius:50%; background:#16A34A; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0;">
+            ${item.num}
+          </div>
+          <div style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">
+            ${item.title}
+          </div>
+        `;
+        rankingListEl.appendChild(card);
+      });
     }
-
-    void flipCardEl.offsetWidth; // force reflow
-
-    // 2. Trigger 3D Spin
-    setTimeout(() => {
-      flipCardEl.classList.add('flip-spin');
-    }, 100);
-
-    // 3. Render Clean 1 to 10 Ranking Cards
-    renderBgfItemsList(ranking);
-    setupBgfSortButtons(ranking);
 
     // Action button labels
     if (btnBgfRestart) {
@@ -509,38 +469,28 @@
       if (txt) txt.textContent = t.backToHubBtn;
     }
 
-    // 4. Reveal Details after 3D card settles
-    setTimeout(() => {
-      if (resultDetailsEl) {
-        resultDetailsEl.classList.add('is-revealed');
-      }
-    }, 1300);
-
     // Participant Badge & Central Archive / Webhook Logging
     const bgfBadge = document.getElementById('bgf-participant-badge');
     const participantName = bgfState.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
     if (bgfBadge) {
       bgfBadge.innerHTML = lang === 'en'
-        ? `Green Flag Priorities for: <b>${escapeHTML(participantName)}</b>`
-        : `رتبه‌بندی اولویت‌ها برای: <b>${escapeHTML(participantName)}</b>`;
+        ? `Personal Assessment for: <b>${escapeHTML(participantName)}</b>`
+        : `انتخاب‌های: <b>${escapeHTML(participantName)}</b>`;
     }
 
-    if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.top1) {
-      const detailedChoices = BGF_ITEMS.map((item, idx) => {
-        const score = bgfState.answers[idx] || 0;
-        return {
-          qNum: idx + 1,
-          title: item.fa ? item.fa.title : item.title,
-          choice: score > 0 ? `اولویت: ${score} از ۱۰` : 'ثبت نشده'
-        };
-      });
+    if (window.HodousTestHub && window.HodousTestHub.saveResult && items.length > 0) {
+      const detailedChoices = items.map(it => ({
+        qNum: it.num,
+        title: it.title,
+        choice: `عدد انتخابی: ${it.num}`
+      }));
 
       window.HodousTestHub.saveResult({
         testId: 'biggest-green-flag',
         testTitle: 'بزرگترین Green Flag تو چیه؟',
         nickname: participantName,
-        score: `${ranking.top1.title} (${ranking.top1.score}/10)`,
-        details: ranking.top10.map((it, i) => `#${i + 1} ${it.title} (${it.score}/10)`).join(' · '),
+        score: `شماره ۱: ${items[0].title}`,
+        details: items.map(it => `${it.num}. ${it.title}`).join(' · '),
         choices: detailedChoices
       });
     }
@@ -555,16 +505,16 @@
     playSubtleClick();
     const lang = getCurrentLang();
     const t = BGF_UI[lang] || BGF_UI.fa;
-    const ranking = computeRankings();
+    const items = computeRankings();
 
     let shareUrl = '';
-    if (window.HodousTestHub && window.HodousTestHub.generateShareUrl && ranking.top1) {
-      shareUrl = window.HodousTestHub.generateShareUrl('biggest-green-flag', `${ranking.top1.title} (${ranking.top1.score}/10)`);
+    if (window.HodousTestHub && window.HodousTestHub.generateShareUrl && items.length > 0) {
+      shareUrl = window.HodousTestHub.generateShareUrl('biggest-green-flag', `۱: ${items[0].title}`);
     }
 
     const lines = [
-      lang === 'en' ? '🌱 My Green Flag Priorities (Sorted 1 to 10):' : '🌱 اولویت‌های گرین‌فلگ من (مرتب‌شده از ۱ تا ۱۰):',
-      ...ranking.top10.map((item, idx) => `${idx + 1}. ${item.title} (${item.score}/10)`),
+      lang === 'en' ? '🌱 My Green Flag Choices (1 to 10):' : '🌱 انتخاب‌های من در تست گرین‌فلگ (از ۱ تا ۱۰):',
+      ...items.map(item => `${item.num}. ${item.title}`),
       shareUrl ? (lang === 'en' ? `🔗 View Result: ${shareUrl}` : `🔗 مشاهده کارنامه:\n${shareUrl}`) : '',
       'Hodous · Green Flag Test'
     ].filter(Boolean);
@@ -640,7 +590,7 @@
 
     // If currently on Result view
     if (viewBgfResult && viewBgfResult.classList.contains('is-active')) {
-      execute3DCardFlip();
+      renderBgfResults();
     }
   };
 

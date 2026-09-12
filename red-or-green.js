@@ -396,31 +396,49 @@
   function computeRankings() {
     const lang = state.selectedLanguage || 'fa';
 
-    // Map each of the 10 questions with the unique assigned score
-    const records = QUESTIONS.map((q, idx) => {
-      const userScore = state.answers[idx] !== undefined ? Number(state.answers[idx]) : 5;
-      const meta = q[lang] || q.fa;
-      return {
-        id: q.id,
-        category: q.category,
-        title: meta.title,
-        question: meta.question,
-        score: userScore,
-        qNum: idx + 1
-      };
-    });
+    // Map each number 1..10 to the question the person selected for that number
+    const itemsFrom1to10 = [];
 
-    // Sort strictly descending by score (score 10 down to 1)
-    const sorted = [...records].sort((a, b) => b.score - a.score);
+    for (let num = 1; num <= 10; num++) {
+      let foundQ = null;
+      let foundIdx = -1;
+      for (let idx = 0; idx < QUESTIONS.length; idx++) {
+        if (Number(state.answers[idx]) === num) {
+          foundQ = QUESTIONS[idx];
+          foundIdx = idx;
+          break;
+        }
+      }
 
-    const biggest = sorted[0]; // Exactly score 10
-    const top10 = sorted; // All 10 items sorted from 1 to 10
+      if (foundQ) {
+        const meta = foundQ[lang] || foundQ.fa;
+        itemsFrom1to10.push({
+          num: num,
+          title: meta.title,
+          question: meta.question,
+          qIdx: foundIdx
+        });
+      }
+    }
 
-    return {
-      biggest,
-      top10,
-      byQuestion: records
-    };
+    // Fallback if any missing
+    if (itemsFrom1to10.length < 10) {
+      QUESTIONS.forEach((q, idx) => {
+        const val = Number(state.answers[idx]) || (idx + 1);
+        if (!itemsFrom1to10.some(it => it.qIdx === idx)) {
+          const meta = q[lang] || q.fa;
+          itemsFrom1to10.push({
+            num: val,
+            title: meta.title,
+            question: meta.question,
+            qIdx: idx
+          });
+        }
+      });
+      itemsFrom1to10.sort((a, b) => a.num - b.num);
+    }
+
+    return itemsFrom1to10;
   }
 
   // ========================================================================
@@ -730,93 +748,32 @@
   // 9. ANIMATION & RESULT PRESENTATION
   // ========================================================================
   function finishAssessment() {
-    showView(viewAnimation);
-
-    const lang = state.selectedLanguage || 'fa';
-    const t = UI_TEXT[lang] || UI_TEXT.fa;
-    const animSub = document.getElementById('animation-subtitle-text');
-    if (animSub) animSub.textContent = t.animationSubtitle;
-
-    setTimeout(() => {
-      playCompletionChimes();
-      renderResults();
-      showView(viewResult);
-    }, 2400);
-  }
-
-  let currentRogViewMode = 'rank';
-
-  function renderRogItemsList(ranking) {
-    if (!rankingCardsContainerEl) return;
-    rankingCardsContainerEl.innerHTML = '';
-
-    const items = currentRogViewMode === 'rank' ? ranking.top10 : ranking.byQuestion;
-
-    items.forEach((item, index) => {
-      const rankNumber = index + 1;
-      const card = document.createElement('div');
-      card.className = `ranking-item-card rank-tier-${rankNumber}`;
-      card.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-radius:12px; background:#FFFFFF; border:1px solid #E2EFF9; box-shadow:0 2px 5px rgba(27,53,84,0.04);";
-
-      const badgeNum = currentRogViewMode === 'rank' ? rankNumber : item.qNum;
-      const isTop = currentRogViewMode === 'rank' && rankNumber === 1;
-
-      card.innerHTML = `
-        <div style="display:flex; align-items:center; gap:12px;">
-          <div style="width:26px; height:26px; border-radius:50%; background:${isTop ? '#DC2626' : (rankNumber <= 3 && currentRogViewMode === 'rank') ? '#1B3554' : '#F0F7FD'}; color:${(rankNumber <= 3 && currentRogViewMode === 'rank') ? '#FFFFFF' : '#1B3554'}; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; flex-shrink:0;">
-            ${badgeNum}
-          </div>
-          <div>
-            <div style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">
-              ${item.title}
-            </div>
-          </div>
-        </div>
-        <div style="font-weight:700; color:#1B3554; background:#F0F7FD; border:1px solid #C0E6FD; padding:3px 9px; border-radius:8px; font-size:11px; white-space:nowrap; flex-shrink:0;">
-          امتیاز: ${item.score} / ۱۰
-        </div>
-      `;
-
-      rankingCardsContainerEl.appendChild(card);
-    });
-  }
-
-  function setupRogSortButtons(ranking) {
-    const btnRank = document.getElementById('btn-rog-sort-rank');
-    const btnOrder = document.getElementById('btn-rog-sort-order');
-    if (!btnRank || !btnOrder) return;
-
-    btnRank.onclick = () => {
-      currentRogViewMode = 'rank';
-      btnRank.style.background = '#1B3554';
-      btnRank.style.color = '#FFFFFF';
-      btnRank.style.fontWeight = '600';
-      btnOrder.style.background = 'transparent';
-      btnOrder.style.color = '#5B86B6';
-      btnOrder.style.fontWeight = '500';
-      renderRogItemsList(ranking);
-    };
-
-    btnOrder.onclick = () => {
-      currentRogViewMode = 'order';
-      btnOrder.style.background = '#1B3554';
-      btnOrder.style.color = '#FFFFFF';
-      btnOrder.style.fontWeight = '600';
-      btnRank.style.background = 'transparent';
-      btnRank.style.color = '#5B86B6';
-      btnRank.style.fontWeight = '500';
-      renderRogItemsList(ranking);
-    };
+    playCompletionChimes();
+    renderResults();
+    showView(viewResult);
   }
 
   function renderResults() {
     const lang = state.selectedLanguage || 'fa';
     const t = UI_TEXT[lang] || UI_TEXT.fa;
-    const ranking = computeRankings();
+    const items = computeRankings();
 
-    // Render Clean 1 to 10 items without extra explanations
-    renderRogItemsList(ranking);
-    setupRogSortButtons(ranking);
+    if (rankingCardsContainerEl) {
+      rankingCardsContainerEl.innerHTML = '';
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.style.cssText = "display:flex; align-items:center; gap:12px; padding:11px 16px; border-radius:12px; background:#FFFFFF; border:1px solid #E2EFF9; box-shadow:0 2px 5px rgba(27,53,84,0.04);";
+        card.innerHTML = `
+          <div style="width:28px; height:28px; border-radius:50%; background:#1B3554; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0;">
+            ${item.num}
+          </div>
+          <div style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">
+            ${item.title}
+          </div>
+        `;
+        rankingCardsContainerEl.appendChild(card);
+      });
+    }
 
     // Action Buttons
     if (btnRestart) btnRestart.textContent = t.retakeBtn;
@@ -828,25 +785,22 @@
     if (rogBadge) {
       rogBadge.innerHTML = lang === 'en'
         ? `Personal Assessment for: <b>${escapeHTML(participantName)}</b>`
-        : `کارنامه اختصاصی برای: <b>${escapeHTML(participantName)}</b>`;
+        : `انتخاب‌های: <b>${escapeHTML(participantName)}</b>`;
     }
 
-    if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.biggest) {
-      const detailedChoices = QUESTIONS.map((q, idx) => {
-        const val = state.answers[idx];
-        return {
-          qNum: idx + 1,
-          title: q.fa ? q.fa.title : q.title,
-          choice: val !== undefined ? `امتیاز رتبه‌بندی: ${val} از ۱۰` : 'ثبت نشده'
-        };
-      });
+    if (window.HodousTestHub && window.HodousTestHub.saveResult && items.length > 0) {
+      const detailedChoices = items.map(it => ({
+        qNum: it.num,
+        title: it.title,
+        choice: `عدد انتخابی: ${it.num}`
+      }));
 
       window.HodousTestHub.saveResult({
         testId: 'biggest-red-flag',
         testTitle: 'بزرگترین ردفلگ برای تو چیه؟',
         nickname: participantName,
-        score: `${ranking.biggest.title} (${ranking.biggest.score}/10)`,
-        details: ranking.summaryText,
+        score: `شماره ۱: ${items[0].title}`,
+        details: items.map(it => `${it.num}. ${it.title}`).join(' · '),
         choices: detailedChoices
       });
     }
@@ -959,16 +913,16 @@
         initAudio();
         const lang = state.selectedLanguage || 'fa';
         const t = UI_TEXT[lang] || UI_TEXT.fa;
-        const ranking = computeRankings();
+        const items = computeRankings();
 
         let shareUrl = '';
-        if (window.HodousTestHub && window.HodousTestHub.generateShareUrl && ranking.biggest) {
-          shareUrl = window.HodousTestHub.generateShareUrl('biggest-red-flag', `${ranking.biggest.title} (${ranking.biggest.score}/10)`);
+        if (window.HodousTestHub && window.HodousTestHub.generateShareUrl && items.length > 0) {
+          shareUrl = window.HodousTestHub.generateShareUrl('biggest-red-flag', `۱: ${items[0].title}`);
         }
 
         const shareLines = [
-          lang === 'en' ? '🚩 My Relational Red Flags (Sorted 1 to 10):' : '🚩 انتخاب‌های من در تست ردفلگ (مرتب‌شده از ۱ تا ۱۰):',
-          ...ranking.top10.map((item, idx) => `${idx + 1}. ${item.title} (${item.score}/10)`),
+          lang === 'en' ? '🚩 My Red Flag Choices (1 to 10):' : '🚩 انتخاب‌های من در تست ردفلگ (از ۱ تا ۱۰):',
+          ...items.map(item => `${item.num}. ${item.title}`),
           shareUrl ? (lang === 'en' ? `🔗 View Result: ${shareUrl}` : `🔗 مشاهده کارنامه:\n${shareUrl}`) : '',
           'Hodous · Red Flag Test'
         ].filter(Boolean);
