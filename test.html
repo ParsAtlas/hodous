@@ -185,7 +185,7 @@
           <div style="margin-bottom: 14px;">
             <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#C92A2A; background:rgba(255,227,227,0.7); padding:4px 14px; border-radius:999px; border:1px solid rgba(224,49,49,0.25);">
               <span style="width:6px; height:6px; border-radius:50%; background:#E03131;"></span>
-              <span id="hub-card-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)</span>
+              <span id="hub-card-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰</span>
             </span>
           </div>
 
@@ -253,7 +253,7 @@
           <div style="margin-bottom: 14px;">
             <span class="badge-bgf-pastel">
               <span class="dot-green-pulse"></span>
-              <span id="hub-card-bgf-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)</span>
+              <span id="hub-card-bgf-badge-text">۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰</span>
             </span>
           </div>
 
@@ -367,71 +367,57 @@
     </section>
 
     <!-- ==================================================================
-         VIEW 3: QUESTION CARD SCREEN (15 Scenarios · 1 to 10 Rating Scale)
+         VIEW 3: ALL QUESTIONS (10 Scenarios · 1 to 10 Simultaneous Rating)
          ================================================================== -->
-    <section id="view-quiz" class="view-section" aria-label="کارت سؤال">
-      <div id="question-card" class="question-card-container theme-white">
-
-        <!-- Card Header Meta: Counter & Brand Stamp -->
-        <div class="card-header-meta">
-          <span id="question-counter" class="question-counter-label">
-            سؤال ۱ از ۱۰
-          </span>
-          <span class="question-brand-stamp">
-            بزرگترین <span class="stamp-red">ردفلگ</span> برای تو چیه؟
-          </span>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="progress-bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-          <div id="progress-bar-fill" class="progress-bar-fill" style="width: 6.6%;"></div>
-        </div>
-
-        <!-- Question Statement -->
-        <h3 id="question-statement" class="question-statement-text">
-          در حال بارگذاری سؤال...
-        </h3>
-
-        <!-- Rating Scale 1 to 10 Container (Elimination Mode) -->
-        <div class="rating-scale-wrapper">
-          <div style="text-align:center; margin-bottom: 12px;">
-            <span id="scale-hint-text" class="scale-hint-text">
-              هر عدد فقط یک بار قابل انتخاب است و پس از انتخاب از گزینه‌ها حذف می‌شود
+    <section id="view-quiz" class="view-section" aria-label="سؤالات آزمون بزرگترین ردفلگ">
+      <div class="all-questions-container" id="rog-questions-container">
+        
+        <!-- Header Banner -->
+        <div class="test-header-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span class="question-brand-stamp" style="font-size: 15px; font-weight: 700;">
+              بزرگترین <span class="stamp-red">ردفلگ</span> برای تو چیه؟
+            </span>
+            <span id="rog-answered-counter" class="answered-counter-pill">
+              ۰ از ۱۰ پاسخ داده شده
             </span>
           </div>
+          <p id="rog-quiz-instruction" class="quiz-instruction-text">
+            تمام ۱۰ سناریوی زیر را مطالعه کنید و با آگاهی از همه موقعیت‌ها، در کادر هر سؤال عددی از ۱ تا ۱۰ را که مدنظرتان است انتخاب کنید.
+          </p>
+        </div>
 
-          <div id="scale-buttons-grid" class="scale-buttons-grid" role="radiogroup" aria-label="مقیاس ۱ تا ۱۰">
-            <!-- Dynamic available buttons injected via JS -->
-          </div>
+        <!-- 10 Questions Container rendered via JS -->
+        <div id="rog-questions-list" class="all-questions-list">
+          <!-- Injected via JS -->
+        </div>
 
-          <!-- Scale Explanatory Legends -->
-          <div class="scale-labels-legend">
-            <span id="scale-legend-min" class="scale-legend-min">۱ = کمترین میزان Red Flag</span>
-            <span id="scale-legend-max" class="scale-legend-max">۱۰ = بیشترین میزان Red Flag</span>
-          </div>
+        <!-- Submit Bar -->
+        <div class="quiz-submit-bar">
+          <button id="btn-submit-rog" class="btn-submit-assessment" type="button">
+            <span id="btn-submit-rog-text">مشاهده نتیجه ارزیابی</span>
+            <span>←</span>
+          </button>
+          <div id="rog-validation-msg" class="quiz-validation-msg" style="display:none;"></div>
         </div>
 
       </div>
     </section>
 
     <!-- ==================================================================
-         VIEW 4: COMPILATION & ANIMATION STAGE
+         VIEW 4: COMPILATION & ANIMATION STAGE (Optional fast transition)
          ================================================================== -->
     <section id="view-animation" class="view-section" aria-label="محاسبه و تحلیل رنکینگ">
       <div class="animation-stage">
         <p id="animation-subtitle-text" class="animation-subtitle">
-          در حال تحلیل خطوط قرمز و استخراج رنکینگ...
+          در حال استخراج کارنامه و رنکینگ انتخاب‌ها...
         </p>
-
         <div id="flipper-card" class="flipper-card-scene">
-          <!-- Front Face: RED FLAG -->
           <div class="flipper-card-face flipper-face-red">
             <span class="flipper-brand-stamp">RED FLAG ASSESSMENT</span>
             <span class="flipper-face-title">RED FLAG</span>
             <div class="flipper-face-pill"></div>
           </div>
-
-          <!-- Back Face: RANKING -->
           <div class="flipper-card-face flipper-face-green">
             <span class="flipper-brand-stamp">RELATIONAL CRITERIA</span>
             <span class="flipper-face-title">RANKING</span>
@@ -442,32 +428,72 @@
     </section>
 
     <!-- ==================================================================
-         VIEW 5: FINAL RESULT PRESENTATION (Top 5 Ranking & Deep Synthesis)
+         VIEW 5: FINAL RESULT PRESENTATION (Biggest & Lowest Flags, 1-10 List, 2-Line Summary)
          ================================================================== -->
     <section id="view-result" class="view-section" aria-label="نتیجه ارزیابی">
-      <div id="result-card" class="result-card" style="max-width: 540px; margin: 0 auto;" dir="rtl">
+      <div id="result-card" class="result-card-clean" dir="rtl">
 
-        <div style="text-align: center; margin-bottom: 18px;">
-          <h2 style="font-size: 20px; font-weight: 700; color: #0B223D; margin: 0 0 6px 0;">
-            انتخاب‌های تو از ۱ تا ۱۰
+        <!-- Header -->
+        <div class="result-header-block">
+          <div id="rog-participant-badge" class="participant-badge-pill">
+            انتخاب‌های: <b>مهمان</b>
+          </div>
+          <h2 class="result-main-title" id="rog-result-main-title">
+            کارنامه ارزیابی ردفلگ‌ها
           </h2>
-          <span id="rog-participant-badge" style="font-size: 12px; color: #5B86B6; font-weight: 500;">
-            برای: <b>مهمان</b>
-          </span>
         </div>
 
-        <!-- 1 to 10 List -->
-        <div id="ranking-cards-container" style="display: flex; flex-direction: column; gap: 8px;">
-          <!-- Injected via JS -->
+        <!-- Two Highlight Sections (بزرگترین ردفلگ تو چیست و کمترین ردفلگ تو چیست) -->
+        <div class="result-highlights-grid">
+          <!-- 1. Biggest Red Flag -->
+          <div class="result-flag-highlight-card highlight-card-biggest">
+            <div class="flag-highlight-header">
+              <span class="highlight-label-tag tag-biggest-red" id="rog-biggest-tag">بزرگترین ردفلگ تو چیست؟</span>
+              <span id="rog-biggest-score-badge" class="highlight-score-badge badge-red">۱۰ / ۱۰</span>
+            </div>
+            <h3 id="rog-biggest-title" class="flag-highlight-title">عنوان سناریو</h3>
+            <p id="rog-biggest-scenario" class="flag-highlight-scenario">متن سناریو...</p>
+          </div>
+
+          <!-- 2. Lowest Red Flag -->
+          <div class="result-flag-highlight-card highlight-card-lowest">
+            <div class="flag-highlight-header">
+              <span class="highlight-label-tag tag-lowest-red" id="rog-lowest-tag">کمترین ردفلگ تو چیست؟</span>
+              <span id="rog-lowest-score-badge" class="highlight-score-badge badge-blue">۱ / ۱۰</span>
+            </div>
+            <h3 id="rog-lowest-title" class="flag-highlight-title">عنوان سناریو</h3>
+            <p id="rog-lowest-scenario" class="flag-highlight-scenario">متن سناریو...</p>
+          </div>
+        </div>
+
+        <!-- Full 1 to 10 Questions List Section -->
+        <div class="result-scale-list-section">
+          <div class="section-title-clean" id="rog-scale-list-title">
+            <span>انتخاب‌های تو از ۱ تا ۱۰ با سؤال داده شده</span>
+          </div>
+          <div id="ranking-cards-container" class="result-scale-items-list">
+            <!-- Injected via JS: Each item shows number 1..10 with that question -->
+          </div>
+        </div>
+
+        <!-- Two-Line Summary Box -->
+        <div class="result-summary-box-twoline">
+          <div class="summary-twoline-label" id="rog-summary-label">جمع‌بندی ارزیابی:</div>
+          <p id="result-summary-text" class="summary-twoline-text">
+            اولویت‌های شما نشان می‌دهد بالاترین حساسیت را به نقض حریم شخصی، بازی‌های روانی و فرافکنی دارید؛ شفافیت و امنیت روانی خط قرمز مطلق شماست.
+          </p>
         </div>
 
         <!-- Action Buttons -->
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button id="btn-restart" type="button" class="btn-secondary" style="flex: 1; padding: 12px; border-radius: 14px; background: #F0F7FD; color: #1B3554; font-size: 13px; font-weight: 600; border: 1px solid #C0E6FD; cursor: pointer; font-family: inherit;">
+        <div class="result-actions-row">
+          <button id="btn-restart" type="button" class="btn-action btn-secondary-action">
             انجام دوباره تست
           </button>
-          <button id="btn-share" type="button" class="btn-primary" style="flex: 1; padding: 12px; border-radius: 14px; background: #1B3554; color: #FFFFFF; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; box-shadow: 0 4px 14px rgba(27,53,84,0.2);">
-            اشتراک‌گذاری انتخاب‌ها
+          <button id="btn-share" type="button" class="btn-action btn-primary-action">
+            اشتراک‌گذاری نتیجه
+          </button>
+          <button id="btn-back-hub-rog" type="button" class="btn-action btn-outline-action">
+            بازگشت به آزمون‌ها
           </button>
         </div>
 
@@ -631,62 +657,111 @@
         </h2>
 
         <!-- Rating Scale 1 to 10 Container (Elimination Mode) -->
-        <div class="bgf-scale-wrapper">
-          <span id="bgf-scale-hint" class="bgf-scale-hint">
-            هر عدد فقط یک بار قابل انتخاب است و پس از انتخاب از گزینه‌ها حذف می‌شود
-          </span>
-
-          <div id="bgf-scale-grid" class="bgf-scale-grid" role="radiogroup" aria-label="مقیاس ۱ تا ۱۰">
-            <!-- Dynamic 1..10 elimination buttons injected via JS -->
+    <!-- ==================================================================
+         VIEW: بزرگترین GREEN FLAG تو چیه؟ (10 Scenarios Simultaneous Rating)
+         ================================================================== -->
+    <section id="view-bgf-quiz" class="view-section" aria-label="سؤالات آزمون گرین‌فلگ">
+      <div class="all-questions-container bgf-theme-container" id="bgf-questions-container">
+        
+        <!-- Header banner -->
+        <div class="test-header-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span class="bgf-brand-stamp" style="font-size: 15px; font-weight: 700;">
+              بزرگترین <span class="stamp-green">Green Flag</span> برای تو چیه؟
+            </span>
+            <span id="bgf-answered-counter" class="answered-counter-pill badge-green-pill">
+              ۰ از ۱۰ پاسخ داده شده
+            </span>
           </div>
-
-          <!-- Scale Explanatory Legends -->
-          <div class="bgf-scale-legend">
-            <span id="bgf-scale-legend-min">۱ = اهمیت خیلی کمی دارد</span>
-            <span id="bgf-scale-legend-max">۱۰ = یکی از بزرگترین Green Flagهای ممکن است</span>
-          </div>
+          <p id="bgf-quiz-instruction" class="quiz-instruction-text">
+            تمام ۱۰ سناریوی زیر را مطالعه کنید و با آگاهی از همه موقعیت‌ها، در کادر هر سؤال عددی از ۱ تا ۱۰ را که مدنظرتان است انتخاب کنید.
+          </p>
         </div>
 
-        <!-- Navigation Row: Back Button -->
-        <div class="bgf-nav-row">
-          <button id="bgf-btn-prev" class="bgf-btn-prev" type="button" disabled>
-            <span class="bgf-btn-prev-text">قبلی</span>
+        <!-- 10 Questions Container rendered via JS -->
+        <div id="bgf-questions-list" class="all-questions-list">
+          <!-- Injected via JS -->
+        </div>
+
+        <!-- Submit Bar -->
+        <div class="quiz-submit-bar">
+          <button id="btn-submit-bgf" class="btn-submit-assessment btn-submit-green" type="button">
+            <span id="btn-submit-bgf-text">مشاهده نتیجه ارزیابی</span>
+            <span>←</span>
           </button>
+          <div id="bgf-validation-msg" class="quiz-validation-msg" style="display:none;"></div>
         </div>
 
       </div>
     </section>
 
     <!-- ==================================================================
-         VIEW: بزرگترین GREEN FLAG تو چیه؟ (Result View & Top 5 Ranking)
+         VIEW: بزرگترین GREEN FLAG تو چیه؟ (Result View & 1-10 Clean List)
          ================================================================== -->
     <section id="view-bgf-result" class="view-section" aria-label="نتیجه آزمون گرین‌فلگ">
-      <div class="bgf-result-card" style="max-width: 540px; margin: 0 auto;" dir="rtl">
+      <div class="bgf-result-card-clean" dir="rtl">
 
-        <div style="text-align: center; margin-bottom: 18px;">
-          <h2 style="font-size: 20px; font-weight: 700; color: #14532D; margin: 0 0 6px 0;">
-            انتخاب‌های تو از ۱ تا ۱۰
+        <!-- Result Header -->
+        <div class="result-header-block">
+          <div id="bgf-participant-badge" class="participant-badge-pill badge-green-pill">
+            انتخاب‌های: <b>مهمان</b>
+          </div>
+          <h2 class="result-main-title text-green-title" id="bgf-result-main-title">
+            کارنامه ارزیابی رفتارهای امن و گرین‌فلگ‌ها
           </h2>
-          <span id="bgf-participant-badge" style="font-size: 12px; color: #166534; font-weight: 500;">
-            برای: <b>مهمان</b>
-          </span>
         </div>
 
-        <!-- 1 to 10 List -->
-        <div id="bgf-ranking-list" style="display: flex; flex-direction: column; gap: 8px;">
-          <!-- Injected via JS -->
+        <!-- Two Highlight Sections (بزرگترین گرین‌فلگ تو چیست و کمترین گرین‌فلگ تو چیست) -->
+        <div class="result-highlights-grid">
+          <!-- Highlight 1: Biggest Green Flag -->
+          <div class="result-flag-highlight-card highlight-card-biggest-green">
+            <div class="flag-highlight-header">
+              <span class="highlight-label-tag tag-biggest-green" id="bgf-biggest-tag">بزرگترین گرین‌فلگ تو چیست؟</span>
+              <span id="bgf-biggest-score-badge" class="highlight-score-badge badge-green">۱۰ / ۱۰</span>
+            </div>
+            <h3 id="bgf-biggest-title" class="flag-highlight-title">عنوان سناریو</h3>
+            <p id="bgf-biggest-scenario" class="flag-highlight-scenario">متن سناریو...</p>
+          </div>
+
+          <!-- Highlight 2: Lowest Green Flag -->
+          <div class="result-flag-highlight-card highlight-card-lowest-green">
+            <div class="flag-highlight-header">
+              <span class="highlight-label-tag tag-lowest-green" id="bgf-lowest-tag">کمترین گرین‌فلگ تو چیست؟</span>
+              <span id="bgf-lowest-score-badge" class="highlight-score-badge badge-slate">۱ / ۱۰</span>
+            </div>
+            <h3 id="bgf-lowest-title" class="flag-highlight-title">عنوان سناریو</h3>
+            <p id="bgf-lowest-scenario" class="flag-highlight-scenario">متن سناریو...</p>
+          </div>
+        </div>
+
+        <!-- Full 1 to 10 Questions List Section -->
+        <div class="result-scale-list-section">
+          <div class="section-title-clean" id="bgf-scale-list-title">
+            <span>انتخاب‌های تو از ۱ تا ۱۰ با سؤال داده شده</span>
+          </div>
+          <div id="bgf-ranking-list" class="result-scale-items-list">
+            <!-- Injected via JS: Each item shows number 1..10 with that question -->
+          </div>
+        </div>
+
+        <!-- Two-Line Summary Box -->
+        <div class="result-summary-box-twoline bgf-summary-box">
+          <div class="summary-twoline-label" id="bgf-summary-label">جمع‌بندی ارزیابی:</div>
+          <p id="bgf-result-summary-text" class="summary-twoline-text">
+            شما بیشترین ارزش را برای رفتارهای توأم با احترام به مرزها، شنیدن فعال و صداقت بالغانه قائل هستید؛ احساس امنیت و پذیرش بی‌قیدوشرط پایه ارتباط شماست.
+          </p>
         </div>
 
         <!-- Action Buttons -->
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button id="btn-bgf-restart" type="button" class="bgf-btn-action bgf-btn-secondary" style="flex: 1; padding: 12px; border-radius: 14px; background: #F0FDF4; color: #166534; font-size: 13px; font-weight: 600; border: 1px solid #BBF7D0; cursor: pointer; font-family: inherit;">
+        <div class="result-actions-row">
+          <button id="btn-bgf-restart" type="button" class="btn-action btn-secondary-action bgf-btn-secondary">
             <span class="bgf-btn-restart-text">انجام دوباره تست</span>
           </button>
-          <button id="btn-bgf-share" type="button" class="bgf-btn-action bgf-btn-primary" style="flex: 1; padding: 12px; border-radius: 14px; background: #16A34A; color: #FFFFFF; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; box-shadow: 0 4px 14px rgba(22,163,74,0.2);">
-            <span class="bgf-btn-share-text">اشتراک‌گذاری انتخاب‌ها</span>
+          <button id="btn-bgf-share" type="button" class="btn-action btn-primary-action bgf-btn-primary">
+            <span class="bgf-btn-share-text">اشتراک‌گذاری نتیجه</span>
           </button>
-          <button id="btn-bgf-back-hub" type="button" class="bgf-btn-action bgf-btn-secondary" style="padding: 12px 16px; border-radius: 14px; background: #F8FAFC; color: #64748B; font-size: 13px; font-weight: 500; border: 1px solid #E2E8F0; cursor: pointer; font-family: inherit;">
-            <span class="bgf-btn-hub-text">بازگشت</span>
+          <button id="btn-bgf-back-hub" type="button" class="btn-action btn-outline-action">
+            <span class="bgf-btn-hub-text">بازگشت به آزمون‌ها</span>
           </button>
         </div>
 

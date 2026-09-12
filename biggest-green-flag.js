@@ -132,44 +132,52 @@
   // ==========================================================================
   const BGF_UI = {
     fa: {
-      hubBadge: '۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)',
+      hubBadge: '۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰',
       hubTitle: 'بزرگترین <span class="card-title-green">گرین‌فلگ</span> برای تو چیه؟',
       hubSub1: 'اگر این رفتارها را از یک نفر ببینی، چقدر برایت ارزشمندند؟',
       hubSub2: 'اگر این رفتارها را از یک نفر ببینی، چقدر برایت Green Flag محسوب می‌شوند؟',
       hubCta: 'شروع ارزیابی رفتارهای امن و بالغانه',
       cardStamp: 'بزرگترین <span class="stamp-green">Green Flag</span> برای تو چیه؟',
-      scaleHint: 'هر عدد فقط یک بار قابل انتخاب است و پس از انتخاب از گزینه‌ها حذف می‌شود',
-      scaleMin: '۱ = اهمیت خیلی کمی دارد',
-      scaleMax: '۱۰ = یکی از بزرگترین Green Flagهای ممکن است',
-      prevBtn: 'قبلی',
-      resultKicker: 'رنکینگ اختصاصی رفتارهای امن و بالغانه',
-      prioritiesTitle: 'Top Green Flag Priorities',
-      narrativeText: 'به نظر می‌رسد بیشترین ارزش را برای رفتارهایی قائل هستی که احساس امنیت، احترام و بلوغ عاطفی ایجاد می‌کنند.',
-      disclaimer: 'این آزمون صرفاً برای سرگرمی و خودشناسی طراحی شده و معیار قطعی برای قضاوت درباره افراد نیست.',
+      quizInstruction: 'تمام ۱۰ سناریوی زیر را مطالعه کنید و با آگاهی از همه موقعیت‌ها، در کادر هر سؤال عددی از ۱ تا ۱۰ را که مدنظرتان است انتخاب کنید.',
+      ratingBoxLabel: 'کادر انتخاب عدد (از ۱ تا ۱۰):',
+      notSelected: 'انتخاب نشده',
+      scorePrefix: 'امتیاز',
+      answeredCount: (curr, total) => `${curr} از ${total} پاسخ داده شده`,
+      validationMissing: (count) => `لطفاً به تمام ۱۰ سؤال پاسخ دهید (${count} سؤال باقی‌مانده است).`,
+      submitBtn: 'مشاهده نتیجه ارزیابی',
+      biggestSectionTitle: 'بزرگترین گرین‌فلگ تو چیست؟',
+      lowestSectionTitle: 'کمترین گرین‌فلگ تو چیست؟',
+      scaleListTitle: 'انتخاب‌های تو از ۱ تا ۱۰ با سؤال داده شده',
+      summaryLabel: 'جمع‌بندی ارزیابی:',
+      summaryText: 'شما بیشترین ارزش را برای رفتارهای توأم با احترام به مرزها، شنیدن فعال و صداقت بالغانه قائل هستید؛ احساس امنیت و پذیرش بی‌قیدوشرط پایه ارتباط شماست.',
       retakeBtn: 'انجام دوباره تست',
-      shareBtn: 'اشتراک‌گذاری رنکینگ',
+      shareBtn: 'اشتراک‌گذاری نتیجه',
       backToHubBtn: 'بازگشت به آزمون‌ها',
-      toastCopied: 'رنکینگ گرین‌فلگ‌ها در کلیپ‌بورد کپی شد'
+      toastCopied: 'نتیجه گرین‌فلگ‌ها در کلیپ‌بورد کپی شد'
     },
     en: {
-      hubBadge: '10 Situational Scenarios · 1 to 10 Rating Scale · Elimination Mode',
+      hubBadge: '10 Situational Scenarios · 1 to 10 Scale',
       hubTitle: 'What is your biggest <span class="card-title-green-en">Green Flag</span>?',
       hubSub1: 'If you witness these behaviors, how deeply do you value them?',
-      hubSub2: 'Rate each behavior on a 1-to-10 scale (each rating assigned exactly once).',
+      hubSub2: 'Review all scenarios and rate each behavior on a 1-to-10 scale.',
       hubCta: 'Start Green Flag Assessment',
       cardStamp: 'What is your biggest <span class="stamp-green">Green Flag</span>?',
-      scaleHint: 'Each rating (1..10) can be assigned once and is eliminated from subsequent questions.',
-      scaleMin: '1 = Very minimal importance',
-      scaleMax: '10 = One of the greatest Green Flags possible',
-      prevBtn: 'Back',
-      resultKicker: 'Exclusive Relational Safety & Maturity Ranking',
-      prioritiesTitle: 'Top Green Flag Priorities',
-      narrativeText: 'You place the highest value on relational behaviors that foster psychological safety, deep mutual respect, and emotional maturity.',
-      disclaimer: 'This assessment is designed purely for entertainment and self-reflection, and is not a definitive criterion for judging individuals.',
+      quizInstruction: 'Review all 10 scenarios below and select any number from 1 to 10 for each question.',
+      ratingBoxLabel: 'Rating selector box (1 to 10):',
+      notSelected: 'Not selected',
+      scorePrefix: 'Score',
+      answeredCount: (curr, total) => `${curr} of ${total} answered`,
+      validationMissing: (count) => `Please assign a rating to all 10 questions (${count} remaining).`,
+      submitBtn: 'View Assessment Results',
+      biggestSectionTitle: 'What is your biggest Green Flag?',
+      lowestSectionTitle: 'What is your lowest Green Flag?',
+      scaleListTitle: 'Your Choices from 1 to 10 with Scenarios',
+      summaryLabel: 'Assessment Summary:',
+      summaryText: 'You place the highest value on respect for boundaries, active listening, and sincere accountability; unconditional emotional safety forms your relational core.',
       retakeBtn: 'Retake Test',
-      shareBtn: 'Share Ranking',
+      shareBtn: 'Share Results',
       backToHubBtn: 'Back to Tests Hub',
-      toastCopied: 'Green Flags ranking copied to clipboard'
+      toastCopied: 'Green Flags result copied to clipboard'
     }
   };
 
@@ -225,22 +233,30 @@
   let sessionControlsBar = null;
   let btnBackToHub = null;
 
-  let progressFill = null;
-  let counterBadge = null;
-  let brandStampEl = null;
-  let questionTextEl = null;
-  let scaleGridEl = null;
-  let scaleHintEl = null;
-  let scaleLegendMinEl = null;
-  let scaleLegendMaxEl = null;
-  let btnPrevEl = null;
+  let bgfQuestionsContainer = null;
+  let bgfQuestionsList = null;
+  let bgfAnsweredCounter = null;
+  let bgfQuizInstruction = null;
+  let btnSubmitBgf = null;
+  let btnSubmitBgfText = null;
+  let bgfValidationMsg = null;
 
-  let flipCardEl = null;
-  let resultDetailsEl = null;
-  let prioritiesTitleEl = null;
+  let bgfResultMainTitle = null;
+  let bgfBiggestTitle = null;
+  let bgfBiggestScoreBadge = null;
+  let bgfBiggestScenario = null;
+  let bgfBiggestTag = null;
+
+  let bgfLowestTitle = null;
+  let bgfLowestScoreBadge = null;
+  let bgfLowestScenario = null;
+  let bgfLowestTag = null;
+
+  let bgfScaleListTitle = null;
   let rankingListEl = null;
-  let narrativeTextEl = null;
-  let disclaimerTextEl = null;
+  let bgfSummaryLabel = null;
+  let bgfResultSummaryText = null;
+
   let btnBgfRestart = null;
   let btnBgfShare = null;
   let btnBgfBackHub = null;
@@ -272,188 +288,224 @@
     }
   }
 
-  function renderQuestion() {
-    if (!questionTextEl || !scaleGridEl) return;
+  function renderAllQuestions() {
+    if (!bgfQuestionsList) return;
 
     const lang = getCurrentLang();
     const t = BGF_UI[lang] || BGF_UI.fa;
-    const totalQ = BGF_SCENARIOS.length; // 10
-    const currentNum = bgfState.currentQuestion + 1;
-    const scenario = BGF_SCENARIOS[bgfState.currentQuestion];
-    const sData = scenario[lang] || scenario.fa;
 
-    // 1. Update Progress Bar
-    const progressPct = (currentNum / totalQ) * 100;
-    if (progressFill) {
-      progressFill.style.width = `${progressPct}%`;
+    if (bgfQuizInstruction) {
+      bgfQuizInstruction.textContent = t.quizInstruction;
+    }
+    if (btnSubmitBgfText) {
+      btnSubmitBgfText.textContent = t.submitBtn;
     }
 
-    // 2. Counter & Stamp
-    if (counterBadge) {
-      counterBadge.textContent = lang === 'en'
-        ? `Question ${currentNum} of ${totalQ}`
-        : `سؤال ${currentNum} از ${totalQ}`;
-    }
-    if (brandStampEl) {
-      brandStampEl.innerHTML = t.cardStamp;
-    }
+    bgfQuestionsList.innerHTML = '';
 
-    // 3. Question Statement
-    questionTextEl.textContent = sData.question;
+    BGF_SCENARIOS.forEach((scenario, idx) => {
+      const sData = scenario[lang] || scenario.fa;
+      const currentVal = bgfState.answers[idx];
 
-    // 4. Scale Legends & Hints
-    if (scaleHintEl) scaleHintEl.textContent = t.scaleHint;
-    if (scaleLegendMinEl) scaleLegendMinEl.textContent = t.scaleMin;
-    if (scaleLegendMaxEl) scaleLegendMaxEl.textContent = t.scaleMax;
+      const card = document.createElement('div');
+      card.className = `question-item-card ${currentVal ? 'is-answered' : ''}`;
+      card.id = `bgf-q-card-${idx}`;
 
-    // 5. Render 1..10 Elimination Buttons Grid
-    scaleGridEl.innerHTML = '';
-    const usedRatings = new Set(
-      Object.entries(bgfState.answers)
-        .filter(([qIdx]) => parseInt(qIdx, 10) !== bgfState.currentQuestion)
-        .map(([, rating]) => rating)
-    );
+      card.innerHTML = `
+        <div class="q-card-header">
+          <div class="q-number-badge">${idx + 1}</div>
+          <h3 class="q-card-title">${escapeHTML(sData.title)}</h3>
+        </div>
+        <p class="q-card-scenario">${escapeHTML(sData.question)}</p>
+        <div class="q-rating-box">
+          <div class="q-rating-box-header">
+            <span class="q-box-label">${t.ratingBoxLabel}</span>
+            <span class="q-box-selected-val" id="bgf-val-badge-${idx}">
+              ${currentVal ? `${t.scorePrefix}: ${currentVal}` : t.notSelected}
+            </span>
+          </div>
+          <div class="q-numbers-row">
+            ${Array.from({ length: 10 }, (_, i) => i + 1).map(num => `
+              <button type="button" class="q-pill-btn ${currentVal === num ? 'is-selected' : ''}" data-q="${idx}" data-val="${num}">
+                ${num}
+              </button>
+            `).join('')}
+            <input type="number" min="1" max="10" class="q-number-input-box" placeholder="۱..۱۰" data-q="${idx}" value="${currentVal || ''}" aria-label="Rating for scenario ${idx + 1}">
+          </div>
+        </div>
+      `;
 
-    const currentAssignedRating = bgfState.answers[bgfState.currentQuestion];
+      const buttons = card.querySelectorAll('.q-pill-btn');
+      const input = card.querySelector('.q-number-input-box');
 
-    for (let rating = 1; rating <= 10; rating++) {
-      const btn = document.createElement('button');
-      btn.className = 'bgf-scale-btn';
-      btn.type = 'button';
-      btn.textContent = rating;
-      btn.setAttribute('aria-label', `Rating ${rating}`);
-
-      const isUsed = usedRatings.has(rating);
-      const isCurrent = (currentAssignedRating === rating);
-
-      if (isUsed) {
-        btn.disabled = true;
-      }
-      if (isCurrent) {
-        btn.classList.add('is-selected');
-      }
-
-      btn.addEventListener('click', () => {
-        handleRatingSelect(rating, btn);
-      });
-
-      scaleGridEl.appendChild(btn);
-    }
-
-    // 6. Back Button
-    if (btnPrevEl) {
-      btnPrevEl.disabled = (bgfState.currentQuestion === 0);
-      const prevSpan = btnPrevEl.querySelector('.bgf-btn-prev-text');
-      if (prevSpan) prevSpan.textContent = t.prevBtn;
-    }
-  }
-
-  function handleRatingSelect(rating, clickedBtn) {
-    playSubtleClick(500 + rating * 30);
-
-    // Visual selection pop
-    const allBtns = scaleGridEl.querySelectorAll('.bgf-scale-btn');
-    allBtns.forEach(b => b.classList.remove('is-selected'));
-    if (clickedBtn) clickedBtn.classList.add('is-selected');
-
-    // Save answer
-    bgfState.answers[bgfState.currentQuestion] = rating;
-
-    // Smooth transition to next question or results (350ms)
-    setTimeout(() => {
-      if (bgfState.currentQuestion < BGF_SCENARIOS.length - 1) {
-        bgfState.currentQuestion++;
-        renderQuestion();
-      } else {
-        finishTestAndShowResult();
-      }
-    }, 350);
-  }
-
-  function handlePrevClick() {
-    playSubtleClick(440);
-    if (bgfState.currentQuestion > 0) {
-      bgfState.currentQuestion--;
-      renderQuestion();
-    }
-  }
-
-  // ==========================================================================
-  // 6. RANKING COMPILATION & 3D FLIP CARD
-  // ==========================================================================
-  function computeRankings() {
-    const lang = getCurrentLang();
-    const itemsFrom1to10 = [];
-
-    for (let num = 1; num <= 10; num++) {
-      let foundScenario = null;
-      let foundIdx = -1;
-      for (let idx = 0; idx < BGF_SCENARIOS.length; idx++) {
-        if (Number(bgfState.answers[idx]) === num) {
-          foundScenario = BGF_SCENARIOS[idx];
-          foundIdx = idx;
-          break;
-        }
-      }
-
-      if (foundScenario) {
-        const sData = foundScenario[lang] || foundScenario.fa;
-        itemsFrom1to10.push({
-          num: num,
-          title: sData.title,
-          question: sData.question,
-          qIdx: foundIdx
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = Number(btn.dataset.val);
+          selectQuestionRating(idx, val, card, buttons, input);
         });
+      });
+
+      input.addEventListener('input', (e) => {
+        let val = parseInt(e.target.value, 10);
+        if (isNaN(val)) return;
+        if (val < 1) val = 1;
+        if (val > 10) val = 10;
+        e.target.value = val;
+        selectQuestionRating(idx, val, card, buttons, input);
+      });
+
+      bgfQuestionsList.appendChild(card);
+    });
+
+    updateAnsweredCount();
+  }
+
+  function selectQuestionRating(qIdx, val, cardEl, buttons, inputEl) {
+    playSubtleClick(500 + val * 30);
+
+    bgfState.answers[qIdx] = val;
+
+    buttons.forEach(b => {
+      b.classList.toggle('is-selected', Number(b.dataset.val) === val);
+    });
+
+    if (inputEl && Number(inputEl.value) !== val) {
+      inputEl.value = val;
+    }
+
+    cardEl.classList.add('is-answered');
+    cardEl.classList.remove('is-highlight-missing');
+
+    const badge = document.getElementById(`bgf-val-badge-${qIdx}`);
+    const lang = getCurrentLang();
+    const t = BGF_UI[lang] || BGF_UI.fa;
+    if (badge) {
+      badge.textContent = `${t.scorePrefix}: ${val}`;
+    }
+
+    if (bgfValidationMsg) {
+      bgfValidationMsg.style.display = 'none';
+    }
+
+    updateAnsweredCount();
+  }
+
+  function updateAnsweredCount() {
+    const answered = Object.keys(bgfState.answers).length;
+    const lang = getCurrentLang();
+    const t = BGF_UI[lang] || BGF_UI.fa;
+    if (bgfAnsweredCounter) {
+      bgfAnsweredCounter.textContent = t.answeredCount(answered, BGF_SCENARIOS.length);
+    }
+  }
+
+  function handleSubmitBgfAssessment() {
+    playSubtleClick(580);
+    const unanswered = [];
+    for (let i = 0; i < BGF_SCENARIOS.length; i++) {
+      if (bgfState.answers[i] === undefined || bgfState.answers[i] === null) {
+        unanswered.push(i);
       }
     }
 
-    // Fallback if missing
-    if (itemsFrom1to10.length < 10) {
-      BGF_SCENARIOS.forEach((scenario, idx) => {
-        const val = Number(bgfState.answers[idx]) || (idx + 1);
-        if (!itemsFrom1to10.some(it => it.qIdx === idx)) {
-          const sData = scenario[lang] || scenario.fa;
-          itemsFrom1to10.push({
-            num: val,
-            title: sData.title,
-            question: sData.question,
-            qIdx: idx
-          });
+    if (unanswered.length > 0) {
+      unanswered.forEach(idx => {
+        const card = document.getElementById(`bgf-q-card-${idx}`);
+        if (card) {
+          card.classList.add('is-highlight-missing');
         }
       });
-      itemsFrom1to10.sort((a, b) => a.num - b.num);
+
+      const firstCard = document.getElementById(`bgf-q-card-${unanswered[0]}`);
+      if (firstCard) {
+        firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      const lang = getCurrentLang();
+      const t = BGF_UI[lang] || BGF_UI.fa;
+      if (bgfValidationMsg) {
+        bgfValidationMsg.textContent = t.validationMissing(unanswered.length);
+        bgfValidationMsg.style.display = 'block';
+      }
+      return;
     }
 
-    return itemsFrom1to10;
-  }
-
-  function finishTestAndShowResult() {
     bgfState.isFinished = true;
     showBgfView(viewBgfResult);
     renderBgfResults();
   }
 
+  // ==========================================================================
+  // 6. RANKING COMPILATION & RESULT PRESENTATION
+  // ==========================================================================
+  function computeRankings() {
+    const lang = getCurrentLang();
+    const items = [];
+
+    BGF_SCENARIOS.forEach((scenario, idx) => {
+      const val = Number(bgfState.answers[idx]) || 1;
+      const sData = scenario[lang] || scenario.fa;
+      items.push({
+        num: val,
+        title: sData.title,
+        question: sData.question,
+        qIdx: idx
+      });
+    });
+
+    items.sort((a, b) => a.num - b.num);
+    return items;
+  }
+
   function renderBgfResults() {
     const lang = getCurrentLang();
     const t = BGF_UI[lang] || BGF_UI.fa;
-    const items = computeRankings();
+    const items = computeRankings(); // sorted by num ascending 1..10
+
+    if (items.length === 0) return;
+
+    // 1. Highlight: Biggest Green Flag (highest score)
+    const maxScore = Math.max(...items.map(it => it.num));
+    const biggestItem = items.slice().reverse().find(it => it.num === maxScore) || items[items.length - 1];
+
+    if (bgfBiggestTitle) bgfBiggestTitle.textContent = biggestItem.title;
+    if (bgfBiggestScoreBadge) bgfBiggestScoreBadge.textContent = `${biggestItem.num} / 10`;
+    if (bgfBiggestScenario) bgfBiggestScenario.textContent = biggestItem.question;
+    if (bgfBiggestTag) bgfBiggestTag.textContent = t.biggestSectionTitle;
+
+    // 2. Highlight: Lowest Green Flag (lowest score)
+    const minScore = Math.min(...items.map(it => it.num));
+    const lowestItem = items.find(it => it.num === minScore) || items[0];
+
+    if (bgfLowestTitle) bgfLowestTitle.textContent = lowestItem.title;
+    if (bgfLowestScoreBadge) bgfLowestScoreBadge.textContent = `${lowestItem.num} / 10`;
+    if (bgfLowestScenario) bgfLowestScenario.textContent = lowestItem.question;
+    if (bgfLowestTag) bgfLowestTag.textContent = t.lowestSectionTitle;
+
+    // 3. Full 1 to 10 list with given questions
+    if (bgfScaleListTitle) {
+      bgfScaleListTitle.innerHTML = `<span>${t.scaleListTitle}</span>`;
+    }
 
     if (rankingListEl) {
       rankingListEl.innerHTML = '';
       items.forEach(item => {
         const card = document.createElement('div');
-        card.style.cssText = "display:flex; align-items:center; gap:12px; padding:11px 16px; border-radius:12px; background:#FFFFFF; border:1px solid #DCFCE7; box-shadow:0 2px 5px rgba(22,101,52,0.04);";
+        card.className = 'result-scale-item-card';
         card.innerHTML = `
-          <div style="width:28px; height:28px; border-radius:50%; background:#16A34A; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0;">
-            ${item.num}
-          </div>
-          <div style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">
-            ${item.title}
+          <div class="scale-item-num-badge">${item.num}</div>
+          <div class="scale-item-details">
+            <div class="scale-item-title">${escapeHTML(item.title)}</div>
+            <div class="scale-item-scenario">${escapeHTML(item.question)}</div>
           </div>
         `;
         rankingListEl.appendChild(card);
       });
     }
+
+    // 4. Two-Line Summary
+    if (bgfSummaryLabel) bgfSummaryLabel.textContent = t.summaryLabel;
+    if (bgfResultSummaryText) bgfResultSummaryText.textContent = t.summaryText;
 
     // Action button labels
     if (btnBgfRestart) {
@@ -469,12 +521,12 @@
       if (txt) txt.textContent = t.backToHubBtn;
     }
 
-    // Participant Badge & Central Archive / Webhook Logging
+    // Participant Badge & Central Archive
     const bgfBadge = document.getElementById('bgf-participant-badge');
     const participantName = bgfState.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
     if (bgfBadge) {
       bgfBadge.innerHTML = lang === 'en'
-        ? `Personal Assessment for: <b>${escapeHTML(participantName)}</b>`
+        ? `Assessment for: <b>${escapeHTML(participantName)}</b>`
         : `انتخاب‌های: <b>${escapeHTML(participantName)}</b>`;
     }
 
@@ -482,14 +534,14 @@
       const detailedChoices = items.map(it => ({
         qNum: it.num,
         title: it.title,
-        choice: `عدد انتخابی: ${it.num}`
+        choice: `امتیاز: ${it.num}`
       }));
 
       window.HodousTestHub.saveResult({
         testId: 'biggest-green-flag',
         testTitle: 'بزرگترین Green Flag تو چیه؟',
         nickname: participantName,
-        score: `شماره ۱: ${items[0].title}`,
+        score: `بزرگترین گرین‌فلگ: ${biggestItem.title} (${biggestItem.num}/10)`,
         details: items.map(it => `${it.num}. ${it.title}`).join(' · '),
         choices: detailedChoices
       });
@@ -560,7 +612,7 @@
     bgfState.currentQuestion = 0;
     bgfState.answers = {};
     bgfState.isFinished = false;
-    renderQuestion();
+    renderAllQuestions();
     showBgfView(viewBgfQuiz);
   }
 
@@ -570,7 +622,6 @@
   window.updateBgfLanguage = function(lang) {
     const t = BGF_UI[lang] || BGF_UI.fa;
 
-    // Hub card static texts
     const hubBadge = document.getElementById('hub-card-bgf-badge-text');
     const hubTitle = document.getElementById('hub-card-bgf-title');
     const hubSub1 = document.getElementById('hub-card-bgf-sub1');
@@ -583,12 +634,10 @@
     if (hubSub2) hubSub2.textContent = t.hubSub2;
     if (hubCta) hubCta.textContent = t.hubCta;
 
-    // If currently on Quiz view
     if (viewBgfQuiz && viewBgfQuiz.classList.contains('is-active')) {
-      renderQuestion();
+      renderAllQuestions();
     }
 
-    // If currently on Result view
     if (viewBgfResult && viewBgfResult.classList.contains('is-active')) {
       renderBgfResults();
     }
@@ -605,22 +654,30 @@
     sessionControlsBar = document.getElementById('test-session-bar');
     btnBackToHub = document.getElementById('btn-back-to-hub');
 
-    progressFill = document.getElementById('bgf-progress-fill');
-    counterBadge = document.getElementById('bgf-counter-badge');
-    brandStampEl = document.getElementById('bgf-brand-stamp');
-    questionTextEl = document.getElementById('bgf-question-text');
-    scaleGridEl = document.getElementById('bgf-scale-grid');
-    scaleHintEl = document.getElementById('bgf-scale-hint');
-    scaleLegendMinEl = document.getElementById('bgf-scale-legend-min');
-    scaleLegendMaxEl = document.getElementById('bgf-scale-legend-max');
-    btnPrevEl = document.getElementById('bgf-btn-prev');
+    bgfQuestionsContainer = document.getElementById('bgf-questions-container');
+    bgfQuestionsList = document.getElementById('bgf-questions-list');
+    bgfAnsweredCounter = document.getElementById('bgf-answered-counter');
+    bgfQuizInstruction = document.getElementById('bgf-quiz-instruction');
+    btnSubmitBgf = document.getElementById('btn-submit-bgf');
+    btnSubmitBgfText = document.getElementById('btn-submit-bgf-text');
+    bgfValidationMsg = document.getElementById('bgf-validation-msg');
 
-    flipCardEl = document.getElementById('bgf-flip-card');
-    resultDetailsEl = document.getElementById('bgf-result-details');
-    prioritiesTitleEl = document.getElementById('bgf-priorities-title');
+    bgfResultMainTitle = document.getElementById('bgf-result-main-title');
+    bgfBiggestTitle = document.getElementById('bgf-biggest-title');
+    bgfBiggestScoreBadge = document.getElementById('bgf-biggest-score-badge');
+    bgfBiggestScenario = document.getElementById('bgf-biggest-scenario');
+    bgfBiggestTag = document.getElementById('bgf-biggest-tag');
+
+    bgfLowestTitle = document.getElementById('bgf-lowest-title');
+    bgfLowestScoreBadge = document.getElementById('bgf-lowest-score-badge');
+    bgfLowestScenario = document.getElementById('bgf-lowest-scenario');
+    bgfLowestTag = document.getElementById('bgf-lowest-tag');
+
+    bgfScaleListTitle = document.getElementById('bgf-scale-list-title');
     rankingListEl = document.getElementById('bgf-ranking-list');
-    narrativeTextEl = document.getElementById('bgf-narrative-text');
-    disclaimerTextEl = document.getElementById('bgf-disclaimer-text');
+    bgfSummaryLabel = document.getElementById('bgf-summary-label');
+    bgfResultSummaryText = document.getElementById('bgf-result-summary-text');
+
     btnBgfRestart = document.getElementById('btn-bgf-restart');
     btnBgfShare = document.getElementById('btn-bgf-share');
     btnBgfBackHub = document.getElementById('btn-bgf-back-hub');
@@ -650,9 +707,11 @@
       });
     }
 
-    // Previous Question Button
-    if (btnPrevEl) {
-      btnPrevEl.addEventListener('click', handlePrevClick);
+    // Submit Assessment Button
+    if (btnSubmitBgf) {
+      btnSubmitBgf.addEventListener('click', () => {
+        handleSubmitBgfAssessment();
+      });
     }
 
     // Results Actions

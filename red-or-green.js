@@ -167,7 +167,7 @@
     fa: {
       dir: 'rtl',
       hubTitle: 'Test',
-      hubBadge: '۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰ (حذف تدریجی عدد)',
+      hubBadge: '۱۰ سناریوی واقعی · مقیاس ۱ تا ۱۰',
       hubMainTitle: 'بزرگترین ردفلگ برای تو چیه؟',
       hubSub1: 'اگر این رفتارها را از یک نفر ببینی، چقدر برایت قابل‌قبول‌اند؟',
       hubSub2: 'اگر این رفتارها را از یک نفر ببینی، چقدر برایت Red Flag محسوب می‌شوند؟',
@@ -182,27 +182,30 @@
       themeLabel: 'پوسته کارت / Card Theme',
       previewWhite: 'پس‌زمینه روشن و مینیمال (پاستیلی)',
       previewBlack: 'پس‌زمینه تیره و مخملی (یاقوتی)',
-      previewOpt: 'مقیاس ۱ تا ۱۰ (یکتا)',
+      previewOpt: 'مقیاس ۱ تا ۱۰',
       startBtn: 'شروع تست',
-      questionOf: (curr, total) => `سؤال ${curr} از ${total}`,
-      scaleHint: 'هر عدد فقط یک بار قابل انتخاب است و پس از انتخاب از گزینه‌ها حذف می‌شود',
-      scaleMin: '۱ = کمترین میزان Red Flag',
-      scaleMax: '۱۰ = بیشترین میزان Red Flag',
-      animationSubtitle: 'در حال تحلیل خطوط قرمز و استخراج رنکینگ...',
-      resultKicker: 'تحلیل اختصاصی معیارهای ارتباطی',
-      biggestTitlePrefix: 'بزرگترین ردفلگ برای تو:',
-      rankingTitle: 'رنکینگ ۵ مورد با بیشترین حساسیت برای تو',
-      summaryTitle: 'جمع‌بندی سبک ارتباطی و فاصله‌گیری از رفتارهای ناسالم',
-      disclaimerText: 'توجه: این تست درباره معیارهای شخص برای تشخیص Red Flag در دیگران است، نه تشخیص شخصیت یا سلامت روان.',
+      quizInstruction: 'تمام ۱۰ سناریوی زیر را مطالعه کنید و با آگاهی از همه موقعیت‌ها، در کادر هر سؤال عددی از ۱ تا ۱۰ را که مدنظرتان است انتخاب کنید.',
+      ratingBoxLabel: 'کادر انتخاب عدد (از ۱ تا ۱۰):',
+      notSelected: 'انتخاب نشده',
+      scorePrefix: 'امتیاز',
+      answeredCount: (curr, total) => `${curr} از ${total} پاسخ داده شده`,
+      validationMissing: (count) => `لطفاً به تمام ۱۰ سؤال پاسخ دهید (${count} سؤال باقی‌مانده است).`,
+      submitBtn: 'مشاهده نتیجه ارزیابی',
+      biggestSectionTitle: 'بزرگترین ردفلگ تو چیست؟',
+      lowestSectionTitle: 'کمترین ردفلگ تو چیست؟',
+      scaleListTitle: 'انتخاب‌های تو از ۱ تا ۱۰ با سؤال داده شده',
+      summaryLabel: 'جمع‌بندی ارزیابی:',
+      summaryText: 'اولویت‌های شما نشان می‌دهد بالاترین حساسیت را به نقض حریم شخصی، بازی‌های روانی و فرافکنی دارید؛ شفافیت و امنیت روانی خط قرمز مطلق شماست.',
       retakeBtn: 'انجام دوباره تست',
-      shareBtn: 'اشتراک‌گذاری رنکینگ',
-      copiedToast: 'رنکینگ در کلیپ‌بورد کپی شد',
-      readyToast: 'رنکینگ آماده اشتراک‌گذاری است'
+      shareBtn: 'اشتراک‌گذاری نتیجه',
+      backToHubBtn: 'بازگشت به آزمون‌ها',
+      copiedToast: 'نتیجه در کلیپ‌بورد کپی شد',
+      readyToast: 'نتیجه آماده اشتراک‌گذاری است'
     },
     en: {
       dir: 'ltr',
       hubTitle: 'Test',
-      hubBadge: '10 Real Scenarios · 1 to 10 Scale (Elimination Mode)',
+      hubBadge: '10 Real Scenarios · 1 to 10 Scale',
       hubMainTitle: 'What is your biggest Red Flag?',
       hubSub1: 'If you encounter these behaviors, how acceptable are they to you?',
       hubSub2: 'How much of a Red Flag is each behavior in your eyes?',
@@ -217,22 +220,25 @@
       themeLabel: 'Card Theme',
       previewWhite: 'Minimal light pastel aesthetic',
       previewBlack: 'Deep velvety dark ruby aesthetic',
-      previewOpt: '1 to 10 Scale (Unique)',
+      previewOpt: '1 to 10 Scale',
       startBtn: 'Start Test',
-      questionOf: (curr, total) => `Question ${curr} of ${total}`,
-      scaleHint: 'Each number can only be chosen once and will be removed after selection',
-      scaleMin: '1 = Lowest Red Flag',
-      scaleMax: '10 = Highest Red Flag',
-      animationSubtitle: 'Analyzing your relational boundaries and compiling rankings...',
-      resultKicker: 'Personalized Relational Standards Analysis',
-      biggestTitlePrefix: 'Your Biggest Red Flag:',
-      rankingTitle: 'Top 5 Highest Sensitivity Red Flags',
-      summaryTitle: 'Synthesis of Relational Standards & Distancing Triggers',
-      disclaimerText: 'Note: This test explores your personal criteria for detecting Red Flags in others, not a diagnosis of your personality or mental health.',
+      quizInstruction: 'Review all 10 scenarios below and select any number from 1 to 10 for each question.',
+      ratingBoxLabel: 'Rating selector box (1 to 10):',
+      notSelected: 'Not selected',
+      scorePrefix: 'Score',
+      answeredCount: (curr, total) => `${curr} of ${total} answered`,
+      validationMissing: (count) => `Please assign a rating to all 10 questions (${count} remaining).`,
+      submitBtn: 'View Assessment Results',
+      biggestSectionTitle: 'What is your biggest Red Flag?',
+      lowestSectionTitle: 'What is your lowest Red Flag?',
+      scaleListTitle: 'Your Choices from 1 to 10 with Scenarios',
+      summaryLabel: 'Assessment Summary:',
+      summaryText: 'Your choices reveal highest sensitivity to breaches of trust, manipulation, and blame deflection; genuine transparency and psychological safety are your absolute boundaries.',
       retakeBtn: 'Retake Test',
-      shareBtn: 'Share Ranking',
-      copiedToast: 'Ranking copied to clipboard',
-      readyToast: 'Ranking ready to share'
+      shareBtn: 'Share Results',
+      backToHubBtn: 'Back to Hub',
+      copiedToast: 'Results copied to clipboard',
+      readyToast: 'Results ready to share'
     }
   };
 
@@ -395,50 +401,22 @@
   // ========================================================================
   function computeRankings() {
     const lang = state.selectedLanguage || 'fa';
+    const items = [];
 
-    // Map each number 1..10 to the question the person selected for that number
-    const itemsFrom1to10 = [];
-
-    for (let num = 1; num <= 10; num++) {
-      let foundQ = null;
-      let foundIdx = -1;
-      for (let idx = 0; idx < QUESTIONS.length; idx++) {
-        if (Number(state.answers[idx]) === num) {
-          foundQ = QUESTIONS[idx];
-          foundIdx = idx;
-          break;
-        }
-      }
-
-      if (foundQ) {
-        const meta = foundQ[lang] || foundQ.fa;
-        itemsFrom1to10.push({
-          num: num,
-          title: meta.title,
-          question: meta.question,
-          qIdx: foundIdx
-        });
-      }
-    }
-
-    // Fallback if any missing
-    if (itemsFrom1to10.length < 10) {
-      QUESTIONS.forEach((q, idx) => {
-        const val = Number(state.answers[idx]) || (idx + 1);
-        if (!itemsFrom1to10.some(it => it.qIdx === idx)) {
-          const meta = q[lang] || q.fa;
-          itemsFrom1to10.push({
-            num: val,
-            title: meta.title,
-            question: meta.question,
-            qIdx: idx
-          });
-        }
+    QUESTIONS.forEach((q, idx) => {
+      const val = Number(state.answers[idx]) || 1;
+      const meta = q[lang] || q.fa;
+      items.push({
+        num: val,
+        title: meta.title,
+        question: meta.question,
+        explanation: meta.explanation,
+        qIdx: idx
       });
-      itemsFrom1to10.sort((a, b) => a.num - b.num);
-    }
+    });
 
-    return itemsFrom1to10;
+    items.sort((a, b) => a.num - b.num);
+    return items;
   }
 
   // ========================================================================
@@ -457,27 +435,37 @@
   const themeBoxes = document.querySelectorAll('.theme-option-box');
   const langBoxes = document.querySelectorAll('.lang-option-box');
 
-  const questionCardEl = document.getElementById('question-card');
-  const questionCounterEl = document.getElementById('question-counter');
-  const progressBarFillEl = document.getElementById('progress-bar-fill');
-  const questionStatementEl = document.getElementById('question-statement');
-  const scaleButtonsGridEl = document.getElementById('scale-buttons-grid');
-  const scaleHintEl = document.getElementById('scale-hint-text');
-  const scaleLegendMinEl = document.getElementById('scale-legend-min');
-  const scaleLegendMaxEl = document.getElementById('scale-legend-max');
+  const rogQuestionsContainer = document.getElementById('rog-questions-container');
+  const rogQuestionsList = document.getElementById('rog-questions-list');
+  const rogAnsweredCounter = document.getElementById('rog-answered-counter');
+  const rogQuizInstruction = document.getElementById('rog-quiz-instruction');
+  const btnSubmitRog = document.getElementById('btn-submit-rog');
+  const btnSubmitRogText = document.getElementById('btn-submit-rog-text');
+  const rogValidationMsg = document.getElementById('rog-validation-msg');
 
   const soundToggleBtn = document.getElementById('sound-toggle-btn');
   const soundStatusText = document.getElementById('sound-status-text');
 
   // Result Elements
-  const resultBiggestTitleEl = document.getElementById('result-biggest-title');
-  const resultBiggestScoreEl = document.getElementById('result-biggest-score');
-  const resultBiggestDescEl = document.getElementById('result-biggest-desc');
+  const rogResultMainTitle = document.getElementById('rog-result-main-title');
+  const rogBiggestTitle = document.getElementById('rog-biggest-title');
+  const rogBiggestScoreBadge = document.getElementById('rog-biggest-score-badge');
+  const rogBiggestScenario = document.getElementById('rog-biggest-scenario');
+  const rogBiggestTag = document.getElementById('rog-biggest-tag');
+
+  const rogLowestTitle = document.getElementById('rog-lowest-title');
+  const rogLowestScoreBadge = document.getElementById('rog-lowest-score-badge');
+  const rogLowestScenario = document.getElementById('rog-lowest-scenario');
+  const rogLowestTag = document.getElementById('rog-lowest-tag');
+
   const rankingCardsContainerEl = document.getElementById('ranking-cards-container');
+  const rogScaleListTitle = document.getElementById('rog-scale-list-title');
+  const rogSummaryLabel = document.getElementById('rog-summary-label');
   const resultSummaryTextEl = document.getElementById('result-summary-text');
-  const resultDisclaimerEl = document.getElementById('result-disclaimer');
+
   const btnRestart = document.getElementById('btn-restart');
   const btnShare = document.getElementById('btn-share');
+  const btnBackHubRog = document.getElementById('btn-back-hub-rog');
   const shareToast = document.getElementById('share-toast');
 
   // Top Hamburger Menu
@@ -614,7 +602,7 @@
 
     // If currently on Quiz view, re-render question text
     if (viewQuiz && viewQuiz.classList.contains('is-active')) {
-      renderCurrentQuestion();
+      renderAllQuestions();
     }
 
     // If currently on Result view, re-render rankings
@@ -642,110 +630,159 @@
   }
 
   // ========================================================================
-  // 8. QUESTION RENDERING & ELIMINATION SCALE INTERACTION
+  // 8. QUESTION RENDERING & SIMULTANEOUS 1-10 RATING
   // ========================================================================
-  let isTransitioning = false;
-
-  function renderCurrentQuestion() {
-    const idx = state.currentQuestion;
-    const q = QUESTIONS[idx];
-    if (!q) return;
-
+  function renderAllQuestions() {
+    if (!rogQuestionsList) return;
     const lang = state.selectedLanguage || 'fa';
     const t = UI_TEXT[lang] || UI_TEXT.fa;
-    const meta = q[lang];
 
-    // 1. Counter (سؤال ۱ از ۱۰)
-    if (questionCounterEl) {
-      questionCounterEl.textContent = t.questionOf(idx + 1, TOTAL_QUESTIONS);
+    if (rogQuizInstruction) {
+      rogQuizInstruction.textContent = t.quizInstruction;
+    }
+    if (btnSubmitRogText) {
+      btnSubmitRogText.textContent = t.submitBtn;
     }
 
-    // 2. Progress Bar
-    if (progressBarFillEl) {
-      const pct = Math.round(((idx + 1) / TOTAL_QUESTIONS) * 100);
-      progressBarFillEl.style.width = `${pct}%`;
-    }
+    rogQuestionsList.innerHTML = '';
 
-    // 3. Question Statement
-    if (questionStatementEl) {
-      questionStatementEl.textContent = meta.question;
-    }
+    QUESTIONS.forEach((q, idx) => {
+      const meta = q[lang] || q.fa;
+      const currentVal = state.answers[idx]; // undefined or 1..10
 
-    // 4. Render ONLY Available Numbers (Elimination Mode)
-    const availableNumbers = getAvailableScores();
+      const card = document.createElement('div');
+      card.className = `question-item-card ${currentVal ? 'is-answered' : ''}`;
+      card.id = `rog-q-card-${idx}`;
 
-    if (scaleButtonsGridEl) {
-      scaleButtonsGridEl.innerHTML = '';
+      card.innerHTML = `
+        <div class="q-card-header">
+          <div class="q-number-badge">${idx + 1}</div>
+          <h3 class="q-card-title">${escapeHTML(meta.title)}</h3>
+        </div>
+        <p class="q-card-scenario">${escapeHTML(meta.question)}</p>
+        <div class="q-rating-box">
+          <div class="q-rating-box-header">
+            <span class="q-box-label">${t.ratingBoxLabel}</span>
+            <span class="q-box-selected-val" id="rog-val-badge-${idx}">
+              ${currentVal ? `${t.scorePrefix}: ${currentVal}` : t.notSelected}
+            </span>
+          </div>
+          <div class="q-numbers-row">
+            ${Array.from({ length: 10 }, (_, i) => i + 1).map(num => `
+              <button type="button" class="q-pill-btn ${currentVal === num ? 'is-selected' : ''}" data-q="${idx}" data-val="${num}">
+                ${num}
+              </button>
+            `).join('')}
+            <input type="number" min="1" max="10" class="q-number-input-box" placeholder="۱..۱۰" data-q="${idx}" value="${currentVal || ''}" aria-label="Rating for question ${idx + 1}">
+          </div>
+        </div>
+      `;
 
-      availableNumbers.forEach(num => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'scale-num-btn';
-        btn.dataset.value = num;
-        btn.textContent = num;
-        btn.setAttribute('aria-label', `Rating ${num} of 10`);
+      // Event listeners for buttons
+      const buttons = card.querySelectorAll('.q-pill-btn');
+      const input = card.querySelector('.q-number-input-box');
 
+      buttons.forEach(btn => {
         btn.addEventListener('click', () => {
-          handleScaleSelection(num, btn);
+          const val = Number(btn.dataset.val);
+          selectQuestionRating(idx, val, card, buttons, input);
         });
-
-        scaleButtonsGridEl.appendChild(btn);
       });
-    }
 
-    isTransitioning = false;
+      input.addEventListener('input', (e) => {
+        let val = parseInt(e.target.value, 10);
+        if (isNaN(val)) return;
+        if (val < 1) val = 1;
+        if (val > 10) val = 10;
+        e.target.value = val;
+        selectQuestionRating(idx, val, card, buttons, input);
+      });
+
+      rogQuestionsList.appendChild(card);
+    });
+
+    updateAnsweredCount();
   }
 
-  function handleScaleSelection(value, clickedBtn) {
-    if (isTransitioning) return;
-    isTransitioning = true;
-
+  function selectQuestionRating(qIdx, val, cardEl, buttons, inputEl) {
     initAudio();
+    playScaleSelectSound(val);
 
-    // 1. Record score for current question (removes 'value' from available pool)
-    state.answers[state.currentQuestion] = value;
+    state.answers[qIdx] = val;
     saveState();
 
-    // 2. Play tactile chime
-    playScaleSelectSound(value);
-
-    // 3. Highlight selected button and disable all currently visible buttons
-    const allBtns = scaleButtonsGridEl.querySelectorAll('.scale-num-btn');
-    allBtns.forEach(b => {
-      b.disabled = true;
-      b.classList.remove('is-selected');
+    buttons.forEach(b => {
+      b.classList.toggle('is-selected', Number(b.dataset.val) === val);
     });
-    clickedBtn.classList.add('is-selected');
 
-    // 4. Smooth slide transition to next question after 380ms
-    setTimeout(() => {
-      playTransitionSound();
+    if (inputEl && Number(inputEl.value) !== val) {
+      inputEl.value = val;
+    }
 
-      if (questionCardEl) {
-        questionCardEl.classList.add('is-transitioning');
+    cardEl.classList.add('is-answered');
+    cardEl.classList.remove('is-highlight-missing');
+
+    const badge = document.getElementById(`rog-val-badge-${qIdx}`);
+    const lang = state.selectedLanguage || 'fa';
+    const t = UI_TEXT[lang] || UI_TEXT.fa;
+    if (badge) {
+      badge.textContent = `${t.scorePrefix}: ${val}`;
+    }
+
+    if (rogValidationMsg) {
+      rogValidationMsg.style.display = 'none';
+    }
+
+    updateAnsweredCount();
+  }
+
+  function updateAnsweredCount() {
+    const answered = Object.keys(state.answers).length;
+    const lang = state.selectedLanguage || 'fa';
+    const t = UI_TEXT[lang] || UI_TEXT.fa;
+    if (rogAnsweredCounter) {
+      rogAnsweredCounter.textContent = t.answeredCount(answered, TOTAL_QUESTIONS);
+    }
+  }
+
+  function handleSubmitAssessment() {
+    initAudio();
+    const unanswered = [];
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+      if (state.answers[i] === undefined || state.answers[i] === null) {
+        unanswered.push(i);
+      }
+    }
+
+    if (unanswered.length > 0) {
+      unanswered.forEach(idx => {
+        const card = document.getElementById(`rog-q-card-${idx}`);
+        if (card) {
+          card.classList.add('is-highlight-missing');
+        }
+      });
+
+      const firstCard = document.getElementById(`rog-q-card-${unanswered[0]}`);
+      if (firstCard) {
+        firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      setTimeout(() => {
-        if (state.currentQuestion < TOTAL_QUESTIONS - 1) {
-          state.currentQuestion++;
-          saveState();
-          renderCurrentQuestion();
-          if (questionCardEl) {
-            questionCardEl.classList.remove('is-transitioning');
-          }
-        } else {
-          // Finished all 10 questions! Transition to animation stage
-          state.testFinished = true;
-          saveState();
-          finishAssessment();
-        }
-      }, 200);
+      const lang = state.selectedLanguage || 'fa';
+      const t = UI_TEXT[lang] || UI_TEXT.fa;
+      if (rogValidationMsg) {
+        rogValidationMsg.textContent = t.validationMissing(unanswered.length);
+        rogValidationMsg.style.display = 'block';
+      }
+      return;
+    }
 
-    }, 380);
+    state.testFinished = true;
+    saveState();
+    finishAssessment();
   }
 
   // ========================================================================
-  // 9. ANIMATION & RESULT PRESENTATION
+  // 9. RESULT PRESENTATION
   // ========================================================================
   function finishAssessment() {
     playCompletionChimes();
@@ -756,35 +793,63 @@
   function renderResults() {
     const lang = state.selectedLanguage || 'fa';
     const t = UI_TEXT[lang] || UI_TEXT.fa;
-    const items = computeRankings();
+    const items = computeRankings(); // sorted by num ascending 1..10
+
+    if (items.length === 0) return;
+
+    // 1. Highlight: Biggest Red Flag (highest score)
+    const maxScore = Math.max(...items.map(it => it.num));
+    const biggestItem = items.slice().reverse().find(it => it.num === maxScore) || items[items.length - 1];
+
+    if (rogBiggestTitle) rogBiggestTitle.textContent = biggestItem.title;
+    if (rogBiggestScoreBadge) rogBiggestScoreBadge.textContent = `${biggestItem.num} / 10`;
+    if (rogBiggestScenario) rogBiggestScenario.textContent = biggestItem.question;
+    if (rogBiggestTag) rogBiggestTag.textContent = t.biggestSectionTitle;
+
+    // 2. Highlight: Lowest Red Flag (lowest score)
+    const minScore = Math.min(...items.map(it => it.num));
+    const lowestItem = items.find(it => it.num === minScore) || items[0];
+
+    if (rogLowestTitle) rogLowestTitle.textContent = lowestItem.title;
+    if (rogLowestScoreBadge) rogLowestScoreBadge.textContent = `${lowestItem.num} / 10`;
+    if (rogLowestScenario) rogLowestScenario.textContent = lowestItem.question;
+    if (rogLowestTag) rogLowestTag.textContent = t.lowestSectionTitle;
+
+    // 3. Full 1 to 10 list with given questions
+    if (rogScaleListTitle) {
+      rogScaleListTitle.innerHTML = `<span>${t.scaleListTitle}</span>`;
+    }
 
     if (rankingCardsContainerEl) {
       rankingCardsContainerEl.innerHTML = '';
       items.forEach(item => {
         const card = document.createElement('div');
-        card.style.cssText = "display:flex; align-items:center; gap:12px; padding:11px 16px; border-radius:12px; background:#FFFFFF; border:1px solid #E2EFF9; box-shadow:0 2px 5px rgba(27,53,84,0.04);";
+        card.className = 'result-scale-item-card';
         card.innerHTML = `
-          <div style="width:28px; height:28px; border-radius:50%; background:#1B3554; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0;">
-            ${item.num}
-          </div>
-          <div style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">
-            ${item.title}
+          <div class="scale-item-num-badge">${item.num}</div>
+          <div class="scale-item-details">
+            <div class="scale-item-title">${escapeHTML(item.title)}</div>
+            <div class="scale-item-scenario">${escapeHTML(item.question)}</div>
           </div>
         `;
         rankingCardsContainerEl.appendChild(card);
       });
     }
 
+    // 4. Two-Line Summary
+    if (rogSummaryLabel) rogSummaryLabel.textContent = t.summaryLabel;
+    if (resultSummaryTextEl) resultSummaryTextEl.textContent = t.summaryText;
+
     // Action Buttons
     if (btnRestart) btnRestart.textContent = t.retakeBtn;
     if (btnShare) btnShare.textContent = t.shareBtn;
 
-    // Participant Badge & Central Archive / Webhook Logging
+    // Participant badge & Admin webhook log
     const rogBadge = document.getElementById('rog-participant-badge');
     const participantName = state.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
     if (rogBadge) {
       rogBadge.innerHTML = lang === 'en'
-        ? `Personal Assessment for: <b>${escapeHTML(participantName)}</b>`
+        ? `Assessment for: <b>${escapeHTML(participantName)}</b>`
         : `انتخاب‌های: <b>${escapeHTML(participantName)}</b>`;
     }
 
@@ -792,14 +857,14 @@
       const detailedChoices = items.map(it => ({
         qNum: it.num,
         title: it.title,
-        choice: `عدد انتخابی: ${it.num}`
+        choice: `امتیاز: ${it.num}`
       }));
 
       window.HodousTestHub.saveResult({
         testId: 'biggest-red-flag',
         testTitle: 'بزرگترین ردفلگ برای تو چیه؟',
         nickname: participantName,
-        score: `شماره ۱: ${items[0].title}`,
+        score: `بزرگترین ردفلگ: ${biggestItem.title} (${biggestItem.num}/10)`,
         details: items.map(it => `${it.num}. ${it.title}`).join(' · '),
         choices: detailedChoices
       });
@@ -879,8 +944,23 @@
         state.currentQuestion = 0;
         state.answers = {};
         saveState();
-        renderCurrentQuestion();
+        renderAllQuestions();
         showView(viewQuiz);
+      });
+    }
+
+    // Submit Assessment Button
+    if (btnSubmitRog) {
+      btnSubmitRog.addEventListener('click', () => {
+        handleSubmitAssessment();
+      });
+    }
+
+    // Back to Hub from Results
+    if (btnBackHubRog) {
+      btnBackHubRog.addEventListener('click', () => {
+        initAudio();
+        showView(viewHub);
       });
     }
 
@@ -1126,9 +1206,9 @@
     if (state.testFinished && state.answers && Object.keys(state.answers).length >= TOTAL_QUESTIONS) {
       showView(viewResult);
       renderResults();
-    } else if (state.testStarted && state.currentQuestion < TOTAL_QUESTIONS) {
+    } else if (state.testStarted) {
       showView(viewQuiz);
-      renderCurrentQuestion();
+      renderAllQuestions();
     } else {
       showView(viewHub);
     }
