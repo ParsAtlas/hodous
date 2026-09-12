@@ -399,37 +399,27 @@
     // Map each of the 10 questions with the unique assigned score
     const records = QUESTIONS.map((q, idx) => {
       const userScore = state.answers[idx] !== undefined ? Number(state.answers[idx]) : 5;
-      const meta = q[lang];
+      const meta = q[lang] || q.fa;
       return {
         id: q.id,
         category: q.category,
         title: meta.title,
         question: meta.question,
-        explanation: meta.explanation,
-        score: userScore
+        score: userScore,
+        qNum: idx + 1
       };
     });
 
-    // Sort strictly descending by score
+    // Sort strictly descending by score (score 10 down to 1)
     const sorted = [...records].sort((a, b) => b.score - a.score);
 
     const biggest = sorted[0]; // Exactly score 10
-    const top5 = sorted.slice(0, 5); // Scores 10, 9, 8, 7, 6
-
-    // Dynamic Summary Synthesis
-    let summaryText = '';
-    if (lang === 'fa') {
-      const topCats = top5.map(t => t.title).slice(0, 3).join('، ');
-      summaryText = `بررسی اولویت‌بندی دقیق شما نشان می‌دهد که حساس‌ترین و غیرقابل‌مذاکره‌ترین خطوط قرمز شما در روابط، حول محور «${topCats}» شکل گرفته‌اند. شما پیوندهایی را تاب می‌آورید که شفافیت، حفظ حریم شخصی و احترام متقابل به استقلال فرد در آن‌ها تضمین‌شده باشد. هرگونه تلاش برای بازی روانی، بی‌ارزش‌سازی احساسات یا کنترل‌گری پنهان، بلافاصله زنگ خطر شما را به صدا درآورده و شما را به سمت فاصله‌گیری قاطعانه از رابطه سوق می‌دهد.`;
-    } else {
-      const topCats = top5.map(t => t.title).slice(0, 3).join(', ');
-      summaryText = `Your rigorous ranking reveals that your most non-negotiable boundaries center around "${topCats}". You thrive in connections where transparency, personal privacy, and profound respect for individual autonomy are safeguarded. Any perceived mind games, emotional invalidation, or covert control immediately activate your relational defenses, leading you to decisively distance yourself.`;
-    }
+    const top10 = sorted; // All 10 items sorted from 1 to 10
 
     return {
       biggest,
-      top5,
-      summaryText
+      top10,
+      byQuestion: records
     };
   }
 
@@ -754,66 +744,79 @@
     }, 2400);
   }
 
+  let currentRogViewMode = 'rank';
+
+  function renderRogItemsList(ranking) {
+    if (!rankingCardsContainerEl) return;
+    rankingCardsContainerEl.innerHTML = '';
+
+    const items = currentRogViewMode === 'rank' ? ranking.top10 : ranking.byQuestion;
+
+    items.forEach((item, index) => {
+      const rankNumber = index + 1;
+      const card = document.createElement('div');
+      card.className = `ranking-item-card rank-tier-${rankNumber}`;
+      card.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-radius:12px; background:#FFFFFF; border:1px solid #E2EFF9; box-shadow:0 2px 5px rgba(27,53,84,0.04);";
+
+      const badgeNum = currentRogViewMode === 'rank' ? rankNumber : item.qNum;
+      const isTop = currentRogViewMode === 'rank' && rankNumber === 1;
+
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:26px; height:26px; border-radius:50%; background:${isTop ? '#DC2626' : (rankNumber <= 3 && currentRogViewMode === 'rank') ? '#1B3554' : '#F0F7FD'}; color:${(rankNumber <= 3 && currentRogViewMode === 'rank') ? '#FFFFFF' : '#1B3554'}; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; flex-shrink:0;">
+            ${badgeNum}
+          </div>
+          <div>
+            <div style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">
+              ${item.title}
+            </div>
+          </div>
+        </div>
+        <div style="font-weight:700; color:#1B3554; background:#F0F7FD; border:1px solid #C0E6FD; padding:3px 9px; border-radius:8px; font-size:11px; white-space:nowrap; flex-shrink:0;">
+          امتیاز: ${item.score} / ۱۰
+        </div>
+      `;
+
+      rankingCardsContainerEl.appendChild(card);
+    });
+  }
+
+  function setupRogSortButtons(ranking) {
+    const btnRank = document.getElementById('btn-rog-sort-rank');
+    const btnOrder = document.getElementById('btn-rog-sort-order');
+    if (!btnRank || !btnOrder) return;
+
+    btnRank.onclick = () => {
+      currentRogViewMode = 'rank';
+      btnRank.style.background = '#1B3554';
+      btnRank.style.color = '#FFFFFF';
+      btnRank.style.fontWeight = '600';
+      btnOrder.style.background = 'transparent';
+      btnOrder.style.color = '#5B86B6';
+      btnOrder.style.fontWeight = '500';
+      renderRogItemsList(ranking);
+    };
+
+    btnOrder.onclick = () => {
+      currentRogViewMode = 'order';
+      btnOrder.style.background = '#1B3554';
+      btnOrder.style.color = '#FFFFFF';
+      btnOrder.style.fontWeight = '600';
+      btnRank.style.background = 'transparent';
+      btnRank.style.color = '#5B86B6';
+      btnRank.style.fontWeight = '500';
+      renderRogItemsList(ranking);
+    };
+  }
+
   function renderResults() {
     const lang = state.selectedLanguage || 'fa';
     const t = UI_TEXT[lang] || UI_TEXT.fa;
     const ranking = computeRankings();
 
-    // Kicker & Titles
-    const resKicker = document.getElementById('result-kicker-text');
-    const resBiggestPrefix = document.getElementById('result-biggest-prefix');
-    const rankingSectionTitle = document.getElementById('ranking-section-title');
-    const summarySectionTitle = document.getElementById('summary-section-title');
-
-    if (resKicker) resKicker.textContent = t.resultKicker;
-    if (resBiggestPrefix) resBiggestPrefix.innerHTML = lang === 'en' 
-      ? 'Your Biggest <span class="card-title-red">Red Flag</span>:' 
-      : 'بزرگترین <span class="card-title-red">ردفلگ</span> برای تو:';
-    if (rankingSectionTitle) rankingSectionTitle.textContent = t.rankingTitle;
-    if (summarySectionTitle) summarySectionTitle.textContent = t.summaryTitle;
-
-    // Biggest Red Flag Card (Score 10/10)
-    if (resultBiggestTitleEl) resultBiggestTitleEl.textContent = ranking.biggest.title;
-    if (resultBiggestScoreEl) resultBiggestScoreEl.textContent = `${ranking.biggest.score} / 10`;
-    if (resultBiggestDescEl) resultBiggestDescEl.textContent = ranking.biggest.explanation;
-
-    // Top 5 Ranking List (Scores 10, 9, 8, 7, 6)
-    if (rankingCardsContainerEl) {
-      rankingCardsContainerEl.innerHTML = '';
-      ranking.top5.forEach((item, index) => {
-        const rankNumber = index + 1;
-        const card = document.createElement('div');
-        card.className = `ranking-item-card rank-tier-${rankNumber}`;
-
-        const pct = item.score * 10; // e.g. 10 => 100%, 9 => 90%
-
-        card.innerHTML = `
-          <div class="ranking-item-header">
-            <div class="ranking-badge rank-badge-${rankNumber}">#${rankNumber}</div>
-            <div class="ranking-meta-col">
-              <h4 class="ranking-item-title">${item.title}</h4>
-              <div class="ranking-score-pill">${item.score} / 10</div>
-            </div>
-          </div>
-          <div class="ranking-bar-track">
-            <div class="ranking-bar-fill" style="width: ${pct}%;"></div>
-          </div>
-          <p class="ranking-item-desc">${item.explanation}</p>
-        `;
-
-        rankingCardsContainerEl.appendChild(card);
-      });
-    }
-
-    // Final Behavioral Summary
-    if (resultSummaryTextEl) {
-      resultSummaryTextEl.textContent = ranking.summaryText;
-    }
-
-    // Ethics Disclaimer
-    if (resultDisclaimerEl) {
-      resultDisclaimerEl.textContent = t.disclaimerText;
-    }
+    // Render Clean 1 to 10 items without extra explanations
+    renderRogItemsList(ranking);
+    setupRogSortButtons(ranking);
 
     // Action Buttons
     if (btnRestart) btnRestart.textContent = t.retakeBtn;
@@ -964,11 +967,8 @@
         }
 
         const shareLines = [
-          lang === 'en' ? '🚩 My Relational Red Flags Ranking:' : '🚩 رنکینگ خطوط قرمز من در رفتار دیگران:',
-          lang === 'en' 
-            ? `Top Red Flag: ${ranking.biggest.title} (${ranking.biggest.score}/10)`
-            : `بزرگترین ردفلگ من: ${ranking.biggest.title} (${ranking.biggest.score}/۱۰)`,
-          ...ranking.top5.map((item, idx) => `${idx + 1}. ${item.title} — ${item.score}/10`),
+          lang === 'en' ? '🚩 My Relational Red Flags (Sorted 1 to 10):' : '🚩 انتخاب‌های من در تست ردفلگ (مرتب‌شده از ۱ تا ۱۰):',
+          ...ranking.top10.map((item, idx) => `${idx + 1}. ${item.title} (${item.score}/10)`),
           shareUrl ? (lang === 'en' ? `🔗 View Result: ${shareUrl}` : `🔗 مشاهده کارنامه:\n${shareUrl}`) : '',
           'Hodous · Red Flag Test'
         ].filter(Boolean);

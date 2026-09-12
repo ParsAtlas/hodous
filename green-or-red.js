@@ -675,7 +675,48 @@
       if (txt) txt.textContent = t.backToHubBtn;
     }
 
-    // 4. Reveal Details with smooth fade after 3D card settles
+    // 4. Populate clean answers list (1 to 15)
+    const gorfAnswersList = document.getElementById('gorf-answers-list');
+    if (gorfAnswersList) {
+      gorfAnswersList.innerHTML = '';
+      GORF_QUESTIONS.forEach((q, idx) => {
+        const ansIdx = gorfState.answers[idx];
+        let choiceStr = 'پاسخ داده نشده';
+        let badgeColor = '#64748B';
+        let badgeBg = '#F1F5F9';
+        let badgeBorder = '#E2E8F0';
+        if (ansIdx === 0) {
+          choiceStr = (q.fa ? q.fa.options[0] : q.options[0]);
+          badgeColor = '#166534';
+          badgeBg = '#DCFCE7';
+          badgeBorder = '#BBF7D0';
+        } else if (ansIdx === 1) {
+          choiceStr = (q.fa ? q.fa.options[1] : q.options[1]);
+          badgeColor = '#1E293B';
+          badgeBg = '#F1F5F9';
+          badgeBorder = '#CBD5E1';
+        } else if (ansIdx === 2) {
+          choiceStr = (q.fa ? q.fa.options[2] : q.options[2]);
+          badgeColor = '#991B1B';
+          badgeBg = '#FEE2E2';
+          badgeBorder = '#FECACA';
+        }
+
+        const row = document.createElement('div');
+        row.style.cssText = "padding:10px 14px; background:#FFFFFF; border:1px solid #E2EFF9; border-radius:12px; font-size:12px; box-shadow:0 1px 4px rgba(27,53,84,0.03);";
+        row.innerHTML = `
+          <div style="font-weight:600; color:#0B223D; margin-bottom:5px; font-size:12.5px; line-height:1.4;">
+            سؤال ${idx + 1}: ${escapeHTML(q.fa ? q.fa.question : q.question)}
+          </div>
+          <div style="display:inline-block; font-weight:600; color:${badgeColor}; background:${badgeBg}; border:1px solid ${badgeBorder}; padding:3px 10px; border-radius:8px; font-size:11.5px; line-height:1.4;">
+            انتخاب: ${escapeHTML(choiceStr)}
+          </div>
+        `;
+        gorfAnswersList.appendChild(row);
+      });
+    }
+
+    // 5. Reveal Details with smooth fade after 3D card settles
     setTimeout(() => {
       if (resultDetailsEl) {
         resultDetailsEl.classList.add('is-revealed');

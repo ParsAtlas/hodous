@@ -450,54 +450,34 @@
         <div id="rog-participant-badge" class="participant-badge-pill">کارنامه اختصاصی برای: <b>مهمان</b></div>
         <span id="result-kicker-text" class="result-kicker">تحلیل اختصاصی معیارهای ارتباطی</span>
 
-        <!-- 1. BIGGEST RED FLAG HERO CARD -->
-        <div class="result-hero-banner">
-          <h2 id="result-biggest-prefix" class="result-hero-kicker">
-            بزرگترین <span class="card-title-red">ردفلگ</span> برای تو:
-          </h2>
-          <div class="biggest-red-flag-card">
-            <div class="biggest-card-top">
-              <h3 id="result-biggest-title" class="biggest-flag-title">نقض حریم شخصی و افشای راز</h3>
-              <div id="result-biggest-score" class="biggest-flag-score">۱۰ / ۱۰</div>
+        <!-- RANKING SECTION (1 to 10 Sorted List) -->
+        <div class="ranking-section-block" style="margin-top: 14px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div class="section-title-wrap" style="margin-bottom: 0;">
+              <span class="dimension-dot"></span>
+              <h3 id="ranking-section-title" class="ranking-section-title" style="font-size: 15px; font-weight: 700; color: #0B223D;">
+                نتیجه نهایی: انتخاب‌های تو از ۱ تا ۱۰
+              </h3>
             </div>
-            <p id="result-biggest-desc" class="biggest-flag-desc">
-              توضیح کوتاه و شخصی‌سازی‌شده درباره بزرگترین خط قرمز رفتاری شما...
-            </p>
-          </div>
-        </div>
-
-        <!-- 2. TOP 5 RANKING SECTION -->
-        <div class="ranking-section-block">
-          <div class="section-title-wrap">
-            <span class="dimension-dot"></span>
-            <h3 id="ranking-section-title" class="ranking-section-title">
-              رنکینگ ۵ مورد با بیشترین حساسیت برای تو
-            </h3>
+            <!-- View Mode Switch (Sorted vs Question Order) -->
+            <div id="rog-sort-toggle-wrap" style="display: inline-flex; background: #F0F7FD; border: 1px solid #C0E6FD; border-radius: 999px; padding: 2px;">
+              <button type="button" id="btn-rog-sort-rank" style="padding: 4px 12px; border-radius: 999px; border: none; font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit; background: #1B3554; color: #FFFFFF; transition: all 0.2s;">
+                مرتب‌شده (۱ تا ۱۰)
+              </button>
+              <button type="button" id="btn-rog-sort-order" style="padding: 4px 12px; border-radius: 999px; border: none; font-size: 11px; font-weight: 500; cursor: pointer; font-family: inherit; background: transparent; color: #5B86B6; transition: all 0.2s;">
+                ترتیب سؤالات
+              </button>
+            </div>
           </div>
 
-          <!-- List of 5 Dynamic Ranking Cards (#1 to #5) -->
-          <div id="ranking-cards-container" class="ranking-cards-container">
+          <!-- List of 10 Dynamic Ranking Cards (#1 to #10) -->
+          <div id="ranking-cards-container" class="ranking-cards-container" style="display: flex; flex-direction: column; gap: 8px;">
             <!-- Injected dynamically via JS -->
           </div>
         </div>
 
-        <!-- 3. BEHAVIORAL DISTANCING SUMMARY -->
-        <div class="result-narrative-box">
-          <div id="summary-section-title" class="narrative-title">
-            جمع‌بندی سبک ارتباطی و فاصله‌گیری از رفتارهای ناسالم
-          </div>
-          <p id="result-summary-text" class="narrative-text">
-            در حال پردازش جمع‌بندی معیارهای ارتباطی...
-          </p>
-        </div>
-
-        <!-- 4. ETHICS DISCLAIMER ALERT -->
-        <div id="result-disclaimer" class="result-ethics-disclaimer">
-          توجه: این تست درباره معیارهای شخص برای تشخیص Red Flag در دیگران است، نه تشخیص شخصیت یا سلامت روان.
-        </div>
-
         <!-- Action Buttons -->
-        <div class="result-actions-grid">
+        <div class="result-actions-grid" style="margin-top: 18px;">
           <button id="btn-restart" class="btn-secondary btn-restart" type="button">
             انجام دوباره تست
           </button>
@@ -614,16 +594,14 @@
             </div>
           </div>
 
-          <!-- Descriptive Narrative (Non-judgmental pattern description) -->
-          <div class="gorf-narrative-box">
-            <p id="gorf-narrative-text" class="gorf-narrative-text">
-              پاسخ‌های تو در این تست بیشتر به سمت الگوهای Green Flag متمایل بود.
-            </p>
-          </div>
-
-          <!-- Mandatory Ethics Disclaimer -->
-          <div id="gorf-disclaimer-text" class="gorf-disclaimer-box">
-            این آزمون صرفاً برای سرگرمی و خودشناسی طراحی شده و تشخیص روانشناختی یا ارزیابی قطعی شخصیت نیست.
+          <!-- Clean answers breakdown (1 to 15) -->
+          <div style="margin-top: 14px; border-top: 1px solid #E2EFF9; padding-top: 12px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0B223D; margin-bottom: 10px;">
+              ریز انتخاب‌های تو در ۱۵ موقعیت:
+            </div>
+            <div id="gorf-answers-list" style="display: flex; flex-direction: column; gap: 8px;">
+              <!-- Dynamic 15 cards injected via JS -->
+            </div>
           </div>
 
           <!-- Action Buttons -->
@@ -701,7 +679,7 @@
     <section id="view-bgf-result" class="view-section" aria-label="نتیجه ارزیابی گرین‌فلگ‌ها">
       <div class="bgf-result-card">
         
-        <div id="bgf-participant-badge" class="participant-badge-pill" style="background:#DCFCE7; border-color:#BBF7D0; color:#15803D;">۵ اولویت اصلی برای: <b>مهمان</b></div>
+        <div id="bgf-participant-badge" class="participant-badge-pill" style="background:#DCFCE7; border-color:#BBF7D0; color:#15803D;">رتبه‌بندی اولویت‌ها برای: <b>مهمان</b></div>
         <span class="bgf-result-kicker">رنکینگ اختصاصی رفتارهای امن و بالغانه</span>
 
         <!-- 3D FLIP CARD SCENE -->
@@ -734,29 +712,28 @@
         <!-- Result Details (Revealed after 3D card flip) -->
         <div id="bgf-result-details" class="bgf-result-details">
           
-          <h3 id="bgf-priorities-title" class="bgf-priorities-title">
-            Top Green Flag Priorities
-          </h3>
-
-          <!-- Top 5 Ranking Cards Container -->
-          <div id="bgf-ranking-list" class="bgf-ranking-list">
-            <!-- Dynamic 5 cards injected via JS -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <h3 id="bgf-priorities-title" class="bgf-priorities-title" style="margin: 0; font-size: 15px; font-weight: 700; color: #14532D;">
+              نتیجه نهایی: اولویت‌های تو از ۱ تا ۱۰
+            </h3>
+            <!-- View Mode Switch (Sorted vs Question Order) -->
+            <div id="bgf-sort-toggle-wrap" style="display: inline-flex; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 999px; padding: 2px;">
+              <button type="button" id="btn-bgf-sort-rank" style="padding: 4px 12px; border-radius: 999px; border: none; font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit; background: #16A34A; color: #FFFFFF; transition: all 0.2s;">
+                مرتب‌شده (۱ تا ۱۰)
+              </button>
+              <button type="button" id="btn-bgf-sort-order" style="padding: 4px 12px; border-radius: 999px; border: none; font-size: 11px; font-weight: 500; cursor: pointer; font-family: inherit; background: transparent; color: #166534; transition: all 0.2s;">
+                ترتیب سؤالات
+              </button>
+            </div>
           </div>
 
-          <!-- Synthesis Narrative -->
-          <div class="bgf-narrative-box">
-            <p id="bgf-narrative-text" class="bgf-narrative-text">
-              به نظر می‌رسد بیشترین ارزش را برای رفتارهایی قائل هستی که احساس امنیت، احترام و بلوغ عاطفی ایجاد می‌کنند.
-            </p>
-          </div>
-
-          <!-- Mandatory Ethics Disclaimer -->
-          <div id="bgf-disclaimer-text" class="bgf-disclaimer-box">
-            این آزمون صرفاً برای سرگرمی و خودشناسی طراحی شده و معیار قطعی برای قضاوت درباره افراد نیست.
+          <!-- 10 Ranking Cards Container -->
+          <div id="bgf-ranking-list" class="bgf-ranking-list" style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Dynamic 10 cards injected via JS -->
           </div>
 
           <!-- Action Buttons -->
-          <div class="bgf-actions-grid">
+          <div class="bgf-actions-grid" style="margin-top: 18px;">
             <button id="btn-bgf-restart" class="bgf-btn-action bgf-btn-secondary" type="button">
               <span class="bgf-btn-restart-text">انجام دوباره تست</span>
             </button>
@@ -767,7 +744,6 @@
               <span class="bgf-btn-hub-text">بازگشت به آزمون‌ها</span>
             </button>
           </div>
-
         </div>
 
       </div>

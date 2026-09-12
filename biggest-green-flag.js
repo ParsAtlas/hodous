@@ -390,16 +390,18 @@
         id: scenario.id,
         title: sData.title,
         question: sData.question,
-        score: score
+        score: score,
+        qNum: index + 1
       };
     });
 
     // Sort descending: score 10 down to 1
-    ranked.sort((a, b) => b.score - a.score);
+    const sorted = [...ranked].sort((a, b) => b.score - a.score);
 
     return {
-      top5: ranked.slice(0, 5),
-      all: ranked
+      top10: sorted,
+      top1: sorted[0],
+      byQuestion: ranked
     };
   }
 
@@ -407,6 +409,66 @@
     bgfState.isFinished = true;
     showBgfView(viewBgfResult);
     execute3DCardFlip();
+  }
+
+  let currentBgfViewMode = 'rank';
+
+  function renderBgfItemsList(ranking) {
+    if (!rankingListEl) return;
+    rankingListEl.innerHTML = '';
+
+    const items = currentBgfViewMode === 'rank' ? ranking.top10 : ranking.byQuestion;
+
+    items.forEach((item, idx) => {
+      const card = document.createElement('div');
+      const rankNum = idx + 1;
+      const badgeNum = currentBgfViewMode === 'rank' ? rankNum : item.qNum;
+      const isTop = currentBgfViewMode === 'rank' && rankNum === 1;
+
+      card.className = `bgf-rank-card ${isTop ? 'is-top1' : ''}`;
+      card.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-radius:12px; background:#FFFFFF; border:1px solid #DCFCE7; box-shadow:0 2px 5px rgba(22,101,52,0.04);";
+
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="width:26px; height:26px; border-radius:50%; background:${isTop ? '#16A34A' : (rankNum <= 3 && currentBgfViewMode === 'rank') ? '#15803D' : '#F0FDF4'}; color:${(rankNum <= 3 && currentBgfViewMode === 'rank') ? '#FFFFFF' : '#166534'}; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; flex-shrink:0;">
+            ${badgeNum}
+          </span>
+          <span style="font-weight:600; color:#0B223D; font-size:13px; line-height:1.4;">${item.title}</span>
+        </div>
+        <span style="font-weight:700; color:#166534; background:#DCFCE7; border:1px solid #BBF7D0; padding:3px 9px; border-radius:8px; font-size:11px; white-space:nowrap; flex-shrink:0;">
+          اولویت: ${item.score} / ۱۰
+        </span>
+      `;
+      rankingListEl.appendChild(card);
+    });
+  }
+
+  function setupBgfSortButtons(ranking) {
+    const btnRank = document.getElementById('btn-bgf-sort-rank');
+    const btnOrder = document.getElementById('btn-bgf-sort-order');
+    if (!btnRank || !btnOrder) return;
+
+    btnRank.onclick = () => {
+      currentBgfViewMode = 'rank';
+      btnRank.style.background = '#16A34A';
+      btnRank.style.color = '#FFFFFF';
+      btnRank.style.fontWeight = '600';
+      btnOrder.style.background = 'transparent';
+      btnOrder.style.color = '#166534';
+      btnOrder.style.fontWeight = '500';
+      renderBgfItemsList(ranking);
+    };
+
+    btnOrder.onclick = () => {
+      currentBgfViewMode = 'order';
+      btnOrder.style.background = '#16A34A';
+      btnOrder.style.color = '#FFFFFF';
+      btnOrder.style.fontWeight = '600';
+      btnRank.style.background = 'transparent';
+      btnRank.style.color = '#166534';
+      btnRank.style.fontWeight = '500';
+      renderBgfItemsList(ranking);
+    };
   }
 
   function execute3DCardFlip() {
@@ -429,36 +491,9 @@
       flipCardEl.classList.add('flip-spin');
     }, 100);
 
-    // 3. Render Top 5 Ranking Cards
-    if (prioritiesTitleEl) {
-      prioritiesTitleEl.textContent = t.prioritiesTitle;
-    }
-
-    if (rankingListEl) {
-      rankingListEl.innerHTML = '';
-      ranking.top5.forEach((item, idx) => {
-        const card = document.createElement('div');
-        card.className = `bgf-rank-card ${idx === 0 ? 'is-top1' : ''}`;
-
-        const rankNum = idx + 1;
-        card.innerHTML = `
-          <div class="bgf-rank-info">
-            <span class="bgf-rank-number">#${rankNum}</span>
-            <span class="bgf-rank-title">${item.title}</span>
-          </div>
-          <span class="bgf-rank-score">${item.score} / 10</span>
-        `;
-        rankingListEl.appendChild(card);
-      });
-    }
-
-    // Narrative & Disclaimer
-    if (narrativeTextEl) {
-      narrativeTextEl.textContent = t.narrativeText;
-    }
-    if (disclaimerTextEl) {
-      disclaimerTextEl.textContent = t.disclaimer;
-    }
+    // 3. Render Clean 1 to 10 Ranking Cards
+    renderBgfItemsList(ranking);
+    setupBgfSortButtons(ranking);
 
     // Action button labels
     if (btnBgfRestart) {
@@ -486,8 +521,8 @@
     const participantName = bgfState.participantName || (window.HodousTestHub ? window.HodousTestHub.getNickname() : '') || 'مهمان';
     if (bgfBadge) {
       bgfBadge.innerHTML = lang === 'en'
-        ? `Top Priorities for: <b>${escapeHTML(participantName)}</b>`
-        : `۵ اولویت اصلی برای: <b>${escapeHTML(participantName)}</b>`;
+        ? `Green Flag Priorities for: <b>${escapeHTML(participantName)}</b>`
+        : `رتبه‌بندی اولویت‌ها برای: <b>${escapeHTML(participantName)}</b>`;
     }
 
     if (window.HodousTestHub && window.HodousTestHub.saveResult && ranking.top1) {
@@ -505,7 +540,7 @@
         testTitle: 'بزرگترین Green Flag تو چیه؟',
         nickname: participantName,
         score: `${ranking.top1.title} (${ranking.top1.score}/10)`,
-        details: ranking.top5.map((it, i) => `#${i + 1} ${it.title} (${it.score}/10)`).join(' · '),
+        details: ranking.top10.map((it, i) => `#${i + 1} ${it.title} (${it.score}/10)`).join(' · '),
         choices: detailedChoices
       });
     }
@@ -528,12 +563,10 @@
     }
 
     const lines = [
-      lang === 'en' ? '🌱 My Top Green Flag Priorities:' : '🌱 ۵ اولویت اصلی گرین‌فلگ من در رفتار دیگران:',
-      ...ranking.top5.map((item, idx) => `#${idx + 1} ${item.title} (${item.score}/10)`),
+      lang === 'en' ? '🌱 My Green Flag Priorities (Sorted 1 to 10):' : '🌱 اولویت‌های گرین‌فلگ من (مرتب‌شده از ۱ تا ۱۰):',
+      ...ranking.top10.map((item, idx) => `${idx + 1}. ${item.title} (${item.score}/10)`),
       shareUrl ? (lang === 'en' ? `🔗 View Result: ${shareUrl}` : `🔗 مشاهده کارنامه:\n${shareUrl}`) : '',
-      lang === 'en'
-        ? 'Take the test: https://xhodous.github.io/test.html'
-        : 'انجام آزمون: https://xhodous.github.io/test.html'
+      'Hodous · Green Flag Test'
     ].filter(Boolean);
 
     const shareText = lines.join('\n');
